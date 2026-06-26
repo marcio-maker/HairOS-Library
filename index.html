@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>HairOS Library Engine · Knowledge Base</title>
+    <title>HairOS Library · Knowledge Engine</title>
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
@@ -290,10 +290,32 @@
             color: #dbaa5a;
         }
 
-        /* Responsive tweaks */
+        /* Logo styling */
+        .logo-library {
+            font-size: 1.75rem;
+            letter-spacing: -0.03em;
+        }
+        .logo-engine {
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            opacity: 0.5;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            margin-left: 6px;
+        }
+        .dark .logo-engine {
+            opacity: 0.4;
+        }
+
         @media (max-width: 640px) {
             .stat-number {
                 font-size: 1.75rem;
+            }
+            .logo-library {
+                font-size: 1.35rem;
+            }
+            .logo-engine {
+                font-size: 0.5rem;
             }
         }
     </style>
@@ -306,11 +328,13 @@
     <div id="menuBackdrop" class="menu-backdrop"></div>
     <div id="menuSidebar" class="menu-sidebar p-6 flex flex-col">
         <div class="flex justify-between items-center mb-8">
-            <span class="font-display-lg text-2xl tracking-tighter">HairOS</span>
+            <div>
+                <span class="font-display-lg logo-library tracking-tighter">HairOS</span>
+                <span class="logo-engine">Library</span>
+            </div>
             <button id="closeMenuBtn" class="text-2xl hover:opacity-60 transition-opacity material-symbols-outlined" aria-label="Fechar menu">close</button>
         </div>
         
-        <!-- Módulos principais -->
         <nav class="flex flex-col gap-1 text-sm font-body-md" id="menuNav">
             <a href="#" data-page="dashboard" class="menu-link flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container transition-colors rounded-none">
                 <span class="material-symbols-outlined text-xl">dashboard</span> Dashboard
@@ -364,14 +388,13 @@
         <div class="mt-auto pt-6 border-t border-outline-variant/20 space-y-4">
             <div class="flex items-center gap-3 text-sm">
                 <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span class="font-data-mono text-[10px] uppercase tracking-wider text-on-surface-variant">Knowledge Engine Online</span>
+                <span class="font-data-mono text-[10px] uppercase tracking-wider text-on-surface-variant">Library Online</span>
             </div>
             <button id="themeToggle" class="flex items-center gap-3 text-sm hover:text-secondary transition-colors w-full">
                 <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
                 <span id="themeLabel">Modo escuro</span>
             </button>
             <p class="text-[10px] text-on-surface-variant/50 font-data-mono">v3.0 · Knowledge Engine</p>
-            <p class="text-[9px] text-on-surface-variant/30 font-data-mono">Base de conhecimento unificada</p>
         </div>
     </div>
 
@@ -384,13 +407,16 @@
                 <button id="hamburgerBtn" class="hover:opacity-80 transition-opacity active:scale-95 duration-100 text-primary dark:text-on-background" aria-label="Abrir menu">
                     <span class="material-symbols-outlined">menu</span>
                 </button>
-                <h1 class="font-display-lg text-display-lg tracking-tighter text-primary dark:text-on-background leading-none">HairOS</h1>
-                <span class="hidden md:inline-block text-[9px] font-data-mono text-secondary uppercase tracking-[0.2em] ml-2 border-l border-outline-variant/30 pl-3">Knowledge Engine</span>
+                <div class="flex items-baseline">
+                    <h1 class="font-display-lg logo-library tracking-tighter text-primary dark:text-on-background">HairOS</h1>
+                    <span class="logo-engine text-on-surface-variant">Library</span>
+                    <span class="hidden md:inline-block text-[8px] font-data-mono text-secondary uppercase tracking-[0.2em] ml-3 border-l border-outline-variant/30 pl-3">Knowledge Engine</span>
+                </div>
             </div>
             <div class="flex items-center gap-4">
                 <div class="hidden md:flex items-center border-b border-outline-variant/30 px-2 py-1 min-w-[200px]">
                     <span class="material-symbols-outlined text-sm text-on-surface-variant/50">search</span>
-                    <input id="globalSearch" type="text" placeholder="Buscar conhecimento..." class="bg-transparent border-none text-sm px-2 py-1 w-full focus:border-none focus:ring-0 dark:text-on-background" />
+                    <input id="globalSearch" type="text" placeholder="Buscar na Library..." class="bg-transparent border-none text-sm px-2 py-1 w-full focus:border-none focus:ring-0 dark:text-on-background" />
                 </div>
                 <button id="themeToggleTop" class="hover:opacity-80 transition-opacity text-primary dark:text-on-background hidden md:flex" aria-label="Alternar tema">
                     <span class="material-symbols-outlined" id="themeIconTop">dark_mode</span>
@@ -410,8 +436,9 @@
         <section id="page-dashboard" class="page active">
             <div class="mb-8">
                 <div class="flex items-center gap-3 mb-2">
-                    <span class="material-symbols-outlined text-secondary text-3xl">dashboard</span>
-                    <h2 class="font-headline-lg text-headline-lg md:text-display-lg">Knowledge Engine</h2>
+                    <span class="material-symbols-outlined text-secondary text-3xl">menu_book</span>
+                    <h2 class="font-headline-lg text-headline-lg md:text-display-lg">HairOS Library</h2>
+                    <span class="text-xs font-data-mono text-secondary uppercase tracking-[0.2em] ml-2">Knowledge Engine</span>
                 </div>
                 <p class="text-on-surface-variant max-w-2xl text-lg">Base de conhecimento unificada do ecossistema HairOS. Todos os módulos consultam esta fonte única de dados.</p>
             </div>
@@ -447,7 +474,10 @@
 
             <!-- Search Quick Access -->
             <div class="bg-surface-container-lowest sharp-border p-6">
-                <h3 class="font-title-md text-title-md mb-3">Busca Rápida</h3>
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="material-symbols-outlined text-secondary">search</span>
+                    <h3 class="font-title-md text-title-md">Busca Rápida</h3>
+                </div>
                 <div class="flex flex-col md:flex-row gap-4">
                     <input type="text" id="quickSearch" placeholder="Ex: wolf cut, cobre, visagismo..." class="flex-1 p-3 border border-outline-variant/30 bg-transparent focus:border-secondary transition-colors dark:text-on-background" />
                     <button id="quickSearchBtn" class="px-6 py-3 bg-secondary text-white hover:bg-secondary/80 transition-colors font-data-mono text-sm uppercase tracking-wider">Buscar</button>
@@ -461,12 +491,11 @@
         ========================================== -->
         <section id="page-cuts" class="page">
             <div class="mb-6 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Cortes</p>
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">HairOS Library · Cortes</p>
                 <h2 class="font-headline-lg text-headline-lg">Catálogo de Cortes</h2>
                 <p class="text-on-surface-variant mt-1">Técnicas, compatibilidade e referências visuais</p>
             </div>
 
-            <!-- Filtros -->
             <div class="flex flex-wrap gap-2 mb-6" id="cutFilters">
                 <button class="filter-chip filter-chip-active" data-filter="all">Todos</button>
                 <button class="filter-chip" data-filter="masculino">Masculino</button>
@@ -487,7 +516,7 @@
         ========================================== -->
         <section id="page-colorimetry" class="page">
             <div class="mb-6 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Colorimetria</p>
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">HairOS Library · Colorimetria</p>
                 <h2 class="font-headline-lg text-headline-lg">Formulações de Precisão</h2>
                 <p class="text-on-surface-variant mt-1">Guia completo de cores, reflexos e pigmentação</p>
             </div>
@@ -504,7 +533,6 @@
                 <!-- Populated by JavaScript -->
             </div>
 
-            <!-- Tabela de Reflexos -->
             <div class="mt-12">
                 <h3 class="font-headline-lg text-headline-lg mb-4">Guia de Reflexos</h3>
                 <div class="overflow-x-auto technical-border bg-white dark:bg-surface-container-lowest" id="reflexTable">
@@ -514,11 +542,11 @@
         </section>
 
         <!-- ==========================================
-        PAGE: FACES (Formatos de Rosto)
+        PAGE: FACES
         ========================================== -->
         <section id="page-faces" class="page">
             <div class="mb-6 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Visagismo</p>
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">HairOS Library · Visagismo</p>
                 <h2 class="font-headline-lg text-headline-lg">Formatos de Rosto</h2>
                 <p class="text-on-surface-variant mt-1">Análise morfológica e compatibilidade de cortes</p>
             </div>
@@ -533,8 +561,8 @@
         ========================================== -->
         <section id="page-hairTypes" class="page">
             <div class="mb-6 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Tipos de Cabelo</p>
-                <h2 class="font-headline-lg text-headline-lg">Classificação Capilar</h2>
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">HairOS Library · Classificação</p>
+                <h2 class="font-headline-lg text-headline-lg">Tipos de Cabelo</h2>
                 <p class="text-on-surface-variant mt-1">Tipo, textura, densidade, porosidade e elasticidade</p>
             </div>
 
@@ -548,7 +576,7 @@
         ========================================== -->
         <section id="page-techniques" class="page">
             <div class="mb-6 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Técnicas</p>
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">HairOS Library · Técnicas</p>
                 <h2 class="font-headline-lg text-headline-lg">Técnicas Capilares</h2>
                 <p class="text-on-surface-variant mt-1">Métodos, procedimentos e execuções</p>
             </div>
@@ -563,7 +591,7 @@
         ========================================== -->
         <section id="page-products" class="page">
             <div class="mb-6 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Produtos</p>
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">HairOS Library · Produtos</p>
                 <h2 class="font-headline-lg text-headline-lg">Catálogo de Produtos</h2>
                 <p class="text-on-surface-variant mt-1">Especificações, fórmulas e aplicações</p>
             </div>
@@ -578,7 +606,7 @@
         ========================================== -->
         <section id="page-tools" class="page">
             <div class="mb-6 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Ferramentas</p>
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">HairOS Library · Ferramentas</p>
                 <h2 class="font-headline-lg text-headline-lg">Ferramentas Profissionais</h2>
                 <p class="text-on-surface-variant mt-1">Equipamentos, utensílios e instrumentos</p>
             </div>
@@ -593,7 +621,7 @@
         ========================================== -->
         <section id="page-trends" class="page">
             <div class="mb-6 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Tendências</p>
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">HairOS Library · Tendências</p>
                 <h2 class="font-headline-lg text-headline-lg">Tendências do Mercado</h2>
                 <p class="text-on-surface-variant mt-1">Análises, previsões e movimentos do setor</p>
             </div>
@@ -608,7 +636,7 @@
         ========================================== -->
         <section id="page-chemistry" class="page">
             <div class="mb-6 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Química</p>
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">HairOS Library · Química</p>
                 <h2 class="font-headline-lg text-headline-lg">Química Capilar</h2>
                 <p class="text-on-surface-variant mt-1">pH, oxidação, melanina, cutícula e córtex</p>
             </div>
@@ -623,7 +651,7 @@
         ========================================== -->
         <section id="page-glossary" class="page">
             <div class="mb-6 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Glossário</p>
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">HairOS Library · Glossário</p>
                 <h2 class="font-headline-lg text-headline-lg">Glossário Técnico</h2>
                 <p class="text-on-surface-variant mt-1">Termos, definições e conceitos da área</p>
             </div>
@@ -638,7 +666,7 @@
         ========================================== -->
         <section id="page-bibliography" class="page">
             <div class="mb-6 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Bibliografia</p>
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">HairOS Library · Bibliografia</p>
                 <h2 class="font-headline-lg text-headline-lg">Referências Científicas</h2>
                 <p class="text-on-surface-variant mt-1">Livros, autores, pesquisas e artigos acadêmicos</p>
             </div>
@@ -700,7 +728,7 @@
                         <div id="modalTags" class="flex flex-wrap gap-2"></div>
                         <div id="modalAttributes" class="grid grid-cols-2 gap-2 text-sm"></div>
                         <div id="modalExtra" class="border-t border-outline-variant/10 pt-4 mt-2">
-                            <p class="text-xs text-on-surface-variant/50 font-data-mono">HairOS Knowledge Engine · v3.0</p>
+                            <p class="text-xs text-on-surface-variant/50 font-data-mono">HairOS Library · Knowledge Engine v3.0</p>
                         </div>
                     </div>
                 </div>
@@ -709,7 +737,7 @@
     </div>
 
     <!-- ============================================
-    JAVASCRIPT — HAiROS KNOWLEDGE ENGINE
+    JAVASCRIPT — HAiROS LIBRARY ENGINE
     ============================================ -->
     <script>
         (function() {
@@ -1424,7 +1452,6 @@
             // 2. HELPER FUNCTIONS
             // ============================================
 
-            // Contar itens por módulo
             function getCounts() {
                 return {
                     cuts: HairDatabase.cuts.length,
@@ -1441,12 +1468,10 @@
                 };
             }
 
-            // Buscar item por ID
             function findItem(collection, id) {
-                return collection.find(item => item.id === id) || null;
+                return collection.find(item => item.id === id || item.termo === id || item.titulo === id) || null;
             }
 
-            // Buscar por termo em todas as coleções
             function searchAll(term) {
                 const results = [];
                 const termLower = term.toLowerCase();
@@ -1458,7 +1483,10 @@
                             const searchable = [
                                 item.nome,
                                 item.descricao,
+                                item.definicao,
                                 item.id,
+                                item.termo,
+                                item.titulo,
                                 ...(item.tags || []),
                                 ...(item.categoria ? [item.categoria] : []),
                                 ...(item.subcategoria ? [item.subcategoria] : [])
@@ -1468,7 +1496,7 @@
                                 results.push({
                                     ...item,
                                     _collection: collectionName,
-                                    _displayName: item.nome || item.termo || item.titulo
+                                    _displayName: item.nome || item.termo || item.titulo || item.id
                                 });
                             }
                         });
@@ -1482,7 +1510,6 @@
             // 3. RENDER FUNCTIONS
             // ============================================
 
-            // Renderizar stats no dashboard
             function renderStats() {
                 const counts = getCounts();
                 const statsGrid = document.getElementById('statsGrid');
@@ -1509,7 +1536,6 @@
                 `).join('');
             }
 
-            // Renderizar cortes
             function renderCuts(filter = 'all') {
                 const grid = document.getElementById('cutGrid');
                 let filtered = HairDatabase.cuts;
@@ -1523,12 +1549,8 @@
                 }
 
                 if (filtered.length === 0) {
-                    grid.innerHTML = `
-                        <div class="col-span-full text-center py-12 text-on-surface-variant">
-                            <span class="material-symbols-outlined text-4xl">search_off</span>
-                            <p class="mt-2">Nenhum corte encontrado com este filtro.</p>
-                        </div>
-                    `;
+                    grid.innerHTML =
+                        `<div class="col-span-full text-center py-12 text-on-surface-variant"><span class="material-symbols-outlined text-4xl">search_off</span><p class="mt-2">Nenhum corte encontrado.</p></div>`;
                     return;
                 }
 
@@ -1553,7 +1575,6 @@
                     </div>
                 `).join('');
 
-                // Attach modal events
                 grid.querySelectorAll('[data-modal-id]').forEach(el => {
                     el.addEventListener('click', function() {
                         const id = this.dataset.modalId;
@@ -1565,7 +1586,6 @@
                 });
             }
 
-            // Renderizar cores
             function renderColors(filter = 'all') {
                 const grid = document.getElementById('colorGrid');
                 let filtered = HairDatabase.colors;
@@ -1578,12 +1598,8 @@
                 }
 
                 if (filtered.length === 0) {
-                    grid.innerHTML = `
-                        <div class="col-span-full text-center py-12 text-on-surface-variant">
-                            <span class="material-symbols-outlined text-4xl">color_off</span>
-                            <p class="mt-2">Nenhuma cor encontrada com este filtro.</p>
-                        </div>
-                    `;
+                    grid.innerHTML =
+                        `<div class="col-span-full text-center py-12 text-on-surface-variant"><span class="material-symbols-outlined text-4xl">color_off</span><p class="mt-2">Nenhuma cor encontrada.</p></div>`;
                     return;
                 }
 
@@ -1620,271 +1636,6 @@
                 });
             }
 
-            // Renderizar faces
-            function renderFaces() {
-                const grid = document.getElementById('faceGrid');
-                grid.innerHTML = HairDatabase.faces.map(face => `
-                    <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" 
-                         data-modal-id="${face.id}" data-modal-collection="faces">
-                        <div class="aspect-square w-full overflow-hidden bg-surface-container">
-                            <img class="w-full h-full object-cover" src="${face.imagens[0]}" loading="lazy" alt="${face.nome}" />
-                        </div>
-                        <h3 class="font-title-md text-title-md mt-3">${face.nome}</h3>
-                        <p class="text-sm text-on-surface-variant">${face.descricao}</p>
-                        <div class="flex flex-wrap gap-1 mt-2">
-                            ${face.caracteristicas.map(c => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${c}</span>`).join('')}
-                        </div>
-                        <div class="mt-2 text-xs text-secondary font-data-mono">
-                            Cortes: ${face.cortesIndicados.slice(0, 3).join(', ')}
-                        </div>
-                    </div>
-                `).join('');
-
-                grid.querySelectorAll('[data-modal-id]').forEach(el => {
-                    el.addEventListener('click', function() {
-                        const id = this.dataset.modalId;
-                        const collection = this.dataset.modalCollection;
-                        const items = HairDatabase[collection] || [];
-                        const item = findItem(items, id);
-                        if (item) openModal(item, collection);
-                    });
-                });
-            }
-
-            // Renderizar tipos de cabelo
-            function renderHairTypes() {
-                const grid = document.getElementById('hairTypeGrid');
-                grid.innerHTML = HairDatabase.hairTypes.map(type => `
-                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
-                         data-modal-id="${type.id}" data-modal-collection="hairTypes">
-                        <div class="flex items-center gap-4">
-                            <span class="text-3xl font-bold text-secondary">${type.nome}</span>
-                            <span class="text-xs text-on-surface-variant font-data-mono uppercase">${type.descricao.split(',')[0]}</span>
-                        </div>
-                        <p class="text-sm text-on-surface-variant mt-2">${type.descricao}</p>
-                        <div class="grid grid-cols-3 gap-2 mt-3 text-xs">
-                            <div><span class="text-on-surface-variant/50">Porosidade</span><br/><span class="font-data-mono">${type.porosidade}</span></div>
-                            <div><span class="text-on-surface-variant/50">Densidade</span><br/><span class="font-data-mono">${type.densidade}</span></div>
-                            <div><span class="text-on-surface-variant/50">Elasticidade</span><br/><span class="font-data-mono">${type.elasticidade}</span></div>
-                        </div>
-                        <div class="mt-2 text-xs text-secondary font-data-mono">${type.dicas}</div>
-                    </div>
-                `).join('');
-
-                grid.querySelectorAll('[data-modal-id]').forEach(el => {
-                    el.addEventListener('click', function() {
-                        const id = this.dataset.modalId;
-                        const collection = this.dataset.modalCollection;
-                        const items = HairDatabase[collection] || [];
-                        const item = findItem(items, id);
-                        if (item) openModal(item, collection);
-                    });
-                });
-            }
-
-            // Renderizar técnicas
-            function renderTechniques() {
-                const grid = document.getElementById('techniqueGrid');
-                grid.innerHTML = HairDatabase.techniques.map(tech => `
-                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
-                         data-modal-id="${tech.id}" data-modal-collection="techniques">
-                        <span class="material-symbols-outlined text-3xl text-secondary">handyman</span>
-                        <h3 class="font-title-md text-title-md mt-2">${tech.nome}</h3>
-                        <p class="text-sm text-on-surface-variant">${tech.descricao}</p>
-                        <div class="flex items-center gap-3 mt-2 text-xs">
-                            <span class="font-data-mono text-secondary">${tech.nivel}</span>
-                            <span class="text-on-surface-variant/50">|</span>
-                            <span class="text-on-surface-variant/50">${tech.ferramentas.join(', ')}</span>
-                        </div>
-                    </div>
-                `).join('');
-
-                grid.querySelectorAll('[data-modal-id]').forEach(el => {
-                    el.addEventListener('click', function() {
-                        const id = this.dataset.modalId;
-                        const collection = this.dataset.modalCollection;
-                        const items = HairDatabase[collection] || [];
-                        const item = findItem(items, id);
-                        if (item) openModal(item, collection);
-                    });
-                });
-            }
-
-            // Renderizar produtos
-            function renderProducts() {
-                const grid = document.getElementById('productGrid');
-                grid.innerHTML = HairDatabase.products.map(product => `
-                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
-                         data-modal-id="${product.id}" data-modal-collection="products">
-                        <span class="material-symbols-outlined text-3xl text-secondary">science</span>
-                        <h3 class="font-title-md text-title-md mt-2">${product.nome}</h3>
-                        <p class="text-sm text-on-surface-variant">${product.descricao}</p>
-                        <div class="flex flex-wrap gap-1 mt-2">
-                            <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${product.categoria}</span>
-                            ${product.tipoCabelo.map(t => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${t}</span>`).join('')}
-                        </div>
-                    </div>
-                `).join('');
-
-                grid.querySelectorAll('[data-modal-id]').forEach(el => {
-                    el.addEventListener('click', function() {
-                        const id = this.dataset.modalId;
-                        const collection = this.dataset.modalCollection;
-                        const items = HairDatabase[collection] || [];
-                        const item = findItem(items, id);
-                        if (item) openModal(item, collection);
-                    });
-                });
-            }
-
-            // Renderizar ferramentas
-            function renderTools() {
-                const grid = document.getElementById('toolGrid');
-                grid.innerHTML = HairDatabase.tools.map(tool => `
-                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
-                         data-modal-id="${tool.id}" data-modal-collection="tools">
-                        <span class="material-symbols-outlined text-3xl text-secondary">build</span>
-                        <h3 class="font-title-md text-title-md mt-2">${tool.nome}</h3>
-                        <p class="text-sm text-on-surface-variant">${tool.descricao}</p>
-                        <div class="flex items-center gap-3 mt-2 text-xs">
-                            <span class="font-data-mono text-secondary">${tool.categoria}</span>
-                            <span class="text-on-surface-variant/50">|</span>
-                            <span class="text-on-surface-variant/50">${tool.manutencao}</span>
-                        </div>
-                    </div>
-                `).join('');
-
-                grid.querySelectorAll('[data-modal-id]').forEach(el => {
-                    el.addEventListener('click', function() {
-                        const id = this.dataset.modalId;
-                        const collection = this.dataset.modalCollection;
-                        const items = HairDatabase[collection] || [];
-                        const item = findItem(items, id);
-                        if (item) openModal(item, collection);
-                    });
-                });
-            }
-
-            // Renderizar tendências
-            function renderTrends() {
-                const grid = document.getElementById('trendGrid');
-                grid.innerHTML = HairDatabase.trends.map(trend => `
-                    <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" 
-                         data-modal-id="${trend.id}" data-modal-collection="trends">
-                        <div class="aspect-[16/9] w-full overflow-hidden bg-surface-container">
-                            <img class="w-full h-full object-cover" src="${trend.imagens[0]}" loading="lazy" alt="${trend.nome}" />
-                        </div>
-                        <h3 class="font-title-md text-title-md mt-3">${trend.nome}</h3>
-                        <p class="text-sm text-on-surface-variant">${trend.descricao}</p>
-                        <div class="flex items-center gap-4 mt-2">
-                            <div class="flex-1">
-                                <span class="text-xs text-on-surface-variant/50">Popularidade</span>
-                                <div class="progress-bar mt-1">
-                                    <div class="progress-fill" style="width: ${trend.popularidade}%"></div>
-                                </div>
-                            </div>
-                            <span class="text-sm font-data-mono text-secondary">${trend.popularidade}%</span>
-                        </div>
-                        <div class="flex flex-wrap gap-1 mt-2">
-                            ${trend.tags.map(t => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#${t}</span>`).join('')}
-                        </div>
-                    </div>
-                `).join('');
-
-                grid.querySelectorAll('[data-modal-id]').forEach(el => {
-                    el.addEventListener('click', function() {
-                        const id = this.dataset.modalId;
-                        const collection = this.dataset.modalCollection;
-                        const items = HairDatabase[collection] || [];
-                        const item = findItem(items, id);
-                        if (item) openModal(item, collection);
-                    });
-                });
-            }
-
-            // Renderizar química
-            function renderChemistry() {
-                const grid = document.getElementById('chemistryGrid');
-                grid.innerHTML = HairDatabase.chemistry.map(chem => `
-                    <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" 
-                         data-modal-id="${chem.id}" data-modal-collection="chemistry">
-                        <span class="material-symbols-outlined text-3xl text-secondary">biotech</span>
-                        <h3 class="font-title-md text-title-md mt-2">${chem.nome}</h3>
-                        <p class="text-sm text-on-surface-variant">${chem.descricao}</p>
-                        <div class="flex flex-wrap gap-1 mt-2">
-                            ${chem.tags.map(t => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${t}</span>`).join('')}
-                        </div>
-                        ${chem.importancia ? `<p class="text-xs text-secondary mt-2 font-data-mono">${chem.importancia}</p>` : ''}
-                    </div>
-                `).join('');
-
-                grid.querySelectorAll('[data-modal-id]').forEach(el => {
-                    el.addEventListener('click', function() {
-                        const id = this.dataset.modalId;
-                        const collection = this.dataset.modalCollection;
-                        const items = HairDatabase[collection] || [];
-                        const item = findItem(items, id);
-                        if (item) openModal(item, collection);
-                    });
-                });
-            }
-
-            // Renderizar glossário
-            function renderGlossary() {
-                const grid = document.getElementById('glossaryGrid');
-                grid.innerHTML = HairDatabase.glossary.map(term => `
-                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
-                         data-modal-id="${term.termo}" data-modal-collection="glossary">
-                        <h3 class="font-title-md text-title-md">${term.termo}</h3>
-                        <p class="text-sm text-on-surface-variant mt-1">${term.definicao}</p>
-                        <div class="flex items-center gap-2 mt-2 text-xs">
-                            <span class="font-data-mono text-secondary">${term.area}</span>
-                            <span class="text-on-surface-variant/50">|</span>
-                            <span class="text-on-surface-variant/50">${term.sinonimos.join(', ')}</span>
-                        </div>
-                    </div>
-                `).join('');
-
-                grid.querySelectorAll('[data-modal-id]').forEach(el => {
-                    el.addEventListener('click', function() {
-                        const term = this.dataset.modalId;
-                        const collection = this.dataset.modalCollection;
-                        const items = HairDatabase[collection] || [];
-                        const item = findItem(items, term);
-                        if (item) openModal(item, collection);
-                    });
-                });
-            }
-
-            // Renderizar bibliografia
-            function renderBibliography() {
-                const grid = document.getElementById('bibliographyGrid');
-                grid.innerHTML = HairDatabase.bibliography.map(book => `
-                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
-                         data-modal-id="${book.id}" data-modal-collection="bibliography">
-                        <h3 class="font-title-md text-title-md">${book.titulo}</h3>
-                        <p class="text-sm text-on-surface-variant mt-1">${book.autor} · ${book.ano}</p>
-                        <p class="text-xs text-on-surface-variant/70 mt-1">${book.descricao}</p>
-                        <div class="flex flex-wrap gap-1 mt-2">
-                            <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${book.editora}</span>
-                            <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${book.area}</span>
-                            ${book.tags.map(t => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#${t}</span>`).join('')}
-                        </div>
-                    </div>
-                `).join('');
-
-                grid.querySelectorAll('[data-modal-id]').forEach(el => {
-                    el.addEventListener('click', function() {
-                        const id = this.dataset.modalId;
-                        const collection = this.dataset.modalCollection;
-                        const items = HairDatabase[collection] || [];
-                        const item = findItem(items, id);
-                        if (item) openModal(item, collection);
-                    });
-                });
-            }
-
-            // Renderizar tabela de reflexos
             function renderReflexTable() {
                 const table = document.getElementById('reflexTable');
                 const reflexData = [
@@ -1928,6 +1679,261 @@
                 `;
             }
 
+            function renderFaces() {
+                const grid = document.getElementById('faceGrid');
+                grid.innerHTML = HairDatabase.faces.map(face => `
+                    <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" 
+                         data-modal-id="${face.id}" data-modal-collection="faces">
+                        <div class="aspect-square w-full overflow-hidden bg-surface-container">
+                            <img class="w-full h-full object-cover" src="${face.imagens[0]}" loading="lazy" alt="${face.nome}" />
+                        </div>
+                        <h3 class="font-title-md text-title-md mt-3">${face.nome}</h3>
+                        <p class="text-sm text-on-surface-variant">${face.descricao}</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            ${face.caracteristicas.map(c => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${c}</span>`).join('')}
+                        </div>
+                        <div class="mt-2 text-xs text-secondary font-data-mono">
+                            Cortes: ${face.cortesIndicados.slice(0, 3).join(', ')}
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            function renderHairTypes() {
+                const grid = document.getElementById('hairTypeGrid');
+                grid.innerHTML = HairDatabase.hairTypes.map(type => `
+                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
+                         data-modal-id="${type.id}" data-modal-collection="hairTypes">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl font-bold text-secondary">${type.nome}</span>
+                            <span class="text-xs text-on-surface-variant font-data-mono uppercase">${type.descricao.split(',')[0]}</span>
+                        </div>
+                        <p class="text-sm text-on-surface-variant mt-2">${type.descricao}</p>
+                        <div class="grid grid-cols-3 gap-2 mt-3 text-xs">
+                            <div><span class="text-on-surface-variant/50">Porosidade</span><br/><span class="font-data-mono">${type.porosidade}</span></div>
+                            <div><span class="text-on-surface-variant/50">Densidade</span><br/><span class="font-data-mono">${type.densidade}</span></div>
+                            <div><span class="text-on-surface-variant/50">Elasticidade</span><br/><span class="font-data-mono">${type.elasticidade}</span></div>
+                        </div>
+                        <div class="mt-2 text-xs text-secondary font-data-mono">${type.dicas}</div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            function renderTechniques() {
+                const grid = document.getElementById('techniqueGrid');
+                grid.innerHTML = HairDatabase.techniques.map(tech => `
+                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
+                         data-modal-id="${tech.id}" data-modal-collection="techniques">
+                        <span class="material-symbols-outlined text-3xl text-secondary">handyman</span>
+                        <h3 class="font-title-md text-title-md mt-2">${tech.nome}</h3>
+                        <p class="text-sm text-on-surface-variant">${tech.descricao}</p>
+                        <div class="flex items-center gap-3 mt-2 text-xs">
+                            <span class="font-data-mono text-secondary">${tech.nivel}</span>
+                            <span class="text-on-surface-variant/50">|</span>
+                            <span class="text-on-surface-variant/50">${tech.ferramentas.join(', ')}</span>
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            function renderProducts() {
+                const grid = document.getElementById('productGrid');
+                grid.innerHTML = HairDatabase.products.map(product => `
+                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
+                         data-modal-id="${product.id}" data-modal-collection="products">
+                        <span class="material-symbols-outlined text-3xl text-secondary">science</span>
+                        <h3 class="font-title-md text-title-md mt-2">${product.nome}</h3>
+                        <p class="text-sm text-on-surface-variant">${product.descricao}</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${product.categoria}</span>
+                            ${product.tipoCabelo.map(t => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${t}</span>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            function renderTools() {
+                const grid = document.getElementById('toolGrid');
+                grid.innerHTML = HairDatabase.tools.map(tool => `
+                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
+                         data-modal-id="${tool.id}" data-modal-collection="tools">
+                        <span class="material-symbols-outlined text-3xl text-secondary">build</span>
+                        <h3 class="font-title-md text-title-md mt-2">${tool.nome}</h3>
+                        <p class="text-sm text-on-surface-variant">${tool.descricao}</p>
+                        <div class="flex items-center gap-3 mt-2 text-xs">
+                            <span class="font-data-mono text-secondary">${tool.categoria}</span>
+                            <span class="text-on-surface-variant/50">|</span>
+                            <span class="text-on-surface-variant/50">${tool.manutencao}</span>
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            function renderTrends() {
+                const grid = document.getElementById('trendGrid');
+                grid.innerHTML = HairDatabase.trends.map(trend => `
+                    <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" 
+                         data-modal-id="${trend.id}" data-modal-collection="trends">
+                        <div class="aspect-[16/9] w-full overflow-hidden bg-surface-container">
+                            <img class="w-full h-full object-cover" src="${trend.imagens[0]}" loading="lazy" alt="${trend.nome}" />
+                        </div>
+                        <h3 class="font-title-md text-title-md mt-3">${trend.nome}</h3>
+                        <p class="text-sm text-on-surface-variant">${trend.descricao}</p>
+                        <div class="flex items-center gap-4 mt-2">
+                            <div class="flex-1">
+                                <span class="text-xs text-on-surface-variant/50">Popularidade</span>
+                                <div class="progress-bar mt-1">
+                                    <div class="progress-fill" style="width: ${trend.popularidade}%"></div>
+                                </div>
+                            </div>
+                            <span class="text-sm font-data-mono text-secondary">${trend.popularidade}%</span>
+                        </div>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            ${trend.tags.map(t => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#${t}</span>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            function renderChemistry() {
+                const grid = document.getElementById('chemistryGrid');
+                grid.innerHTML = HairDatabase.chemistry.map(chem => `
+                    <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" 
+                         data-modal-id="${chem.id}" data-modal-collection="chemistry">
+                        <span class="material-symbols-outlined text-3xl text-secondary">biotech</span>
+                        <h3 class="font-title-md text-title-md mt-2">${chem.nome}</h3>
+                        <p class="text-sm text-on-surface-variant">${chem.descricao}</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            ${chem.tags.map(t => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${t}</span>`).join('')}
+                        </div>
+                        ${chem.importancia ? `<p class="text-xs text-secondary mt-2 font-data-mono">${chem.importancia}</p>` : ''}
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            function renderGlossary() {
+                const grid = document.getElementById('glossaryGrid');
+                grid.innerHTML = HairDatabase.glossary.map(term => `
+                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
+                         data-modal-id="${term.termo}" data-modal-collection="glossary">
+                        <h3 class="font-title-md text-title-md">${term.termo}</h3>
+                        <p class="text-sm text-on-surface-variant mt-1">${term.definicao}</p>
+                        <div class="flex items-center gap-2 mt-2 text-xs">
+                            <span class="font-data-mono text-secondary">${term.area}</span>
+                            <span class="text-on-surface-variant/50">|</span>
+                            <span class="text-on-surface-variant/50">${term.sinonimos.join(', ')}</span>
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const term = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, term);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            function renderBibliography() {
+                const grid = document.getElementById('bibliographyGrid');
+                grid.innerHTML = HairDatabase.bibliography.map(book => `
+                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
+                         data-modal-id="${book.id}" data-modal-collection="bibliography">
+                        <h3 class="font-title-md text-title-md">${book.titulo}</h3>
+                        <p class="text-sm text-on-surface-variant mt-1">${book.autor} · ${book.ano}</p>
+                        <p class="text-xs text-on-surface-variant/70 mt-1">${book.descricao}</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${book.editora}</span>
+                            <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${book.area}</span>
+                            ${book.tags.map(t => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#${t}</span>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
             // ============================================
             // 4. MODAL
             // ============================================
@@ -1949,7 +1955,6 @@
                 modalImage.alt = item.nome || '';
                 modalDesc.textContent = item.descricao || item.definicao || '';
 
-                // Categoria
                 const categoryMap = {
                     cuts: '✂️ Cortes',
                     colors: '🎨 Colorimetria',
@@ -1965,7 +1970,6 @@
                 };
                 modalCategory.textContent = categoryMap[collection] || 'Referência';
 
-                // Tags
                 modalTags.innerHTML = '';
                 const tags = item.tags || [];
                 if (tags.length > 0) {
@@ -1982,7 +1986,6 @@
                     modalTags.appendChild(span);
                 }
 
-                // Atributos específicos
                 modalAttributes.innerHTML = '';
                 const attrs = [];
 
@@ -2026,7 +2029,7 @@
             });
 
             // ============================================
-            // 5. NAVIGATION & ROUTING
+            // 5. NAVIGATION
             // ============================================
 
             const pages = {
@@ -2045,32 +2048,19 @@
             };
 
             const menuLinks = document.querySelectorAll('.menu-link');
-            const navLinks = document.querySelectorAll('[data-page]');
             const bottomNavLinks = document.querySelectorAll('.nav-link');
 
-            let currentPage = 'dashboard';
-
             function showPage(pageId) {
-                // Esconder todas
                 Object.keys(pages).forEach(key => {
                     pages[key].classList.remove('active');
                 });
+                if (pages[pageId]) pages[pageId].classList.add('active');
 
-                // Mostrar a página
-                if (pages[pageId]) {
-                    pages[pageId].classList.add('active');
-                    currentPage = pageId;
-                }
-
-                // Atualizar menu
                 menuLinks.forEach(link => {
                     link.classList.remove('menu-link-active');
-                    if (link.dataset.page === pageId) {
-                        link.classList.add('menu-link-active');
-                    }
+                    if (link.dataset.page === pageId) link.classList.add('menu-link-active');
                 });
 
-                // Atualizar bottom nav
                 bottomNavLinks.forEach(link => {
                     link.classList.remove('nav-link-active');
                     link.classList.remove('text-primary');
@@ -2085,7 +2075,6 @@
                 closeMenu();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
-                // Renderizar conteúdo específico da página
                 switch (pageId) {
                     case 'dashboard':
                         renderStats();
@@ -2127,16 +2116,7 @@
                 }
             }
 
-            // Event listeners para navegação
             menuLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const page = link.dataset.page;
-                    if (page && pages[page]) showPage(page);
-                });
-            });
-
-            navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     const page = link.dataset.page;
@@ -2152,11 +2132,18 @@
                 });
             });
 
+            document.querySelectorAll('[data-page]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = link.dataset.page;
+                    if (page && pages[page]) showPage(page);
+                });
+            });
+
             // ============================================
             // 6. FILTERS
             // ============================================
 
-            // Filtros de cortes
             document.querySelectorAll('#cutFilters .filter-chip').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('#cutFilters .filter-chip').forEach(b => b.classList.remove(
@@ -2166,7 +2153,6 @@
                 });
             });
 
-            // Filtros de cores
             document.querySelectorAll('#colorFilters .filter-chip').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('#colorFilters .filter-chip').forEach(b => b.classList.remove(
@@ -2194,19 +2180,15 @@
                 const results = searchAll(term);
 
                 if (results.length === 0) {
-                    quickResults.innerHTML = `
-                        <div class="col-span-full bg-surface-container-lowest sharp-border p-4 text-center text-on-surface-variant">
-                            <span class="material-symbols-outlined">search_off</span>
-                            <p class="mt-1">Nenhum resultado encontrado para "${term}"</p>
-                        </div>
-                    `;
+                    quickResults.innerHTML =
+                        `<div class="col-span-full bg-surface-container-lowest sharp-border p-4 text-center text-on-surface-variant"><span class="material-symbols-outlined">search_off</span><p class="mt-1">Nenhum resultado encontrado para "${term}"</p></div>`;
                     quickResults.classList.remove('hidden');
                     return;
                 }
 
                 quickResults.innerHTML = results.slice(0, 6).map(item => `
                     <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" 
-                         onclick="window._openResult('${item.id}', '${item._collection}')">
+                         onclick="window._openResult('${item.id || item.termo || item.titulo}', '${item._collection}')">
                         <h4 class="font-title-md text-title-md text-sm">${item._displayName}</h4>
                         <p class="text-xs text-on-surface-variant/70">${item.descricao || item.definicao || ''}</p>
                         <span class="text-[10px] text-secondary font-data-mono uppercase">${item._collection}</span>
@@ -2217,7 +2199,6 @@
                 quickResults.classList.remove('hidden');
             }
 
-            // Expor para onclick
             window._openResult = function(id, collection) {
                 const items = HairDatabase[collection] || [];
                 const item = findItem(items, id);
@@ -2230,7 +2211,6 @@
             globalSearch.addEventListener('input', function() {
                 const term = this.value.trim();
                 if (term.length > 2) {
-                    // Redirecionar para dashboard e mostrar resultados
                     showPage('dashboard');
                     quickSearch.value = term;
                     performSearch(term);
@@ -2248,9 +2228,7 @@
             });
 
             quickSearch.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    performSearch(this.value.trim());
-                }
+                if (e.key === 'Enter') performSearch(this.value.trim());
             });
 
             // ============================================
@@ -2276,7 +2254,6 @@
                 localStorage.setItem('hairOS-theme', html.classList.contains('dark') ? 'dark' : 'light');
             }
 
-            // Carregar tema salvo
             const savedTheme = localStorage.getItem('hairOS-theme');
             if (savedTheme === 'dark') {
                 html.classList.remove('light');
@@ -2296,7 +2273,7 @@
             if (themeToggleTop) themeToggleTop.addEventListener('click', toggleTheme);
 
             // ============================================
-            // 9. MENU SIDEBAR
+            // 9. MENU
             // ============================================
 
             const menuSidebar = document.getElementById('menuSidebar');
@@ -2321,7 +2298,7 @@
             menuBackdrop.addEventListener('click', closeMenu);
 
             // ============================================
-            // 10. QUICK STATS UPDATE (menu counts)
+            // 10. UPDATE COUNTS
             // ============================================
 
             function updateMenuCounts() {
@@ -2343,16 +2320,10 @@
             // 11. INIT
             // ============================================
 
-            // Atualizar contagens
             updateMenuCounts();
-
-            // Renderizar dashboard inicial
             renderStats();
 
-            // Expor dados para debug
-            window.HairDatabase = HairDatabase;
-
-            console.log('🧠 HairOS Knowledge Engine v3.0');
+            console.log('📚 HairOS Library v3.0 — Knowledge Engine');
             console.log('📊 Database loaded:', {
                 cuts: HairDatabase.cuts.length,
                 colors: HairDatabase.colors.length,
@@ -2370,6 +2341,5 @@
 
         })();
     </script>
-
 </body>
 </html>
