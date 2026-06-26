@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>HairOS Library · Sistema Profissional</title>
+    <title>HairOS Library Engine · Knowledge Base</title>
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
@@ -33,14 +33,15 @@
                         "tertiary-container": "#1b1c1c",
                         "on-tertiary": "#ffffff",
                         "secondary-container": "#fed488",
-                        "success": "#2e7d32",
-                        "warning": "#ed6c02",
-                        "error": "#d32f2f",
+                        success: "#2e7d32",
+                        warning: "#ed6c02",
+                        error: "#d32f2f",
+                        info: "#0288d1",
                     },
                     borderRadius: { DEFAULT: "0px", lg: "0px", xl: "0px", full: "9999px" },
                     spacing: {
                         "margin-mobile": "20px",
-                        "container-max": "1280px",
+                        "container-max": "1440px",
                         "gutter": "24px",
                         "margin-desktop": "64px"
                     },
@@ -65,8 +66,13 @@
         }
     </script>
     <style>
+        /* ============================================
+           GLOBAL STYLES
+           ============================================ */
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -85,96 +91,39 @@
             background: #1a1410;
             color: #e8e0d8;
         }
-        .dark .bg-surface {
-            background: #2a221c;
-        }
-        .dark .bg-surface-container-lowest {
-            background: #2f2720;
-        }
-        .dark .bg-surface-container {
-            background: #2a221c;
-        }
-        .dark .bg-surface-container-high {
-            background: #3d322a;
-        }
-        .dark .border-outline-variant\/10 {
-            border-color: rgba(255, 215, 180, 0.08);
-        }
-        .dark .sharp-border {
-            border-color: rgba(255, 215, 180, 0.12);
-        }
-        .dark .technical-border {
-            border-color: rgba(255, 215, 180, 0.12);
-        }
-        .dark .text-on-surface-variant {
-            color: #b8aaa0;
-        }
-        .dark .text-on-tertiary-container {
-            color: #b8aaa0;
-        }
-        .dark .bg-primary {
-            background: #2f2720;
-        }
-        .dark .text-primary {
-            color: #e8e0d8;
-        }
-        .dark .border-primary {
-            border-color: #e8e0d8;
-        }
-        .dark .bg-white {
-            background: #2f2720;
-        }
-        .dark .text-on-primary {
-            color: #1a1410;
-        }
-        .dark .bg-primary\/90 {
-            background: #3d322a;
-        }
-        .dark .border-outline\/20 {
-            border-color: rgba(255, 215, 180, 0.2);
-        }
-        .dark .text-outline {
-            color: #b8aaa0;
-        }
-        .dark .bg-tertiary-container {
-            background: #1a1410;
-        }
-        .dark .text-on-tertiary {
-            color: #e8e0d8;
-        }
-        .dark .border-white\/10 {
-            border-color: rgba(255, 215, 180, 0.1);
-        }
-        .dark .border-white\/5 {
-            border-color: rgba(255, 215, 180, 0.05);
-        }
-        .dark .bg-secondary {
-            background: #a67c3a;
-        }
-        .dark .text-secondary {
-            color: #dbaa5a;
-        }
-        .dark .filter-chip {
-            border-color: rgba(255, 215, 180, 0.2);
-            color: #d0c0b0;
-        }
-        .dark .filter-chip:hover {
-            border-color: #dbaa5a;
-        }
-        .dark .filter-chip-active {
-            background: #dbaa5a;
-            color: #1a1410;
-            border-color: #dbaa5a;
-        }
-        .dark .text-success {
-            color: #81c784;
-        }
-        .dark .text-warning {
-            color: #ffb74d;
-        }
-        .dark .text-error {
-            color: #e57373;
-        }
+        
+        /* Dark Theme Overrides */
+        .dark .bg-surface { background: #2a221c; }
+        .dark .bg-surface-container-lowest { background: #2f2720; }
+        .dark .bg-surface-container { background: #2a221c; }
+        .dark .bg-surface-container-high { background: #3d322a; }
+        .dark .border-outline-variant\/10 { border-color: rgba(255, 215, 180, 0.08); }
+        .dark .sharp-border { border-color: rgba(255, 215, 180, 0.12); }
+        .dark .technical-border { border-color: rgba(255, 215, 180, 0.12); }
+        .dark .text-on-surface-variant { color: #b8aaa0; }
+        .dark .text-on-tertiary-container { color: #b8aaa0; }
+        .dark .bg-primary { background: #2f2720; }
+        .dark .text-primary { color: #e8e0d8; }
+        .dark .border-primary { border-color: #e8e0d8; }
+        .dark .bg-white { background: #2f2720; }
+        .dark .bg-primary\/90 { background: #3d322a; }
+        .dark .border-outline\/20 { border-color: rgba(255, 215, 180, 0.2); }
+        .dark .text-outline { color: #b8aaa0; }
+        .dark .bg-tertiary-container { background: #1a1410; }
+        .dark .text-on-tertiary { color: #e8e0d8; }
+        .dark .border-white\/10 { border-color: rgba(255, 215, 180, 0.1); }
+        .dark .border-white\/5 { border-color: rgba(255, 215, 180, 0.05); }
+        .dark .bg-secondary { background: #a67c3a; }
+        .dark .text-secondary { color: #dbaa5a; }
+        .dark .filter-chip { border-color: rgba(255, 215, 180, 0.2); color: #d0c0b0; }
+        .dark .filter-chip:hover { border-color: #dbaa5a; }
+        .dark .filter-chip-active { background: #dbaa5a; color: #1a1410; border-color: #dbaa5a; }
+        .dark .text-success { color: #81c784; }
+        .dark .text-warning { color: #ffb74d; }
+        .dark .text-error { color: #e57373; }
+        .dark .text-info { color: #64b5f6; }
+
+        /* Components */
         .sharp-border {
             border: 1px solid rgba(26, 28, 28, 0.1);
         }
@@ -188,124 +137,13 @@
         .dark .card-hover:hover {
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
         }
-        input:focus {
-            outline: none;
-            border-bottom: 2px solid #775a19 !important;
-        }
-        .dark input:focus {
-            border-bottom: 2px solid #dbaa5a !important;
-        }
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #775a19;
-        }
-        .dark ::-webkit-scrollbar-thumb {
-            background: #dbaa5a;
-        }
-        /* modal overlay aprimorado */
-        .modal-overlay {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            z-index: 999;
-            transition: opacity 0.3s ease;
-        }
-        .dark .modal-overlay {
-            background: rgba(0, 0, 0, 0.85);
-        }
-        .modal-content {
-            max-width: 95vw;
-            max-height: 90vh;
-            width: 800px;
-            background: #f9f9f9;
-            border-radius: 0;
-            animation: modalIn 0.3s cubic-bezier(0.2, 0, 0, 1);
-        }
-        .dark .modal-content {
-            background: #2a221c;
-            color: #e8e0d8;
-        }
-        @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-        .modal-content img {
-            max-height: 60vh;
-            object-fit: contain;
-            width: 100%;
-            height: auto;
-        }
-        /* menu sidebar melhorado */
-        .menu-sidebar {
-            transform: translateX(-100%);
-            transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
-            z-index: 1000;
-            background: #f9f9f9;
-            width: 300px;
-            max-width: 80vw;
-            height: 100dvh;
-            overflow-y: auto;
-            position: fixed;
-            top: 0;
-            left: 0;
-            border-right: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        .dark .menu-sidebar {
-            background: #1a1410;
-            border-right-color: rgba(255, 215, 180, 0.08);
-        }
-        .menu-sidebar.open {
-            transform: translateX(0);
-        }
-        .menu-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-        .menu-backdrop.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        /* page transitions melhoradas */
-        .page {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-        .page.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        /* filters e badges */
         .filter-chip {
             padding: 6px 16px;
             border: 1px solid rgba(26, 28, 28, 0.15);
             cursor: pointer;
             transition: all 0.2s;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
@@ -338,20 +176,101 @@
         .dark .progress-fill {
             background: #dbaa5a;
         }
-        /* skeleton loading */
-        .skeleton {
-            background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
-            background-size: 200% 100%;
-            animation: skeleton 1.5s infinite;
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #775a19; }
+        .dark ::-webkit-scrollbar-thumb { background: #dbaa5a; }
+
+        /* Menu Sidebar */
+        .menu-sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+            z-index: 1000;
+            background: #f9f9f9;
+            width: 320px;
+            max-width: 85vw;
+            height: 100dvh;
+            overflow-y: auto;
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
         }
-        .dark .skeleton {
-            background: linear-gradient(90deg, #2a221c 25%, #3d322a 50%, #2a221c 75%);
-            background-size: 200% 100%;
+        .dark .menu-sidebar {
+            background: #1a1410;
+            border-right-color: rgba(255, 215, 180, 0.08);
         }
-        @keyframes skeleton {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+        .menu-sidebar.open { transform: translateX(0); }
+        .menu-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
         }
+        .menu-backdrop.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .menu-link-active {
+            background: rgba(119, 90, 25, 0.1);
+            color: #775a19;
+            font-weight: 600;
+        }
+        .dark .menu-link-active {
+            background: rgba(219, 170, 90, 0.15);
+            color: #dbaa5a;
+        }
+
+        /* Page Transitions */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .page.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Modal */
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            transition: opacity 0.3s ease;
+        }
+        .dark .modal-overlay {
+            background: rgba(0, 0, 0, 0.85);
+        }
+        .modal-content {
+            max-width: 95vw;
+            max-height: 90vh;
+            width: 900px;
+            background: #f9f9f9;
+            border-radius: 0;
+            animation: modalIn 0.3s cubic-bezier(0.2, 0, 0, 1);
+        }
+        .dark .modal-content {
+            background: #2a221c;
+            color: #e8e0d8;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-content img {
+            max-height: 50vh;
+            object-fit: contain;
+            width: 100%;
+            height: auto;
+        }
+
+        /* Bottom Nav */
         .nav-link-active {
             color: #775a19 !important;
             opacity: 1 !important;
@@ -359,416 +278,1631 @@
         .dark .nav-link-active {
             color: #dbaa5a !important;
         }
+
+        /* Knowledge Stats */
+        .stat-number {
+            font-family: 'Libre Caslon Text', serif;
+            font-size: 2.5rem;
+            line-height: 1;
+            color: #775a19;
+        }
+        .dark .stat-number {
+            color: #dbaa5a;
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 640px) {
+            .stat-number {
+                font-size: 1.75rem;
+            }
+        }
     </style>
 </head>
-<body class="bg-background text-on-background font-body-md min-h-screen selection:bg-secondary-container">
+<body>
 
-    <!-- MENU SIDEBAR MELHORADO -->
+    <!-- ============================================
+    MENU SIDEBAR
+    ============================================ -->
     <div id="menuBackdrop" class="menu-backdrop"></div>
     <div id="menuSidebar" class="menu-sidebar p-6 flex flex-col">
-        <div class="flex justify-between items-center mb-10">
+        <div class="flex justify-between items-center mb-8">
             <span class="font-display-lg text-2xl tracking-tighter">HairOS</span>
             <button id="closeMenuBtn" class="text-2xl hover:opacity-60 transition-opacity material-symbols-outlined" aria-label="Fechar menu">close</button>
         </div>
-        <nav class="flex flex-col gap-2 text-base font-body-md">
-            <a href="#" data-page="inicio" class="menu-link flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors rounded-none">
-                <span class="material-symbols-outlined">home</span> Início
+        
+        <!-- Módulos principais -->
+        <nav class="flex flex-col gap-1 text-sm font-body-md" id="menuNav">
+            <a href="#" data-page="dashboard" class="menu-link flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined text-xl">dashboard</span> Dashboard
             </a>
-            <a href="#" data-page="biblioteca" class="menu-link flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors rounded-none">
-                <span class="material-symbols-outlined">menu_book</span> Biblioteca
-                <span class="ml-auto text-[10px] text-secondary font-data-mono">124</span>
+            <a href="#" data-page="cuts" class="menu-link flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined text-xl">content_cut</span> Cortes
+                <span class="ml-auto text-[10px] text-secondary font-data-mono" id="cutCount">0</span>
             </a>
-            <a href="#" data-page="colorimetria" class="menu-link flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors rounded-none">
-                <span class="material-symbols-outlined">palette</span> Colorimetria
-                <span class="ml-auto text-[10px] text-secondary font-data-mono">48</span>
+            <a href="#" data-page="colorimetry" class="menu-link flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined text-xl">palette</span> Colorimetria
+                <span class="ml-auto text-[10px] text-secondary font-data-mono" id="colorCount">0</span>
             </a>
-            <a href="#" data-page="cortes" class="menu-link flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors rounded-none">
-                <span class="material-symbols-outlined">content_cut</span> Cortes
-                <span class="ml-auto text-[10px] text-secondary font-data-mono">36</span>
+            <a href="#" data-page="faces" class="menu-link flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined text-xl">face</span> Formatos de Rosto
+                <span class="ml-auto text-[10px] text-secondary font-data-mono" id="faceCount">0</span>
             </a>
-            <a href="#" data-page="tendencias" class="menu-link flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors rounded-none">
-                <span class="material-symbols-outlined">trending_up</span> Tendências
-                <span class="ml-auto text-[10px] text-secondary font-data-mono">12</span>
+            <a href="#" data-page="hairTypes" class="menu-link flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined text-xl">waves</span> Tipos de Cabelo
+                <span class="ml-auto text-[10px] text-secondary font-data-mono" id="hairTypeCount">0</span>
+            </a>
+            <a href="#" data-page="techniques" class="menu-link flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined text-xl">handyman</span> Técnicas
+                <span class="ml-auto text-[10px] text-secondary font-data-mono" id="techniqueCount">0</span>
+            </a>
+            <a href="#" data-page="products" class="menu-link flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined text-xl">science</span> Produtos
+                <span class="ml-auto text-[10px] text-secondary font-data-mono" id="productCount">0</span>
+            </a>
+            <a href="#" data-page="tools" class="menu-link flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined text-xl">build</span> Ferramentas
+                <span class="ml-auto text-[10px] text-secondary font-data-mono" id="toolCount">0</span>
+            </a>
+            <a href="#" data-page="trends" class="menu-link flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined text-xl">trending_up</span> Tendências
+                <span class="ml-auto text-[10px] text-secondary font-data-mono" id="trendCount">0</span>
+            </a>
+            <a href="#" data-page="chemistry" class="menu-link flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined text-xl">biotech</span> Química
+                <span class="ml-auto text-[10px] text-secondary font-data-mono" id="chemistryCount">0</span>
+            </a>
+            <a href="#" data-page="glossary" class="menu-link flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined text-xl">menu_book</span> Glossário
+                <span class="ml-auto text-[10px] text-secondary font-data-mono" id="glossaryCount">0</span>
+            </a>
+            <a href="#" data-page="bibliography" class="menu-link flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined text-xl">library_books</span> Bibliografia
+                <span class="ml-auto text-[10px] text-secondary font-data-mono" id="bibliographyCount">0</span>
             </a>
         </nav>
+
         <div class="mt-auto pt-6 border-t border-outline-variant/20 space-y-4">
             <div class="flex items-center gap-3 text-sm">
                 <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span class="font-data-mono text-[10px] uppercase tracking-wider text-on-surface-variant">Sistema Online</span>
+                <span class="font-data-mono text-[10px] uppercase tracking-wider text-on-surface-variant">Knowledge Engine Online</span>
             </div>
             <button id="themeToggle" class="flex items-center gap-3 text-sm hover:text-secondary transition-colors w-full">
                 <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
                 <span id="themeLabel">Modo escuro</span>
             </button>
-            <p class="text-[10px] text-on-surface-variant/50 font-data-mono">v3.0 · Profissional</p>
+            <p class="text-[10px] text-on-surface-variant/50 font-data-mono">v3.0 · Knowledge Engine</p>
+            <p class="text-[9px] text-on-surface-variant/30 font-data-mono">Base de conhecimento unificada</p>
         </div>
     </div>
 
-    <!-- TOP BAR -->
+    <!-- ============================================
+    TOP BAR
+    ============================================ -->
     <header class="bg-surface dark:bg-background border-b border-outline-variant/15 sticky top-0 z-[100]">
-        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-3 max-w-container-max mx-auto">
             <div class="flex items-center gap-4">
                 <button id="hamburgerBtn" class="hover:opacity-80 transition-opacity active:scale-95 duration-100 text-primary dark:text-on-background" aria-label="Abrir menu">
                     <span class="material-symbols-outlined">menu</span>
                 </button>
                 <h1 class="font-display-lg text-display-lg tracking-tighter text-primary dark:text-on-background leading-none">HairOS</h1>
-                <span class="hidden md:inline-block text-[10px] font-data-mono text-secondary uppercase tracking-[0.2em] ml-2">Library</span>
+                <span class="hidden md:inline-block text-[9px] font-data-mono text-secondary uppercase tracking-[0.2em] ml-2 border-l border-outline-variant/30 pl-3">Knowledge Engine</span>
             </div>
             <div class="flex items-center gap-4">
-                <!-- Busca global -->
-                <div class="hidden md:flex items-center border-b border-outline-variant/30 px-2 py-1">
+                <div class="hidden md:flex items-center border-b border-outline-variant/30 px-2 py-1 min-w-[200px]">
                     <span class="material-symbols-outlined text-sm text-on-surface-variant/50">search</span>
-                    <input id="globalSearch" type="text" placeholder="Buscar na biblioteca..." class="bg-transparent border-none text-sm px-2 py-1 w-48 focus:border-none focus:ring-0 dark:text-on-background" />
+                    <input id="globalSearch" type="text" placeholder="Buscar conhecimento..." class="bg-transparent border-none text-sm px-2 py-1 w-full focus:border-none focus:ring-0 dark:text-on-background" />
                 </div>
                 <button id="themeToggleTop" class="hover:opacity-80 transition-opacity text-primary dark:text-on-background hidden md:flex" aria-label="Alternar tema">
                     <span class="material-symbols-outlined" id="themeIconTop">dark_mode</span>
-                </button>
-                <button class="hover:opacity-80 transition-opacity text-primary dark:text-on-background md:hidden" aria-label="Buscar">
-                    <span class="material-symbols-outlined">search</span>
                 </button>
             </div>
         </div>
     </header>
 
+    <!-- ============================================
+    MAIN CONTENT
+    ============================================ -->
     <main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-6 pb-32">
 
-        <!-- PÁGINA: INÍCIO (melhorada) -->
-        <section id="page-inicio" class="page active">
-            <div class="mb-10">
+        <!-- ==========================================
+        PAGE: DASHBOARD
+        ========================================== -->
+        <section id="page-dashboard" class="page active">
+            <div class="mb-8">
                 <div class="flex items-center gap-3 mb-2">
-                    <span class="material-symbols-outlined text-secondary text-3xl">menu_book</span>
-                    <h2 class="font-headline-lg text-headline-lg md:text-display-lg">Biblioteca Profissional</h2>
+                    <span class="material-symbols-outlined text-secondary text-3xl">dashboard</span>
+                    <h2 class="font-headline-lg text-headline-lg md:text-display-lg">Knowledge Engine</h2>
                 </div>
-                <p class="text-on-surface-variant max-w-xl mt-2 text-lg">Catálogo técnico de visagismo, colorimetria e cortes. Dados precisos para o salão moderno.</p>
+                <p class="text-on-surface-variant max-w-2xl text-lg">Base de conhecimento unificada do ecossistema HairOS. Todos os módulos consultam esta fonte única de dados.</p>
             </div>
 
-            <!-- Stats -->
+            <!-- Estatísticas -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-12" id="statsGrid">
+                <!-- Populated by JavaScript -->
+            </div>
+
+            <!-- Módulos rápidos -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-                <div class="bg-surface-container-lowest sharp-border p-4 text-center">
-                    <span class="text-2xl font-bold text-secondary">124</span>
-                    <p class="text-xs text-on-surface-variant font-data-mono uppercase tracking-wider">Referências</p>
+                <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer group" data-page="cuts">
+                    <span class="material-symbols-outlined text-3xl text-secondary group-hover:scale-110 transition-transform">content_cut</span>
+                    <h4 class="font-title-md text-title-md mt-2">Cortes</h4>
+                    <p class="text-xs text-on-surface-variant">Técnicas e estilos</p>
                 </div>
-                <div class="bg-surface-container-lowest sharp-border p-4 text-center">
-                    <span class="text-2xl font-bold text-secondary">48</span>
-                    <p class="text-xs text-on-surface-variant font-data-mono uppercase tracking-wider">Fórmulas</p>
+                <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer group" data-page="colorimetry">
+                    <span class="material-symbols-outlined text-3xl text-secondary group-hover:scale-110 transition-transform">palette</span>
+                    <h4 class="font-title-md text-title-md mt-2">Colorimetria</h4>
+                    <p class="text-xs text-on-surface-variant">Fórmulas e reflexos</p>
                 </div>
-                <div class="bg-surface-container-lowest sharp-border p-4 text-center">
-                    <span class="text-2xl font-bold text-secondary">36</span>
-                    <p class="text-xs text-on-surface-variant font-data-mono uppercase tracking-wider">Cortes</p>
+                <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer group" data-page="faces">
+                    <span class="material-symbols-outlined text-3xl text-secondary group-hover:scale-110 transition-transform">face</span>
+                    <h4 class="font-title-md text-title-md mt-2">Formatos de Rosto</h4>
+                    <p class="text-xs text-on-surface-variant">Morfologia facial</p>
                 </div>
-                <div class="bg-surface-container-lowest sharp-border p-4 text-center">
-                    <span class="text-2xl font-bold text-secondary">14.2k</span>
-                    <p class="text-xs text-on-surface-variant font-data-mono uppercase tracking-wider">Profissionais</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer group" data-page="biblioteca">
-                    <span class="material-symbols-outlined text-5xl text-secondary group-hover:scale-110 transition-transform">menu_book</span>
-                    <h3 class="font-title-md text-title-md mt-4">Biblioteca</h3>
-                    <p class="text-on-surface-variant text-sm">Coleções, tendências e referências técnicas organizadas.</p>
-                    <span class="inline-block mt-4 text-xs font-data-mono text-secondary">124 itens →</span>
-                </div>
-                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer group" data-page="colorimetria">
-                    <span class="material-symbols-outlined text-5xl text-secondary group-hover:scale-110 transition-transform">palette</span>
-                    <h3 class="font-title-md text-title-md mt-4">Colorimetria</h3>
-                    <p class="text-on-surface-variant text-sm">Formulações precisas, guia de reflexos e simulação.</p>
-                    <span class="inline-block mt-4 text-xs font-data-mono text-secondary">48 fórmulas →</span>
-                </div>
-                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer group" data-page="cortes">
-                    <span class="material-symbols-outlined text-5xl text-secondary group-hover:scale-110 transition-transform">content_cut</span>
-                    <h3 class="font-title-md text-title-md mt-4">Cortes</h3>
-                    <p class="text-on-surface-variant text-sm">Técnicas, compatibilidade e estilos para cada rosto.</p>
-                    <span class="inline-block mt-4 text-xs font-data-mono text-secondary">36 estilos →</span>
+                <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer group" data-page="trends">
+                    <span class="material-symbols-outlined text-3xl text-secondary group-hover:scale-110 transition-transform">trending_up</span>
+                    <h4 class="font-title-md text-title-md mt-2">Tendências</h4>
+                    <p class="text-xs text-on-surface-variant">Mercado e previsões</p>
                 </div>
             </div>
 
-            <!-- Últimas atualizações -->
-            <div class="mt-12 p-6 bg-surface-container-lowest sharp-border">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
-                        <span class="font-data-mono text-xs text-secondary uppercase tracking-[0.2em]">Últimas atualizações</span>
-                        <p class="text-sm text-on-surface-variant mt-1">Novas fórmulas de colorimetria e tendências de outono adicionadas</p>
-                    </div>
-                    <span class="flex items-center gap-2 text-sm text-on-surface-variant">
-                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        <span class="font-data-mono text-[10px] uppercase tracking-wider">Cloud ativo · 2h atrás</span>
-                    </span>
+            <!-- Search Quick Access -->
+            <div class="bg-surface-container-lowest sharp-border p-6">
+                <h3 class="font-title-md text-title-md mb-3">Busca Rápida</h3>
+                <div class="flex flex-col md:flex-row gap-4">
+                    <input type="text" id="quickSearch" placeholder="Ex: wolf cut, cobre, visagismo..." class="flex-1 p-3 border border-outline-variant/30 bg-transparent focus:border-secondary transition-colors dark:text-on-background" />
+                    <button id="quickSearchBtn" class="px-6 py-3 bg-secondary text-white hover:bg-secondary/80 transition-colors font-data-mono text-sm uppercase tracking-wider">Buscar</button>
                 </div>
+                <div id="quickResults" class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 hidden"></div>
             </div>
         </section>
 
-        <!-- PÁGINA: BIBLIOTECA (completa) -->
-        <section id="page-biblioteca" class="page">
-            <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
-                <div>
-                    <h3 class="font-headline-lg text-headline-lg">Coleções</h3>
-                    <p class="text-on-surface-variant text-sm">Explore nossa biblioteca técnica completa</p>
-                </div>
-                <div class="flex items-center gap-3 flex-wrap">
-                    <span class="font-data-mono text-label-sm text-secondary uppercase tracking-[0.2em]">124 itens</span>
-                    <button class="filter-chip filter-chip-active" data-filter="all">Todos</button>
-                    <button class="filter-chip" data-filter="cortes">Cortes</button>
-                    <button class="filter-chip" data-filter="colorimetria">Cor</button>
-                    <button class="filter-chip" data-filter="produtos">Produtos</button>
-                    <button class="filter-chip" data-filter="rosto">Rosto</button>
-                </div>
+        <!-- ==========================================
+        PAGE: CUTS (Cortes)
+        ========================================== -->
+        <section id="page-cuts" class="page">
+            <div class="mb-6 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Cortes</p>
+                <h2 class="font-headline-lg text-headline-lg">Catálogo de Cortes</h2>
+                <p class="text-on-surface-variant mt-1">Técnicas, compatibilidade e referências visuais</p>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-gutter" id="collectionGrid">
-                <div class="group bg-surface-container-lowest sharp-border p-6 card-hover flex flex-col justify-between aspect-square cursor-pointer" data-modal="Cortes" data-modal-desc="500+ estilos e técnicas de corte com análise de compatibilidade facial." data-modal-category="Cortes" data-modal-tags="#Técnica #Visagismo">
-                    <div class="flex justify-between items-start">
-                        <span class="material-symbols-outlined text-3xl group-hover:text-secondary transition-colors">content_cut</span>
-                        <span class="font-data-mono text-label-sm text-on-surface-variant opacity-60">01</span>
-                    </div>
-                    <div>
-                        <h4 class="font-title-md text-title-md mb-1">Cortes</h4>
-                        <p class="font-data-mono text-label-sm text-on-tertiary-container uppercase">500+ ESTILOS</p>
-                        <div class="mt-2 flex gap-1 flex-wrap">
-                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Técnico</span>
-                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Visagismo</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="group bg-surface-container-lowest sharp-border p-6 card-hover flex flex-col justify-between aspect-square cursor-pointer" data-modal="Colorimetria" data-modal-desc="200+ matizes e fórmulas com guia de reflexos e níveis de pigmentação." data-modal-category="Colorimetria" data-modal-tags="#Fórmulas #Reflexos">
-                    <div class="flex justify-between items-start">
-                        <span class="material-symbols-outlined text-3xl group-hover:text-secondary transition-colors">palette</span>
-                        <span class="font-data-mono text-label-sm text-on-surface-variant opacity-60">02</span>
-                    </div>
-                    <div>
-                        <h4 class="font-title-md text-title-md mb-1">Colorimetria</h4>
-                        <p class="font-data-mono text-label-sm text-on-tertiary-container uppercase">200+ MATIZES</p>
-                        <div class="mt-2 flex gap-1 flex-wrap">
-                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Precisão</span>
-                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Cromia</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="group bg-surface-container-lowest sharp-border p-6 card-hover flex flex-col justify-between aspect-square cursor-pointer" data-modal="Produtos" data-modal-desc="1.2k fórmulas laboratoriais com especificações técnicas e compatibilidade." data-modal-category="Produtos" data-modal-tags="#Laboratório #Fórmulas">
-                    <div class="flex justify-between items-start">
-                        <span class="material-symbols-outlined text-3xl group-hover:text-secondary transition-colors">science</span>
-                        <span class="font-data-mono text-label-sm text-on-surface-variant opacity-60">03</span>
-                    </div>
-                    <div>
-                        <h4 class="font-title-md text-title-md mb-1">Produtos</h4>
-                        <p class="font-data-mono text-label-sm text-on-tertiary-container uppercase">1.2K FÓRMULAS</p>
-                        <div class="mt-2 flex gap-1 flex-wrap">
-                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Química</span>
-                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Eficácia</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="group bg-surface-container-lowest sharp-border p-6 card-hover flex flex-col justify-between aspect-square cursor-pointer" data-modal="Formatos de Rosto" data-modal-desc="Análise morfológica completa com compatibilidade de cortes e harmonia facial." data-modal-category="Rosto" data-modal-tags="#Morfologia #Harmonia">
-                    <div class="flex justify-between items-start">
-                        <span class="material-symbols-outlined text-3xl group-hover:text-secondary transition-colors">face</span>
-                        <span class="font-data-mono text-label-sm text-on-surface-variant opacity-60">04</span>
-                    </div>
-                    <div>
-                        <h4 class="font-title-md text-title-md mb-1">Formatos de Rosto</h4>
-                        <p class="font-data-mono text-label-sm text-on-tertiary-container uppercase">MORFO-ANÁLISE</p>
-                        <div class="mt-2 flex gap-1 flex-wrap">
-                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Proporção</span>
-                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Simetria</span>
-                        </div>
-                    </div>
-                </div>
+            <!-- Filtros -->
+            <div class="flex flex-wrap gap-2 mb-6" id="cutFilters">
+                <button class="filter-chip filter-chip-active" data-filter="all">Todos</button>
+                <button class="filter-chip" data-filter="masculino">Masculino</button>
+                <button class="filter-chip" data-filter="feminino">Feminino</button>
+                <button class="filter-chip" data-filter="unissex">Unissex</button>
+                <button class="filter-chip" data-filter="editorial">Editorial</button>
+                <button class="filter-chip" data-filter="classico">Clássico</button>
+                <button class="filter-chip" data-filter="moderno">Moderno</button>
             </div>
 
-            <!-- Seção de busca e resultados -->
-            <div class="mt-12">
-                <div class="flex items-center justify-between mb-6 border-b border-outline-variant/10 pb-4">
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-secondary">search</span>
-                        <h3 class="font-headline-lg text-headline-lg">Pesquisar na Biblioteca</h3>
-                    </div>
-                </div>
-                <div class="relative">
-                    <input type="text" id="librarySearch" placeholder="Digite um termo... (ex: cobre, platinado, fade)" class="w-full p-4 bg-surface-container-lowest sharp-border text-lg focus:border-secondary transition-colors dark:bg-surface-container-lowest" />
-                    <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50">search</span>
-                </div>
-                <div id="searchResults" class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 hidden">
-                    <!-- Resultados serão inseridos aqui -->
-                </div>
-            </div>
-
-            <!-- Trending com mais dados -->
-            <div class="mt-16">
-                <div class="flex items-center justify-between mb-6 border-b border-outline-variant/10 pb-4">
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-secondary">trending_up</span>
-                        <h3 class="font-headline-lg text-headline-lg">Tendências em Alta</h3>
-                    </div>
-                    <button class="font-data-mono text-label-sm hover:text-secondary transition-colors" data-page="tendencias">VER TODAS →</button>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="relative group cursor-pointer overflow-hidden bg-surface-container card-hover" data-modal="Platinum Líquido" data-modal-desc="Aumento de 42% nas buscas globais. Técnica de descoloração com acabamento metálico e brilho intenso." data-modal-category="Tendência" data-modal-tags="#Metalizado #Brilho">
-                        <div class="aspect-[4/5] bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image:url('https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600&h=700&fit=crop&crop=center')"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-60"></div>
-                        <div class="absolute bottom-0 left-0 p-6 w-full">
-                            <span class="font-data-mono text-[10px] text-white bg-secondary px-2 py-1 inline-block">🔥 HOT</span>
-                            <h5 class="font-title-md text-title-md text-white mt-1">Platinum Líquido</h5>
-                            <p class="text-white/70 text-sm">+42% buscas · Metalizado</p>
-                            <div class="mt-2 flex gap-1">
-                                <span class="text-[8px] bg-white/20 text-white px-2 py-0.5">Descoloração</span>
-                                <span class="text-[8px] bg-white/20 text-white px-2 py-0.5">Brilho</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative group cursor-pointer overflow-hidden bg-surface-container card-hover" data-modal="Texturas Arquitetônicas" data-modal-desc="Popular em editorial criativo. Estruturas geométricas com sobreposição de camadas e movimento." data-modal-category="Tendência" data-modal-tags="#Editorial #Geométrico">
-                        <div class="aspect-[4/5] bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image:url('https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&h=700&fit=crop&crop=center')"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-60"></div>
-                        <div class="absolute bottom-0 left-0 p-6 w-full">
-                            <span class="font-data-mono text-[10px] text-white bg-secondary px-2 py-1 inline-block">📈 TRENDING</span>
-                            <h5 class="font-title-md text-title-md text-white mt-1">Texturas Arquitetônicas</h5>
-                            <p class="text-white/70 text-sm">Editorial · Camadas</p>
-                            <div class="mt-2 flex gap-1">
-                                <span class="text-[8px] bg-white/20 text-white px-2 py-0.5">Estrutura</span>
-                                <span class="text-[8px] bg-white/20 text-white px-2 py-0.5">Movimento</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative group cursor-pointer overflow-hidden bg-surface-container card-hover" data-modal="Sérum Nano-Repair" data-modal-desc="Lançamento de nova geração com tecnologia de reparação capilar molecular." data-modal-category="Tendência" data-modal-tags="#Inovação #Reparo">
-                        <div class="aspect-[4/5] bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image:url('https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=600&h=700&fit=crop&crop=center')"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-60"></div>
-                        <div class="absolute bottom-0 left-0 p-6 w-full">
-                            <span class="font-data-mono text-[10px] text-white bg-secondary px-2 py-1 inline-block">✨ NEW</span>
-                            <h5 class="font-title-md text-title-md text-white mt-1">Sérum Nano-Repair</h5>
-                            <p class="text-white/70 text-sm">Tecnologia molecular</p>
-                            <div class="mt-2 flex gap-1">
-                                <span class="text-[8px] bg-white/20 text-white px-2 py-0.5">Reparo</span>
-                                <span class="text-[8px] bg-white/20 text-white px-2 py-0.5">Nutrição</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cutGrid">
+                <!-- Populated by JavaScript -->
             </div>
         </section>
 
-        <!-- PÁGINA: COLORIMETRIA (completa) -->
-        <section id="page-colorimetria" class="page">
-            <div class="mb-8 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Colorimetria v4.2</p>
+        <!-- ==========================================
+        PAGE: COLORIMETRY
+        ========================================== -->
+        <section id="page-colorimetry" class="page">
+            <div class="mb-6 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Colorimetria</p>
                 <h2 class="font-headline-lg text-headline-lg">Formulações de Precisão</h2>
                 <p class="text-on-surface-variant mt-1">Guia completo de cores, reflexos e pigmentação</p>
             </div>
 
-            <!-- Filtros de cor -->
-            <div class="flex flex-wrap gap-2 mb-8">
-                <button class="filter-chip filter-chip-active" data-color-filter="all">Todas</button>
-                <button class="filter-chip" data-color-filter="neutro">Neutro</button>
-                <button class="filter-chip" data-color-filter="quente">Quente</button>
-                <button class="filter-chip" data-color-filter="frio">Frio</button>
-                <button class="filter-chip" data-color-filter="fantasy">Fantasy</button>
+            <div class="flex flex-wrap gap-2 mb-6" id="colorFilters">
+                <button class="filter-chip filter-chip-active" data-filter="all">Todas</button>
+                <button class="filter-chip" data-filter="neutro">Neutro</button>
+                <button class="filter-chip" data-filter="quente">Quente</button>
+                <button class="filter-chip" data-filter="frio">Frio</button>
+                <button class="filter-chip" data-filter="fantasy">Fantasy</button>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="colorGrid">
-                <div class="bg-white dark:bg-surface-container-lowest technical-border flex flex-col cursor-pointer card-hover" data-modal="Midnight Onyx" data-modal-img="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&h=600&fit=crop&crop=center" data-modal-desc="Nível 1.0 Neutro Intenso · Subtom Azul-violeta · Manutenção Baixa · Ideal para bases escuras com alta cobertura." data-modal-category="Colorimetria" data-modal-tags="#Neutro #AltaCobertura">
-                    <div class="h-48 w-full relative overflow-hidden bg-black">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=300&fit=crop&crop=center" loading="lazy" />
-                        <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 font-data-mono">Nível 1.0</span>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="font-title-md">Midnight Onyx</h3>
-                        <p class="text-sm text-on-surface-variant">Neutro Intenso</p>
-                        <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
-                            <span>Subtom: <span class="font-data-mono">Azul-violeta</span></span>
-                            <span>Manutenção: <span class="text-success font-data-mono">Baixa</span></span>
-                        </div>
-                        <div class="progress-bar mt-3">
-                            <div class="progress-fill" style="width: 95%"></div>
-                        </div>
-                        <p class="text-[10px] text-on-surface-variant/50 mt-1 font-data-mono">Compatibilidade: 95%</p>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-surface-container-lowest technical-border flex flex-col cursor-pointer card-hover" data-modal="Carvalho Defumado" data-modal-img="https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=800&h=600&fit=crop&crop=center" data-modal-desc="Nível 5.1 Castanho Acinzentado · Subtom Neutro · Manutenção Média · Ideal para tons naturais com profundidade." data-modal-category="Colorimetria" data-modal-tags="#Neutro #Profundidade">
-                    <div class="h-48 w-full relative overflow-hidden bg-[#4A3728]">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=400&h=300&fit=crop&crop=center" loading="lazy" />
-                        <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 font-data-mono">Nível 5.1</span>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="font-title-md">Carvalho Defumado</h3>
-                        <p class="text-sm text-on-surface-variant">Castanho Acinzentado</p>
-                        <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
-                            <span>Subtom: <span class="font-data-mono">Neutro</span></span>
-                            <span>Manutenção: <span class="text-warning font-data-mono">Média</span></span>
-                        </div>
-                        <div class="progress-bar mt-3">
-                            <div class="progress-fill" style="width: 78%"></div>
-                        </div>
-                        <p class="text-[10px] text-on-surface-variant/50 mt-1 font-data-mono">Compatibilidade: 78%</p>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-surface-container-lowest technical-border flex flex-col cursor-pointer card-hover" data-modal="Platina Ártica" data-modal-img="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&h=600&fit=crop&crop=center" data-modal-desc="Nível 10.2 Ultra Claro · Subtom Gelo/Violeta · Manutenção Crítica · Ideal para efeitos platinados e luminosidade." data-modal-category="Colorimetria" data-modal-tags="#Frio #Luminosidade">
-                    <div class="h-48 w-full relative overflow-hidden bg-[#E5E4E2]">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=300&fit=crop&crop=center" loading="lazy" />
-                        <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 font-data-mono">Nível 10.2</span>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="font-title-md">Platina Ártica</h3>
-                        <p class="text-sm text-on-surface-variant">Ultra Claro</p>
-                        <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
-                            <span>Subtom: <span class="font-data-mono">Gelo/Violeta</span></span>
-                            <span>Manutenção: <span class="text-error font-data-mono">Crítica</span></span>
-                        </div>
-                        <div class="progress-bar mt-3">
-                            <div class="progress-fill" style="width: 45%"></div>
-                        </div>
-                        <p class="text-[10px] text-on-surface-variant/50 mt-1 font-data-mono">Compatibilidade: 45%</p>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-surface-container-lowest technical-border flex flex-col cursor-pointer card-hover" data-modal="Cobre Oxidado" data-modal-img="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&h=600&fit=crop&crop=center" data-modal-desc="Nível 7.44 Cobre Intenso · Subtom Laranja quente · Manutenção Alta · Ideal para tons vibrantes e reflexos dourados." data-modal-category="Colorimetria" data-modal-tags="#Quente #Vibrante">
-                    <div class="h-48 w-full relative overflow-hidden bg-[#B87333]">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&h=300&fit=crop&crop=center" loading="lazy" />
-                        <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 font-data-mono">Nível 7.44</span>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="font-title-md">Cobre Oxidado</h3>
-                        <p class="text-sm text-on-surface-variant">Cobre Intenso</p>
-                        <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
-                            <span>Subtom: <span class="font-data-mono">Laranja quente</span></span>
-                            <span>Manutenção: <span class="text-error font-data-mono">Alta</span></span>
-                        </div>
-                        <div class="progress-bar mt-3">
-                            <div class="progress-fill" style="width: 62%"></div>
-                        </div>
-                        <p class="text-[10px] text-on-surface-variant/50 mt-1 font-data-mono">Compatibilidade: 62%</p>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-surface-container-lowest technical-border flex flex-col cursor-pointer card-hover" data-modal="Fluxo Ultravioleta" data-modal-img="https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=800&h=600&fit=crop&crop=center" data-modal-desc="Nível 3.0 Fantasy · Subtom Violeta frio · Manutenção Alta · Ideal para looks criativos e cores não-naturais." data-modal-category="Colorimetria" data-modal-tags="#Fantasy #Criativo">
-                    <div class="h-48 w-full relative overflow-hidden bg-[#4B0082]">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=400&h=300&fit=crop&crop=center" loading="lazy" />
-                        <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 font-data-mono">Nível 3.0</span>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="font-title-md">Fluxo Ultravioleta</h3>
-                        <p class="text-sm text-on-surface-variant">Fantasy</p>
-                        <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
-                            <span>Subtom: <span class="font-data-mono">Violeta frio</span></span>
-                            <span>Manutenção: <span class="text-error font-data-mono">Alta</span></span>
-                        </div>
-                        <div class="progress-bar mt-3">
-                            <div class="progress-fill" style="width: 58%"></div>
-                        </div>
-                        <p class="text-[10px] text-on-surface-variant/50 mt-1 font-data-mono">Compatibilidade: 58%</p>
-                    </div>
-                </div>
-
-                <div class="border-2 border-dashed border-outline-variant/30 flex flex-col items-center justify-center p-6 bg-surface text-center cursor-pointer card-hover" data-modal="Simular Cromóforo" data-modal-desc="Motor de formulação inteligente. Crie combinações personalizadas de pigmentos e reflexos." data-modal-category="Ferramenta" data-modal-tags="#Simulação #Personalização">
-                    <span class="material-symbols-outlined text-5xl mb-3 text-secondary">biotech</span>
-                    <h3 class="font-title-md text-title-md">Simular Cromóforo</h3>
-                    <p class="text-sm text-on-surface-variant">Crie uma fórmula personalizada</p>
-                    <span class="mt-3 text-xs font-data-mono text-secondary">Beta · Em breve</span>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="colorGrid">
+                <!-- Populated by JavaScript -->
             </div>
 
-            <!-- Tabela de Reflexos expandida -->
-            <div class="mt-16">
+            <!-- Tabela de Reflexos -->
+            <div class="mt-12">
                 <h3 class="font-headline-lg text-headline-lg mb-4">Guia de Reflexos</h3>
-                <div class="overflow-x-auto technical-border bg-white dark:bg-surface-container-lowest">
+                <div class="overflow-x-auto technical-border bg-white dark:bg-surface-container-lowest" id="reflexTable">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+        PAGE: FACES (Formatos de Rosto)
+        ========================================== -->
+        <section id="page-faces" class="page">
+            <div class="mb-6 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Visagismo</p>
+                <h2 class="font-headline-lg text-headline-lg">Formatos de Rosto</h2>
+                <p class="text-on-surface-variant mt-1">Análise morfológica e compatibilidade de cortes</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="faceGrid">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- ==========================================
+        PAGE: HAIR TYPES
+        ========================================== -->
+        <section id="page-hairTypes" class="page">
+            <div class="mb-6 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Tipos de Cabelo</p>
+                <h2 class="font-headline-lg text-headline-lg">Classificação Capilar</h2>
+                <p class="text-on-surface-variant mt-1">Tipo, textura, densidade, porosidade e elasticidade</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="hairTypeGrid">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- ==========================================
+        PAGE: TECHNIQUES
+        ========================================== -->
+        <section id="page-techniques" class="page">
+            <div class="mb-6 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Técnicas</p>
+                <h2 class="font-headline-lg text-headline-lg">Técnicas Capilares</h2>
+                <p class="text-on-surface-variant mt-1">Métodos, procedimentos e execuções</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="techniqueGrid">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- ==========================================
+        PAGE: PRODUCTS
+        ========================================== -->
+        <section id="page-products" class="page">
+            <div class="mb-6 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Produtos</p>
+                <h2 class="font-headline-lg text-headline-lg">Catálogo de Produtos</h2>
+                <p class="text-on-surface-variant mt-1">Especificações, fórmulas e aplicações</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="productGrid">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- ==========================================
+        PAGE: TOOLS
+        ========================================== -->
+        <section id="page-tools" class="page">
+            <div class="mb-6 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Ferramentas</p>
+                <h2 class="font-headline-lg text-headline-lg">Ferramentas Profissionais</h2>
+                <p class="text-on-surface-variant mt-1">Equipamentos, utensílios e instrumentos</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="toolGrid">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- ==========================================
+        PAGE: TRENDS
+        ========================================== -->
+        <section id="page-trends" class="page">
+            <div class="mb-6 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Tendências</p>
+                <h2 class="font-headline-lg text-headline-lg">Tendências do Mercado</h2>
+                <p class="text-on-surface-variant mt-1">Análises, previsões e movimentos do setor</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="trendGrid">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- ==========================================
+        PAGE: CHEMISTRY
+        ========================================== -->
+        <section id="page-chemistry" class="page">
+            <div class="mb-6 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Química</p>
+                <h2 class="font-headline-lg text-headline-lg">Química Capilar</h2>
+                <p class="text-on-surface-variant mt-1">pH, oxidação, melanina, cutícula e córtex</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="chemistryGrid">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- ==========================================
+        PAGE: GLOSSARY
+        ========================================== -->
+        <section id="page-glossary" class="page">
+            <div class="mb-6 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Glossário</p>
+                <h2 class="font-headline-lg text-headline-lg">Glossário Técnico</h2>
+                <p class="text-on-surface-variant mt-1">Termos, definições e conceitos da área</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="glossaryGrid">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- ==========================================
+        PAGE: BIBLIOGRAPHY
+        ========================================== -->
+        <section id="page-bibliography" class="page">
+            <div class="mb-6 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Módulo · Bibliografia</p>
+                <h2 class="font-headline-lg text-headline-lg">Referências Científicas</h2>
+                <p class="text-on-surface-variant mt-1">Livros, autores, pesquisas e artigos acadêmicos</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="bibliographyGrid">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================
+    BOTTOM NAV (mobile)
+    ============================================ -->
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-2 pb-safe bg-surface dark:bg-background border-t border-outline-variant/10 backdrop-blur-md md:hidden overflow-x-auto">
+        <a href="#" data-page="dashboard" class="nav-link flex flex-col items-center justify-center text-primary dark:text-on-background nav-link-active whitespace-nowrap px-2">
+            <span class="material-symbols-outlined text-xl">dashboard</span>
+            <span class="font-label-sm text-[9px]">Início</span>
+        </a>
+        <a href="#" data-page="cuts" class="nav-link flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-60 whitespace-nowrap px-2">
+            <span class="material-symbols-outlined text-xl">content_cut</span>
+            <span class="font-label-sm text-[9px]">Cortes</span>
+        </a>
+        <a href="#" data-page="colorimetry" class="nav-link flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-60 whitespace-nowrap px-2">
+            <span class="material-symbols-outlined text-xl">palette</span>
+            <span class="font-label-sm text-[9px]">Cor</span>
+        </a>
+        <a href="#" data-page="faces" class="nav-link flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-60 whitespace-nowrap px-2">
+            <span class="material-symbols-outlined text-xl">face</span>
+            <span class="font-label-sm text-[9px]">Rosto</span>
+        </a>
+        <a href="#" data-page="trends" class="nav-link flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-60 whitespace-nowrap px-2">
+            <span class="material-symbols-outlined text-xl">trending_up</span>
+            <span class="font-label-sm text-[9px]">Tendências</span>
+        </a>
+        <a href="#" data-page="glossary" class="nav-link flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-60 whitespace-nowrap px-2">
+            <span class="material-symbols-outlined text-xl">menu_book</span>
+            <span class="font-label-sm text-[9px]">Glossário</span>
+        </a>
+    </nav>
+
+    <!-- ============================================
+    MODAL
+    ============================================ -->
+    <div id="modalOverlay" class="modal-overlay fixed inset-0 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="modal-content relative p-6 max-w-5xl w-full max-h-[90vh] overflow-y-auto">
+            <button id="modalClose" class="absolute top-4 right-4 text-3xl hover:opacity-60 transition-opacity material-symbols-outlined z-10" aria-label="Fechar modal">close</button>
+            <div id="modalBody" class="flex flex-col gap-4">
+                <div>
+                    <span id="modalCategory" class="text-xs font-data-mono text-secondary uppercase tracking-[0.2em]"></span>
+                    <h3 id="modalTitle" class="font-headline-lg text-headline-lg mt-1"></h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <img id="modalImage" class="w-full rounded-sm max-h-[50vh] object-contain" src="" alt="" />
+                    </div>
+                    <div class="space-y-4 overflow-y-auto max-h-[50vh]">
+                        <p id="modalDesc" class="text-on-surface-variant text-base"></p>
+                        <div id="modalTags" class="flex flex-wrap gap-2"></div>
+                        <div id="modalAttributes" class="grid grid-cols-2 gap-2 text-sm"></div>
+                        <div id="modalExtra" class="border-t border-outline-variant/10 pt-4 mt-2">
+                            <p class="text-xs text-on-surface-variant/50 font-data-mono">HairOS Knowledge Engine · v3.0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+    JAVASCRIPT — HAiROS KNOWLEDGE ENGINE
+    ============================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================
+            // 1. DATABASE — Conhecimento Unificado
+            // ============================================
+            const HairDatabase = {
+
+                // ----- CUTS (Cortes) -----
+                cuts: [{
+                    id: 'wolf-cut',
+                    nome: 'Wolf Cut',
+                    categoria: 'Moderno',
+                    subcategoria: 'Camadas',
+                    genero: 'unissex',
+                    paisOrigem: 'Coreia do Sul',
+                    ano: 2020,
+                    descricao: 'Corte com camadas intensas e textura selvagem, inspirado no visual dos anos 80 com modernidade.',
+                    historia: 'Popularizado pelo K-pop e redes sociais, o Wolf Cut combina elementos do shag e do mullet.',
+                    objetivo: 'Criar volume e movimento com aspecto despojado e moderno.',
+                    nivelTecnico: 'Intermediário',
+                    tempoExecucao: '45-60 min',
+                    manutencao: 'Média (a cada 4-6 semanas)',
+                    dificuldade: 7,
+                    compatibilidade: ['Oval', 'Coração', 'Diamante'],
+                    contraIndicacoes: ['Rosto muito longo', 'Cabelo muito fino'],
+                    vantagens: ['Versátil', 'Moderno', 'Despojado'],
+                    desvantagens: ['Exige texturização', 'Manutenção regular'],
+                    ferramentas: ['Tesoura de textura', 'Tesoura reta', 'Pente fino'],
+                    produtos: ['Shampoo volume', 'Mousse', 'Spray texturizador'],
+                    imagens: ['https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&h=600&fit=crop&crop=center'],
+                    videos: [],
+                    tags: ['wolfcut', 'camadas', 'textura', 'moderno', 'kpop'],
+                    referencias: ['Técnica de camadas assimétricas'],
+                    bibliografia: ['Visagismo Contemporâneo - 2021'],
+                    variacoes: ['Wolf Cut Longo', 'Wolf Cut Curto'],
+                    errosComuns: ['Camadas muito pesadas', 'Falta de textura'],
+                    comoCorrigir: ['Adicionar mais camadas leves', 'Finalizar com texturizador'],
+                    curiosidades: ['Foi o corte mais pesquisado no Google em 2021'],
+                    notasProfissionais: 'Ótimo para cabelos médios a longos com textura natural.'
+                }, {
+                    id: 'pompadour',
+                    nome: 'Pompadour',
+                    categoria: 'Clássico',
+                    subcategoria: 'Volume',
+                    genero: 'masculino',
+                    paisOrigem: 'França',
+                    ano: 1750,
+                    descricao: 'Corte clássico com volume no topo e laterais curtas, criando um visual elegante e atemporal.',
+                    historia: 'Popularizado por Madame de Pompadour no século XVIII, tornou-se símbolo de elegância.',
+                    objetivo: 'Alongar o rosto e criar volume no topo.',
+                    nivelTecnico: 'Intermediário',
+                    tempoExecucao: '30-40 min',
+                    manutencao: 'Baixa (a cada 6-8 semanas)',
+                    dificuldade: 6,
+                    compatibilidade: ['Oval', 'Quadrado', 'Diamante'],
+                    contraIndicacoes: ['Rosto muito redondo', 'Cabelo muito fino'],
+                    vantagens: ['Elegante', 'Atemporal', 'Versátil'],
+                    desvantagens: ['Pode ser demorado no dia a dia'],
+                    ferramentas: ['Tesoura reta', 'Máquina', 'Pente'],
+                    produtos: ['Pomada', 'Spray fixador'],
+                    imagens: ['https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&h=600&fit=crop&crop=center&sat=-100'],
+                    videos: [],
+                    tags: ['pompadour', 'classico', 'volume', 'elegante'],
+                    referencias: ['Visagismo clássico'],
+                    bibliografia: ['História do Corte - 2015'],
+                    variacoes: ['Pompadour Moderno', 'Pompadour Despojado'],
+                    errosComuns: ['Volume excessivo', 'Laterais muito curtas'],
+                    comoCorrigir: ['Reduzir camadas', 'Manter proporção'],
+                    curiosidades: ['Elvis Presley popularizou a versão moderna'],
+                    notasProfissionais: 'Ideal para eventos formais e ambientes corporativos.'
+                }, {
+                    id: 'pixie-afiado',
+                    nome: 'Pixie Afiado',
+                    categoria: 'Moderno',
+                    subcategoria: 'Assimétrico',
+                    genero: 'feminino',
+                    paisOrigem: 'Reino Unido',
+                    ano: 1950,
+                    descricao: 'Corte curto com linhas assimétricas e textura afiada, criando um visual ousado e moderno.',
+                    historia: 'Reinventado por Audrey Hepburn e modernizado por estilistas contemporâneos.',
+                    objetivo: 'Destacar as maçãs do rosto e o pescoço.',
+                    nivelTecnico: 'Avançado',
+                    tempoExecucao: '35-50 min',
+                    manutencao: 'Alta (a cada 3-4 semanas)',
+                    dificuldade: 8,
+                    compatibilidade: ['Oval', 'Coração', 'Quadrado'],
+                    contraIndicacoes: ['Rosto muito longo', 'Nariz proeminente'],
+                    vantagens: ['Ousado', 'Moderno', 'Prático'],
+                    desvantagens: ['Exige manutenção frequente'],
+                    ferramentas: ['Tesoura reta', 'Navalha', 'Pente fino'],
+                    produtos: ['Mousse', 'Cera modeladora'],
+                    imagens: ['https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=800&h=600&fit=crop&crop=center'],
+                    videos: [],
+                    tags: ['pixie', 'curto', 'assimetrico', 'moderno', 'feminino'],
+                    referencias: ['Técnica de tesoura sobre pente'],
+                    bibliografia: ['Cortes Modernos - 2020'],
+                    variacoes: ['Pixie Longo', 'Pixie Texturizado'],
+                    errosComuns: ['Simetria excessiva', 'Falta de textura'],
+                    comoCorrigir: ['Adicionar assimetria', 'Texturizar pontas'],
+                    curiosidades: ['O Pixie foi criado originalmente para mulheres que trabalhavam na indústria da moda.'],
+                    notasProfissionais: 'Requer precisão e confiança para executar.'
+                }, {
+                    id: 'fade-degrade',
+                    nome: 'Fade Degradê',
+                    categoria: 'Moderno',
+                    subcategoria: 'Transição',
+                    genero: 'masculino',
+                    paisOrigem: 'Estados Unidos',
+                    ano: 1980,
+                    descricao: 'Técnica de transição gradual do cabelo, das laterais curtas ao topo mais longo.',
+                    historia: 'Surgiu nas comunidades afro-americanas e tornou-se tendência global.',
+                    objetivo: 'Criar efeito de degradê suave e preciso.',
+                    nivelTecnico: 'Intermediário',
+                    tempoExecucao: '25-35 min',
+                    manutencao: 'Alta (a cada 2-3 semanas)',
+                    dificuldade: 7,
+                    compatibilidade: ['Oval', 'Quadrado', 'Diamante', 'Redondo'],
+                    contraIndicacoes: ['Cabelo muito fino', 'Problemas de pele'],
+                    vantagens: ['Preciso', 'Moderno', 'Limpo'],
+                    desvantagens: ['Exige manutenção constante'],
+                    ferramentas: ['Máquina', 'Navalha', 'Pente'],
+                    produtos: ['Óleo capilar', 'Pomada leve'],
+                    imagens: ['https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&h=600&fit=crop&crop=center'],
+                    videos: [],
+                    tags: ['fade', 'degrade', 'transicao', 'masculino', 'preciso'],
+                    referencias: ['Técnica de máquina com pente'],
+                    bibliografia: ['Barbering Techniques - 2018'],
+                    variacoes: ['Fade Baixo', 'Fade Médio', 'Fade Alto'],
+                    errosComuns: ['Linhas marcadas', 'Transição abrupta'],
+                    comoCorrigir: ['Usar pentes de transição', 'Finalizar com navalha'],
+                    curiosidades: ['O Fade é um dos cortes mais pedidos em barbearias modernas.'],
+                    notasProfissionais: 'Dominar o fade é essencial para qualquer barbeiro profissional.'
+                }, {
+                    id: 'bob-reto',
+                    nome: 'Bob Reto',
+                    categoria: 'Clássico',
+                    subcategoria: 'Simétrico',
+                    genero: 'feminino',
+                    paisOrigem: 'Estados Unidos',
+                    ano: 1910,
+                    descricao: 'Corte simétrico com linhas retas e precisão angular, terminando no maxilar.',
+                    historia: 'Popularizado por Irene Castle e reinventado por Vidal Sassoon.',
+                    objetivo: 'Criar simetria e estrutura facial.',
+                    nivelTecnico: 'Intermediário',
+                    tempoExecucao: '30-40 min',
+                    manutencao: 'Média (a cada 4-5 semanas)',
+                    dificuldade: 6,
+                    compatibilidade: ['Oval', 'Longo', 'Coração'],
+                    contraIndicacoes: ['Rosto muito redondo', 'Rosto quadrado forte'],
+                    vantagens: ['Elegante', 'Atemporal', 'Estrutural'],
+                    desvantagens: ['Exige precisão', 'Manutenção regular'],
+                    ferramentas: ['Tesoura reta', 'Pente fino', 'Espray de água'],
+                    produtos: ['Sérum', 'Protetor térmico'],
+                    imagens: ['https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=800&h=600&fit=crop&crop=center'],
+                    videos: [],
+                    tags: ['bob', 'reto', 'simetrico', 'classico', 'feminino'],
+                    referencias: ['Técnica de corte a seco'],
+                    bibliografia: ['Cortes Clássicos - 1985'],
+                    variacoes: ['Long Bob', 'Bob Assimétrico', 'Bob Texturizado'],
+                    errosComuns: ['Linhas tortas', 'Comprimento irregular'],
+                    comoCorrigir: ['Refazer linha de base', 'Usar guia de comprimento'],
+                    curiosidades: ['O Bob foi um dos primeiros cortes que libertou as mulheres dos cabelos longos.'],
+                    notasProfissionais: 'A precisão é fundamental para este corte.'
+                }, {
+                    id: 'french-crop',
+                    nome: 'French Crop',
+                    categoria: 'Moderno',
+                    subcategoria: 'Textura',
+                    genero: 'unissex',
+                    paisOrigem: 'França',
+                    ano: 2015,
+                    descricao: 'Corte texturizado com franja e laterais curtas, criando um visual despojado e urbano.',
+                    historia: 'Tornou-se popular entre celebridades e influenciadores europeus.',
+                    objetivo: 'Criar textura e movimento com aspecto descontraído.',
+                    nivelTecnico: 'Intermediário',
+                    tempoExecucao: '30-40 min',
+                    manutencao: 'Média (a cada 4-5 semanas)',
+                    dificuldade: 6,
+                    compatibilidade: ['Oval', 'Quadrado', 'Diamante'],
+                    contraIndicacoes: ['Cabelo muito crespo', 'Rosto muito longo'],
+                    vantagens: ['Versátil', 'Urbano', 'Prático'],
+                    desvantagens: ['Exige texturização', 'Não serve para todos'],
+                    ferramentas: ['Tesoura de textura', 'Navalha', 'Pente'],
+                    produtos: ['Pomada', 'Spray texturizador'],
+                    imagens: ['https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&h=600&fit=crop&crop=center&sat=-50'],
+                    videos: [],
+                    tags: ['french crop', 'textura', 'urbano', 'moderno', 'unissex'],
+                    referencias: ['Técnica de franja desconectada'],
+                    bibliografia: ['Cortes Urbanos - 2019'],
+                    variacoes: ['French Crop Longo', 'French Crop Curto'],
+                    errosComuns: ['Franja muito pesada', 'Falta de textura'],
+                    comoCorrigir: ['Desconectar franja', 'Adicionar camadas'],
+                    curiosidades: ['O French Crop foi inspirado nos cortes dos anos 90.'],
+                    notasProfissionais: 'Trabalhar bem a textura é o segredo deste corte.'
+                }, {
+                    id: 'mullet',
+                    nome: 'Mullet',
+                    categoria: 'Clássico',
+                    subcategoria: 'Camadas',
+                    genero: 'unissex',
+                    paisOrigem: 'Reino Unido',
+                    ano: 1970,
+                    descricao: 'Corte com laterais e topo curtos e parte traseira longa, criando um visual ousado.',
+                    historia: 'Popularizado por músicos nos anos 80 e ressurgindo na moda atual.',
+                    objetivo: 'Criar contraste entre o curto e o longo.',
+                    nivelTecnico: 'Intermediário',
+                    tempoExecucao: '40-50 min',
+                    manutencao: 'Média (a cada 4-6 semanas)',
+                    dificuldade: 7,
+                    compatibilidade: ['Oval', 'Quadrado', 'Diamante'],
+                    contraIndicacoes: ['Rosto muito redondo', 'Cabelo muito fino'],
+                    vantagens: ['Ousado', 'Versátil', 'Retro'],
+                    desvantagens: ['Não é para todos', 'Pode desvalorizar'],
+                    ferramentas: ['Tesoura reta', 'Tesoura de textura', 'Pente'],
+                    produtos: ['Gel', 'Spray fixador'],
+                    imagens: ['https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&h=600&fit=crop&crop=center&sat=-30'],
+                    videos: [],
+                    tags: ['mullet', 'retro', 'camadas', 'ousado', 'anos80'],
+                    referencias: ['Técnica de camadas desconectadas'],
+                    bibliografia: ['Cortes Históricos - 2017'],
+                    variacoes: ['Mullet Moderno', 'Mullet Curto'],
+                    errosComuns: ['Transição muito abrupta', 'Excesso de comprimento'],
+                    comoCorrigir: ['Suavizar transição', 'Reduzir comprimento'],
+                    curiosidades: ['O Mullet é considerado um dos cortes mais polêmicos da história.'],
+                    notasProfissionais: 'Atualmente tem ganhado força entre jovens e artistas.'
+                }, {
+                    id: 'shag',
+                    nome: 'Shag',
+                    categoria: 'Moderno',
+                    subcategoria: 'Camadas',
+                    genero: 'feminino',
+                    paisOrigem: 'Estados Unidos',
+                    ano: 1960,
+                    descricao: 'Corte com camadas desconectadas e textura intensa, criando volume e movimento.',
+                    historia: 'Originalmente criado para atrizes de Hollywood, ressurgiu com o rock dos anos 70.',
+                    objetivo: 'Criar volume e textura intensa.',
+                    nivelTecnico: 'Avançado',
+                    tempoExecucao: '50-70 min',
+                    manutencao: 'Alta (a cada 4-5 semanas)',
+                    dificuldade: 8,
+                    compatibilidade: ['Oval', 'Coração', 'Quadrado'],
+                    contraIndicacoes: ['Cabelo muito fino', 'Cabelo muito liso'],
+                    vantagens: ['Volume', 'Movimento', 'Despojado'],
+                    desvantagens: ['Exige técnica avançada', 'Manutenção frequente'],
+                    ferramentas: ['Tesoura de textura', 'Navalha', 'Pente fino'],
+                    produtos: ['Mousse', 'Spray de sal marinho'],
+                    imagens: ['https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=800&h=600&fit=crop&crop=center&sat=-20'],
+                    videos: [],
+                    tags: ['shag', 'camadas', 'textura', 'volume', 'feminino'],
+                    referencias: ['Técnica de camadas desconectadas'],
+                    bibliografia: ['Cortes Texturizados - 2022'],
+                    variacoes: ['Shag Longo', 'Shag Curto', 'Shag assimétrico'],
+                    errosComuns: ['Camadas desiguais', 'Falta de textura'],
+                    comoCorrigir: ['Refazer camadas', 'Texturizar com navalha'],
+                    curiosidades: ['O Shag foi modernizado por estilistas como Sam McKnight.'],
+                    notasProfissionais: 'Excelente para dar vida a cabelos sem movimento natural.'
+                }],
+
+                // ----- COLORIMETRY -----
+                colors: [{
+                    id: 'midnight-onyx',
+                    nome: 'Midnight Onyx',
+                    nivel: 'Nível 1.0',
+                    tipo: 'Neutro',
+                    subtom: 'Azul-violeta',
+                    manutencao: 'Baixa',
+                    compatibilidade: 95,
+                    descricao: 'Cor intensa e profunda, ideal para bases escuras.',
+                    aplicacao: 'Cobertura de fios grisalhos e tons escuros.',
+                    imagens: ['https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&h=600&fit=crop&crop=center'],
+                    tags: ['escuro', 'intenso', 'neutro', 'profundo'],
+                    reflexos: ['.1', '.3'],
+                    oxidante: '20-30 volumes',
+                    tempo: '35-45 min',
+                    cuidados: 'Shampoo para cabelos escuros e hidratação semanal.'
+                }, {
+                    id: 'carvalho-defumado',
+                    nome: 'Carvalho Defumado',
+                    nivel: 'Nível 5.1',
+                    tipo: 'Neutro',
+                    subtom: 'Castanho Acinzentado',
+                    manutencao: 'Média',
+                    compatibilidade: 78,
+                    descricao: 'Tom castanho com nuance acinzentada e profundidade.',
+                    aplicacao: 'Tons naturais com aspecto fumê.',
+                    imagens: ['https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=800&h=600&fit=crop&crop=center'],
+                    tags: ['castanho', 'acinzentado', 'natural', 'profundo'],
+                    reflexos: ['.1', '.2'],
+                    oxidante: '20-30 volumes',
+                    tempo: '30-40 min',
+                    cuidados: 'Shampoo para cabelos matizados e hidratação regular.'
+                }, {
+                    id: 'platina-artica',
+                    nome: 'Platina Ártica',
+                    nivel: 'Nível 10.2',
+                    tipo: 'Frio',
+                    subtom: 'Gelo/Violeta',
+                    manutencao: 'Crítica',
+                    compatibilidade: 45,
+                    descricao: 'Ultra claro com reflexos gelados e platinados.',
+                    aplicacao: 'Efeitos luminosos e platinados.',
+                    imagens: ['https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&h=600&fit=crop&crop=center'],
+                    tags: ['platina', 'gelo', 'luminoso', 'frio'],
+                    reflexos: ['.2', '.5'],
+                    oxidante: '10-20 volumes',
+                    tempo: '45-60 min',
+                    cuidados: 'Shampoo matizador roxo e hidratação intensa semanal.'
+                }, {
+                    id: 'cobre-oxidado',
+                    nome: 'Cobre Oxidado',
+                    nivel: 'Nível 7.44',
+                    tipo: 'Quente',
+                    subtom: 'Laranja quente',
+                    manutencao: 'Alta',
+                    compatibilidade: 62,
+                    descricao: 'Cobre intenso e vibrante com reflexos dourados.',
+                    aplicacao: 'Tons vibrantes e quentes.',
+                    imagens: ['https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&h=600&fit=crop&crop=center'],
+                    tags: ['cobre', 'vibrante', 'quente', 'intenso'],
+                    reflexos: ['.3', '.4'],
+                    oxidante: '20-30 volumes',
+                    tempo: '35-45 min',
+                    cuidados: 'Shampoo para cabelos vermelhos e hidratação semanal.'
+                }, {
+                    id: 'fluxo-ultravioleta',
+                    nome: 'Fluxo Ultravioleta',
+                    nivel: 'Nível 3.0',
+                    tipo: 'Fantasy',
+                    subtom: 'Violeta frio',
+                    manutencao: 'Alta',
+                    compatibilidade: 58,
+                    descricao: 'Cor fantasia com pigmentos violetas e alta intensidade.',
+                    aplicacao: 'Looks criativos e cores não-naturais.',
+                    imagens: ['https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=800&h=600&fit=crop&crop=center'],
+                    tags: ['fantasy', 'violeta', 'criativo', 'intenso'],
+                    reflexos: ['.2', '.5'],
+                    oxidante: '20-30 volumes',
+                    tempo: '40-50 min',
+                    cuidados: 'Shampoo para cabelos coloridos e hidratação semanal.'
+                }, {
+                    id: 'mogno-profundo',
+                    nome: 'Mogno Profundo',
+                    nivel: 'Nível 4.5',
+                    tipo: 'Quente',
+                    subtom: 'Vermelho acobreado',
+                    manutencao: 'Média',
+                    compatibilidade: 72,
+                    descricao: 'Vermelho profundo com reflexos acobreados.',
+                    aplicacao: 'Tons intensos e quentes com profundidade.',
+                    imagens: ['https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=800&h=600&fit=crop&crop=center&sat=30'],
+                    tags: ['mogno', 'vermelho', 'profundo', 'quente'],
+                    reflexos: ['.4', '.5'],
+                    oxidante: '20-30 volumes',
+                    tempo: '30-40 min',
+                    cuidados: 'Shampoo para cabelos vermelhos e hidratação regular.'
+                }],
+
+                // ----- FACES -----
+                faces: [{
+                    id: 'rosto-oval',
+                    nome: 'Oval',
+                    descricao: 'Rosto proporcional, com largura da testa maior que o maxilar.',
+                    caracteristicas: ['Proporcional', 'Versátil', 'Harmonioso'],
+                    cortesIndicados: ['Pompadour', 'Buzz Cut', 'French Crop', 'Bob Reto'],
+                    cortesEvitar: ['Nenhum específico'],
+                    dicas: 'Considerado o formato mais versátil, aceita quase todos os cortes.',
+                    imagens: ['https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=400&fit=crop&crop=center&sat=-100'],
+                    tags: ['proporcional', 'versátil', 'harmonioso']
+                }, {
+                    id: 'rosto-quadrado',
+                    nome: 'Quadrado',
+                    descricao: 'Largura e altura semelhantes, com maxilar marcado.',
+                    caracteristicas: ['Estruturado', 'Angular', 'Forte'],
+                    cortesIndicados: ['Pompadour', 'Buzz Cut', 'Fade Degradê', 'French Crop'],
+                    cortesEvitar: ['Bob Reto', 'Cortes muito retos'],
+                    dicas: 'Cortes com volume no topo ajudam a alongar o rosto.',
+                    imagens: ['https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=400&fit=crop&crop=center&sat=-100'],
+                    tags: ['estruturado', 'angular', 'forte']
+                }, {
+                    id: 'rosto-coracao',
+                    nome: 'Coração',
+                    descricao: 'Testa larga e queixo fino e pontudo.',
+                    caracteristicas: ['Testa larga', 'Queixo fino', 'Romântico'],
+                    cortesIndicados: ['Pixie Afiado', 'Shag', 'Wolf Cut'],
+                    cortesEvitar: ['Cortes muito longos e lisos'],
+                    dicas: 'Cortes com volume nas laterais equilibram a largura da testa.',
+                    imagens: ['https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=400&h=400&fit=crop&crop=center&sat=-100'],
+                    tags: ['testa larga', 'queixo fino', 'romântico']
+                }, {
+                    id: 'rosto-diamante',
+                    nome: 'Diamante',
+                    descricao: 'Maçãs do rosto largas, testa e queixo estreitos.',
+                    caracteristicas: ['Maçãs largas', 'Testa estreita', 'Queixo estreito'],
+                    cortesIndicados: ['Fade Degradê', 'Wolf Cut', 'Pompadour'],
+                    cortesEvitar: ['Cortes com muito volume nas laterais'],
+                    dicas: 'Cortes com volume no topo equilibram as maçãs largas.',
+                    imagens: ['https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&h=400&fit=crop&crop=center&sat=-100'],
+                    tags: ['maçãs largas', 'testa estreita', 'equilibrado']
+                }, {
+                    id: 'rosto-longo',
+                    nome: 'Longo',
+                    descricao: 'Altura maior que a largura, com queixo alongado.',
+                    caracteristicas: ['Alongado', 'Queixo proeminente', 'Nobre'],
+                    cortesIndicados: ['Bob Reto', 'Shag', 'Wolf Cut'],
+                    cortesEvitar: ['Cortes muito curtos', 'Volume no topo'],
+                    dicas: 'Cortes com volume nas laterais encurtam visualmente o rosto.',
+                    imagens: ['https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=400&h=400&fit=crop&crop=center&sat=-100'],
+                    tags: ['alongado', 'queixo proeminente', 'nobre']
+                }, {
+                    id: 'rosto-redondo',
+                    nome: 'Redondo',
+                    descricao: 'Largura e altura semelhantes, com linhas suaves e curvas.',
+                    caracteristicas: ['Suave', 'Curvo', 'Infantil'],
+                    cortesIndicados: ['Fade Degradê', 'Pixie Afiado', 'Wolf Cut'],
+                    cortesEvitar: ['Bob Reto', 'Cortes muito retos'],
+                    dicas: 'Cortes com volume no topo e laterais mais curtas afinam o rosto.',
+                    imagens: ['https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=400&fit=crop&crop=center&sat=-100&blur=5'],
+                    tags: ['suave', 'curvo', 'infantil']
+                }],
+
+                // ----- HAIR TYPES -----
+                hairTypes: [{
+                    id: 'tipo-1a',
+                    nome: '1A',
+                    descricao: 'Cabelo liso, fino e muito liso, sem ondulação.',
+                    caracteristicas: ['Liso', 'Fino', 'Sem onda'],
+                    porosidade: 'Baixa a média',
+                    densidade: 'Fina a média',
+                    elasticidade: 'Baixa',
+                    dicas: 'Usar produtos leves para não pesar.',
+                    produtosIndicados: ['Shampoo leves', 'Condicionador suave'],
+                    imagens: ['https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=400&fit=crop&crop=center']
+                }, {
+                    id: 'tipo-1b',
+                    nome: '1B',
+                    descricao: 'Cabelo liso com textura média e leve movimento.',
+                    caracteristicas: ['Liso', 'Médio', 'Leve movimento'],
+                    porosidade: 'Média',
+                    densidade: 'Média',
+                    elasticidade: 'Média',
+                    dicas: 'É o tipo mais versátil para diferentes penteados.',
+                    produtosIndicados: ['Shampoo equilibrado', 'Condicionador leve'],
+                    imagens: ['https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=400&fit=crop&crop=center']
+                }, {
+                    id: 'tipo-2a',
+                    nome: '2A',
+                    descricao: 'Cabelo ondulado, com ondas largas e soltas.',
+                    caracteristicas: ['Ondulado', 'Largo', 'Soltura'],
+                    porosidade: 'Média',
+                    densidade: 'Média',
+                    elasticidade: 'Média a alta',
+                    dicas: 'Usar ativadores de cachos para definir as ondas.',
+                    produtosIndicados: ['Creme de pentear', 'Mousse'],
+                    imagens: ['https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=400&h=400&fit=crop&crop=center']
+                }, {
+                    id: 'tipo-3a',
+                    nome: '3A',
+                    descricao: 'Cabelo cacheado com cachos soltos e definidos.',
+                    caracteristicas: ['Cacheado', 'Soltos', 'Definidos'],
+                    porosidade: 'Média a alta',
+                    densidade: 'Média',
+                    elasticidade: 'Alta',
+                    dicas: 'Manter hidratação em dia e finalizar com dedo ou difusor.',
+                    produtosIndicados: ['Creme de pentear', 'Gel ativador'],
+                    imagens: ['https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&h=400&fit=crop&crop=center']
+                }, {
+                    id: 'tipo-4a',
+                    nome: '4A',
+                    descricao: 'Cabelo crespo com cachos bem definidos e elásticos.',
+                    caracteristicas: ['Crespo', 'Definidos', 'Elásticos'],
+                    porosidade: 'Alta',
+                    densidade: 'Alta',
+                    elasticidade: 'Muito alta',
+                    dicas: 'Hidratação intensa e finalização com fitagem.',
+                    produtosIndicados: ['Máscara hidratante', 'Óleo capilar'],
+                    imagens: ['https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=400&h=400&fit=crop&crop=center']
+                }],
+
+                // ----- TECHNIQUES -----
+                techniques: [{
+                    id: 'tesoura-sobre-pente',
+                    nome: 'Tesoura sobre Pente',
+                    descricao: 'Técnica de corte que utiliza o pente como guia para tesoura.',
+                    nivel: 'Intermediário',
+                    aplicacao: 'Cortes masculinos e ajustes de volume.',
+                    ferramentas: ['Tesoura reta', 'Pente fino'],
+                    dicas: 'Manter o pente estável e tesoura paralela.',
+                    imagens: ['https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=400&fit=crop&crop=center']
+                }, {
+                    id: 'fading',
+                    nome: 'Fading (Degradê)',
+                    descricao: 'Técnica de transição gradual entre comprimentos de cabelo.',
+                    nivel: 'Avançado',
+                    aplicacao: 'Fades e transições suaves.',
+                    ferramentas: ['Máquina', 'Pentes de transição', 'Navalha'],
+                    dicas: 'Praticar a transição de pentes para efeito suave.',
+                    imagens: ['https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&h=400&fit=crop&crop=center']
+                }, {
+                    id: 'point-cutting',
+                    nome: 'Point Cutting',
+                    descricao: 'Técnica de corte com tesoura vertical para criar textura.',
+                    nivel: 'Intermediário',
+                    aplicacao: 'Cortes texturizados e camadas leves.',
+                    ferramentas: ['Tesoura reta', 'Tesoura de textura'],
+                    dicas: 'Cortar verticalmente para criar movimento.',
+                    imagens: ['https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=400&fit=crop&crop=center']
+                }, {
+                    id: 'navalha-textura',
+                    nome: 'Navalha para Textura',
+                    descricao: 'Uso da navalha para criar textura e descontração.',
+                    nivel: 'Avançado',
+                    aplicacao: 'Finalização e texturização de pontas.',
+                    ferramentas: ['Navalha', 'Pente'],
+                    dicas: 'Usar navalha apenas em cabelos úmidos.',
+                    imagens: ['https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=400&h=400&fit=crop&crop=center']
+                }],
+
+                // ----- PRODUCTS -----
+                products: [{
+                    id: 'shampoo-volumizador',
+                    nome: 'Shampoo Volumizador',
+                    categoria: 'Shampoo',
+                    descricao: 'Shampoo que adiciona volume e corpo aos fios finos.',
+                    aplicacao: 'Cabelos finos e sem movimento',
+                    tipoCabelo: ['1A', '1B', '2A'],
+                    imagens: ['https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=400&fit=crop&crop=center']
+                }, {
+                    id: 'mousse-definidor',
+                    nome: 'Mousse Definidor',
+                    categoria: 'Finalizador',
+                    descricao: 'Mousse que define e dá textura aos cachos.',
+                    aplicacao: 'Cabelos ondulados e crespos',
+                    tipoCabelo: ['2A', '3A', '4A'],
+                    imagens: ['https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=400&fit=crop&crop=center']
+                }, {
+                    id: 'oleo-reparador',
+                    nome: 'Óleo Reparador',
+                    categoria: 'Óleo',
+                    descricao: 'Óleo capilar para reparação de pontas danificadas.',
+                    aplicacao: 'Pontas duplas e cabelos danificados',
+                    tipoCabelo: ['1B', '2A', '3A', '4A'],
+                    imagens: ['https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=400&h=400&fit=crop&crop=center']
+                }],
+
+                // ----- TOOLS -----
+                tools: [{
+                    id: 'tesoura-retas',
+                    nome: 'Tesoura Reta 6"',
+                    categoria: 'Tesoura',
+                    descricao: 'Tesoura profissional para cortes precisos e retos.',
+                    aplicacao: 'Cortes de precisão e linhas retas',
+                    manutencao: 'Afiar a cada 3 meses',
+                    imagens: ['https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=400&fit=crop&crop=center']
+                }, {
+                    id: 'maquina-de-cortar',
+                    nome: 'Máquina Profissional',
+                    categoria: 'Máquina',
+                    descricao: 'Máquina com pentes de transição para fades e cortes precisos.',
+                    aplicacao: 'Fades e cortes masculinos',
+                    manutencao: 'Limpeza semanal e lubrificação',
+                    imagens: ['https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&h=400&fit=crop&crop=center']
+                }, {
+                    id: 'navalha',
+                    nome: 'Navalha Profissional',
+                    categoria: 'Navalha',
+                    descricao: 'Navalha para texturização e efeitos despojados.',
+                    aplicacao: 'Texturização e finalização',
+                    manutencao: 'Trocar lâmina frequentemente',
+                    imagens: ['https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=400&h=400&fit=crop&crop=center']
+                }],
+
+                // ----- TRENDS -----
+                trends: [{
+                    id: 'ondas-texturizadas',
+                    nome: 'Ondas Texturizadas',
+                    descricao: 'Movimento de ondas naturais com textura definida.',
+                    popularidade: 78,
+                    categoria: 'Tendência 2025',
+                    previsao: 'Em alta',
+                    imagens: ['https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&h=600&fit=crop&crop=center'],
+                    tags: ['Ondas', 'Natural', 'Textura']
+                }, {
+                    id: 'corte-assimetrico',
+                    nome: 'Corte Assimétrico',
+                    descricao: 'Design moderno com linhas assimétricas e movimento.',
+                    popularidade: 82,
+                    categoria: 'Tendência 2025',
+                    previsao: 'Crescendo',
+                    imagens: ['https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=800&h=600&fit=crop&crop=center'],
+                    tags: ['Assimetria', 'Moderno', 'Editorial']
+                }, {
+                    id: 'colorimetria-sustentavel',
+                    nome: 'Colorimetria Sustentável',
+                    descricao: 'Formulações eco-friendly com baixo impacto químico.',
+                    popularidade: 92,
+                    categoria: 'Tendência 2025',
+                    previsao: 'Alta demanda',
+                    imagens: ['https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&h=600&fit=crop&crop=center'],
+                    tags: ['Sustentável', 'Eco', 'Natural']
+                }],
+
+                // ----- CHEMISTRY -----
+                chemistry: [{
+                    id: 'ph-capilar',
+                    nome: 'pH Capilar',
+                    descricao: 'O pH do cabelo saudável é entre 4.5 e 5.5.',
+                    importancia: 'Mantém a cutícula fechada e fios saudáveis.',
+                    escala: [1, 14],
+                    ideal: 4.5,
+                    imagens: ['https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=400&fit=crop&crop=center'],
+                    tags: ['pH', 'Química', 'Cutícula']
+                }, {
+                    id: 'melanina',
+                    nome: 'Melanina Capilar',
+                    descricao: 'Pigmento responsável pela cor natural do cabelo.',
+                    tipos: ['Eumelanina (preto/marrom)', 'Feomelanina (vermelho/amarelo)'],
+                    importancia: 'Define a cor e influencia na descoloração.',
+                    imagens: ['https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=400&fit=crop&crop=center'],
+                    tags: ['Melanina', 'Pigmento', 'Cor']
+                }, {
+                    id: 'cuticula',
+                    nome: 'Cutícula Capilar',
+                    descricao: 'Camada externa de proteção do fio de cabelo.',
+                    funcao: 'Protege o córtex e reflete a luz.',
+                    importancia: 'Cutículas intactas = cabelo saudável e brilhante.',
+                    imagens: ['https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=400&h=400&fit=crop&crop=center'],
+                    tags: ['Cutícula', 'Proteção', 'Brilho']
+                }],
+
+                // ----- GLOSSARY -----
+                glossary: [{
+                    termo: 'Visagismo',
+                    definicao: 'Estudo da relação entre o corte de cabelo e a fisionomia do cliente.',
+                    area: 'Técnica',
+                    sinonimos: ['Análise facial', 'Harmonia'],
+                    exemplos: ['Aplicado para escolha do corte ideal para cada rosto.'],
+                    referencias: ['Visagismo - Arte e Ciência']
+                }, {
+                    termo: 'Fade',
+                    definicao: 'Técnica de transição gradual do cabelo, das laterais para o topo.',
+                    area: 'Técnica',
+                    sinonimos: ['Degradê', 'Transição'],
+                    exemplos: ['Fade baixo, médio e alto.'],
+                    referencias: ['Barbering Techniques']
+                }, {
+                    termo: 'Colorimetria',
+                    definicao: 'Estudo das cores e sua aplicação na coloração capilar.',
+                    area: 'Química',
+                    sinonimos: ['Cromologia', 'Teoria das cores'],
+                    exemplos: ['Uso da tabela de cores para formulação.'],
+                    referencias: ['Colorimetria Capilar']
+                }, {
+                    termo: 'Eumelanina',
+                    definicao: 'Pigmento responsável pelas cores pretas e marrons do cabelo.',
+                    area: 'Química',
+                    sinonimos: ['Pigmento escuro'],
+                    exemplos: ['Cabelos escuros têm alta concentração de eumelanina.'],
+                    referencias: ['Química Capilar']
+                }, {
+                    termo: 'Feomelanina',
+                    definicao: 'Pigmento responsável pelas cores vermelhas e amarelas do cabelo.',
+                    area: 'Química',
+                    sinonimos: ['Pigmento claro'],
+                    exemplos: ['Cabelos ruivos têm predominância de feomelanina.'],
+                    referencias: ['Química Capilar']
+                }],
+
+                // ----- BIBLIOGRAPHY -----
+                bibliography: [{
+                    id: 'visagismo-souza',
+                    titulo: 'Visagismo: Arte e Ciência',
+                    autor: 'Maria Souza',
+                    ano: 2021,
+                    editora: 'Editora Beleza',
+                    area: 'Visagismo',
+                    descricao: 'Livro fundamental sobre análise facial e visagismo.',
+                    paginas: 320,
+                    isbn: '978-85-1234-567-8',
+                    imagens: ['https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=400&fit=crop&crop=center'],
+                    tags: ['Visagismo', 'Análise Facial', 'Harmonia']
+                }, {
+                    id: 'quimica-capilar',
+                    titulo: 'Química Capilar Aplicada',
+                    autor: 'João Silva',
+                    ano: 2020,
+                    editora: 'Editora Científica',
+                    area: 'Química',
+                    descricao: 'Aprofundamento em química dos cabelos e coloração.',
+                    paginas: 280,
+                    isbn: '978-85-9876-543-2',
+                    imagens: ['https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=400&fit=crop&crop=center'],
+                    tags: ['Química', 'Coloração', 'Fórmulas']
+                }, {
+                    id: 'cortes-historicos',
+                    titulo: 'Cortes Históricos e Tendências',
+                    autor: 'Ana Oliveira',
+                    ano: 2019,
+                    editora: 'Editora Moda',
+                    area: 'História',
+                    descricao: 'Evolução dos cortes de cabelo ao longo dos séculos.',
+                    paginas: 250,
+                    isbn: '978-85-4321-876-5',
+                    imagens: ['https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=400&h=400&fit=crop&crop=center'],
+                    tags: ['História', 'Cortes', 'Tendências']
+                }]
+            };
+
+            // ============================================
+            // 2. HELPER FUNCTIONS
+            // ============================================
+
+            // Contar itens por módulo
+            function getCounts() {
+                return {
+                    cuts: HairDatabase.cuts.length,
+                    colors: HairDatabase.colors.length,
+                    faces: HairDatabase.faces.length,
+                    hairTypes: HairDatabase.hairTypes.length,
+                    techniques: HairDatabase.techniques.length,
+                    products: HairDatabase.products.length,
+                    tools: HairDatabase.tools.length,
+                    trends: HairDatabase.trends.length,
+                    chemistry: HairDatabase.chemistry.length,
+                    glossary: HairDatabase.glossary.length,
+                    bibliography: HairDatabase.bibliography.length
+                };
+            }
+
+            // Buscar item por ID
+            function findItem(collection, id) {
+                return collection.find(item => item.id === id) || null;
+            }
+
+            // Buscar por termo em todas as coleções
+            function searchAll(term) {
+                const results = [];
+                const termLower = term.toLowerCase();
+
+                Object.keys(HairDatabase).forEach(collectionName => {
+                    const collection = HairDatabase[collectionName];
+                    if (Array.isArray(collection)) {
+                        collection.forEach(item => {
+                            const searchable = [
+                                item.nome,
+                                item.descricao,
+                                item.id,
+                                ...(item.tags || []),
+                                ...(item.categoria ? [item.categoria] : []),
+                                ...(item.subcategoria ? [item.subcategoria] : [])
+                            ].join(' ').toLowerCase();
+
+                            if (searchable.includes(termLower)) {
+                                results.push({
+                                    ...item,
+                                    _collection: collectionName,
+                                    _displayName: item.nome || item.termo || item.titulo
+                                });
+                            }
+                        });
+                    }
+                });
+
+                return results.slice(0, 20);
+            }
+
+            // ============================================
+            // 3. RENDER FUNCTIONS
+            // ============================================
+
+            // Renderizar stats no dashboard
+            function renderStats() {
+                const counts = getCounts();
+                const statsGrid = document.getElementById('statsGrid');
+                const stats = [
+                    { label: 'Cortes', count: counts.cuts, icon: 'content_cut' },
+                    { label: 'Cores', count: counts.colors, icon: 'palette' },
+                    { label: 'Formatos', count: counts.faces, icon: 'face' },
+                    { label: 'Tipos de Cabelo', count: counts.hairTypes, icon: 'waves' },
+                    { label: 'Técnicas', count: counts.techniques, icon: 'handyman' },
+                    { label: 'Produtos', count: counts.products, icon: 'science' },
+                    { label: 'Ferramentas', count: counts.tools, icon: 'build' },
+                    { label: 'Tendências', count: counts.trends, icon: 'trending_up' },
+                    { label: 'Química', count: counts.chemistry, icon: 'biotech' },
+                    { label: 'Glossário', count: counts.glossary, icon: 'menu_book' },
+                    { label: 'Bibliografia', count: counts.bibliography, icon: 'library_books' }
+                ];
+
+                statsGrid.innerHTML = stats.map(s => `
+                    <div class="bg-surface-container-lowest sharp-border p-4 text-center">
+                        <span class="material-symbols-outlined text-2xl text-secondary">${s.icon}</span>
+                        <div class="stat-number">${s.count}</div>
+                        <p class="text-xs text-on-surface-variant font-data-mono uppercase tracking-wider">${s.label}</p>
+                    </div>
+                `).join('');
+            }
+
+            // Renderizar cortes
+            function renderCuts(filter = 'all') {
+                const grid = document.getElementById('cutGrid');
+                let filtered = HairDatabase.cuts;
+
+                if (filter !== 'all') {
+                    filtered = filtered.filter(cut =>
+                        cut.genero === filter ||
+                        cut.categoria?.toLowerCase() === filter ||
+                        cut.subcategoria?.toLowerCase() === filter
+                    );
+                }
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = `
+                        <div class="col-span-full text-center py-12 text-on-surface-variant">
+                            <span class="material-symbols-outlined text-4xl">search_off</span>
+                            <p class="mt-2">Nenhum corte encontrado com este filtro.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                grid.innerHTML = filtered.map(cut => `
+                    <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" 
+                         data-modal-id="${cut.id}" data-modal-collection="cuts">
+                        <div class="aspect-[4/3] w-full overflow-hidden bg-surface-container">
+                            <img class="w-full h-full object-cover" src="${cut.imagens[0]}" loading="lazy" alt="${cut.nome}" />
+                        </div>
+                        <h3 class="font-title-md text-title-md mt-3">${cut.nome}</h3>
+                        <div class="flex flex-wrap gap-1 mt-1">
+                            <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#${cut.categoria}</span>
+                            <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#${cut.genero}</span>
+                            ${cut.compatibilidade.slice(0, 2).map(f => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#${f}</span>`).join('')}
+                        </div>
+                        <div class="flex items-center justify-between mt-2">
+                            <p class="text-sm text-on-surface-variant">${cut.nivelTecnico}</p>
+                            <div class="progress-bar w-16">
+                                <div class="progress-fill" style="width: ${cut.dificuldade * 10}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Attach modal events
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            // Renderizar cores
+            function renderColors(filter = 'all') {
+                const grid = document.getElementById('colorGrid');
+                let filtered = HairDatabase.colors;
+
+                if (filter !== 'all') {
+                    filtered = filtered.filter(color =>
+                        color.tipo?.toLowerCase() === filter ||
+                        filter === 'fantasy' && color.tipo === 'Fantasy'
+                    );
+                }
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = `
+                        <div class="col-span-full text-center py-12 text-on-surface-variant">
+                            <span class="material-symbols-outlined text-4xl">color_off</span>
+                            <p class="mt-2">Nenhuma cor encontrada com este filtro.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                grid.innerHTML = filtered.map(color => `
+                    <div class="bg-white dark:bg-surface-container-lowest technical-border flex flex-col cursor-pointer card-hover" 
+                         data-modal-id="${color.id}" data-modal-collection="colors">
+                        <div class="h-48 w-full relative overflow-hidden">
+                            <img class="w-full h-full object-cover" src="${color.imagens[0]}" loading="lazy" alt="${color.nome}" />
+                            <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 font-data-mono">${color.nivel}</span>
+                            <span class="absolute top-2 left-2 bg-secondary/80 text-white text-[10px] px-2 py-1 font-data-mono uppercase">${color.tipo}</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-title-md">${color.nome}</h3>
+                            <p class="text-sm text-on-surface-variant">${color.subtom}</p>
+                            <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+                                <span>Manutenção: <span class="font-data-mono ${color.manutencao === 'Baixa' ? 'text-success' : color.manutencao === 'Média' ? 'text-warning' : 'text-error'}">${color.manutencao}</span></span>
+                                <span>Compat: <span class="font-data-mono">${color.compatibilidade}%</span></span>
+                            </div>
+                            <div class="progress-bar mt-2">
+                                <div class="progress-fill" style="width: ${color.compatibilidade}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            // Renderizar faces
+            function renderFaces() {
+                const grid = document.getElementById('faceGrid');
+                grid.innerHTML = HairDatabase.faces.map(face => `
+                    <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" 
+                         data-modal-id="${face.id}" data-modal-collection="faces">
+                        <div class="aspect-square w-full overflow-hidden bg-surface-container">
+                            <img class="w-full h-full object-cover" src="${face.imagens[0]}" loading="lazy" alt="${face.nome}" />
+                        </div>
+                        <h3 class="font-title-md text-title-md mt-3">${face.nome}</h3>
+                        <p class="text-sm text-on-surface-variant">${face.descricao}</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            ${face.caracteristicas.map(c => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${c}</span>`).join('')}
+                        </div>
+                        <div class="mt-2 text-xs text-secondary font-data-mono">
+                            Cortes: ${face.cortesIndicados.slice(0, 3).join(', ')}
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            // Renderizar tipos de cabelo
+            function renderHairTypes() {
+                const grid = document.getElementById('hairTypeGrid');
+                grid.innerHTML = HairDatabase.hairTypes.map(type => `
+                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
+                         data-modal-id="${type.id}" data-modal-collection="hairTypes">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl font-bold text-secondary">${type.nome}</span>
+                            <span class="text-xs text-on-surface-variant font-data-mono uppercase">${type.descricao.split(',')[0]}</span>
+                        </div>
+                        <p class="text-sm text-on-surface-variant mt-2">${type.descricao}</p>
+                        <div class="grid grid-cols-3 gap-2 mt-3 text-xs">
+                            <div><span class="text-on-surface-variant/50">Porosidade</span><br/><span class="font-data-mono">${type.porosidade}</span></div>
+                            <div><span class="text-on-surface-variant/50">Densidade</span><br/><span class="font-data-mono">${type.densidade}</span></div>
+                            <div><span class="text-on-surface-variant/50">Elasticidade</span><br/><span class="font-data-mono">${type.elasticidade}</span></div>
+                        </div>
+                        <div class="mt-2 text-xs text-secondary font-data-mono">${type.dicas}</div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            // Renderizar técnicas
+            function renderTechniques() {
+                const grid = document.getElementById('techniqueGrid');
+                grid.innerHTML = HairDatabase.techniques.map(tech => `
+                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
+                         data-modal-id="${tech.id}" data-modal-collection="techniques">
+                        <span class="material-symbols-outlined text-3xl text-secondary">handyman</span>
+                        <h3 class="font-title-md text-title-md mt-2">${tech.nome}</h3>
+                        <p class="text-sm text-on-surface-variant">${tech.descricao}</p>
+                        <div class="flex items-center gap-3 mt-2 text-xs">
+                            <span class="font-data-mono text-secondary">${tech.nivel}</span>
+                            <span class="text-on-surface-variant/50">|</span>
+                            <span class="text-on-surface-variant/50">${tech.ferramentas.join(', ')}</span>
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            // Renderizar produtos
+            function renderProducts() {
+                const grid = document.getElementById('productGrid');
+                grid.innerHTML = HairDatabase.products.map(product => `
+                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
+                         data-modal-id="${product.id}" data-modal-collection="products">
+                        <span class="material-symbols-outlined text-3xl text-secondary">science</span>
+                        <h3 class="font-title-md text-title-md mt-2">${product.nome}</h3>
+                        <p class="text-sm text-on-surface-variant">${product.descricao}</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${product.categoria}</span>
+                            ${product.tipoCabelo.map(t => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${t}</span>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            // Renderizar ferramentas
+            function renderTools() {
+                const grid = document.getElementById('toolGrid');
+                grid.innerHTML = HairDatabase.tools.map(tool => `
+                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
+                         data-modal-id="${tool.id}" data-modal-collection="tools">
+                        <span class="material-symbols-outlined text-3xl text-secondary">build</span>
+                        <h3 class="font-title-md text-title-md mt-2">${tool.nome}</h3>
+                        <p class="text-sm text-on-surface-variant">${tool.descricao}</p>
+                        <div class="flex items-center gap-3 mt-2 text-xs">
+                            <span class="font-data-mono text-secondary">${tool.categoria}</span>
+                            <span class="text-on-surface-variant/50">|</span>
+                            <span class="text-on-surface-variant/50">${tool.manutencao}</span>
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            // Renderizar tendências
+            function renderTrends() {
+                const grid = document.getElementById('trendGrid');
+                grid.innerHTML = HairDatabase.trends.map(trend => `
+                    <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" 
+                         data-modal-id="${trend.id}" data-modal-collection="trends">
+                        <div class="aspect-[16/9] w-full overflow-hidden bg-surface-container">
+                            <img class="w-full h-full object-cover" src="${trend.imagens[0]}" loading="lazy" alt="${trend.nome}" />
+                        </div>
+                        <h3 class="font-title-md text-title-md mt-3">${trend.nome}</h3>
+                        <p class="text-sm text-on-surface-variant">${trend.descricao}</p>
+                        <div class="flex items-center gap-4 mt-2">
+                            <div class="flex-1">
+                                <span class="text-xs text-on-surface-variant/50">Popularidade</span>
+                                <div class="progress-bar mt-1">
+                                    <div class="progress-fill" style="width: ${trend.popularidade}%"></div>
+                                </div>
+                            </div>
+                            <span class="text-sm font-data-mono text-secondary">${trend.popularidade}%</span>
+                        </div>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            ${trend.tags.map(t => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#${t}</span>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            // Renderizar química
+            function renderChemistry() {
+                const grid = document.getElementById('chemistryGrid');
+                grid.innerHTML = HairDatabase.chemistry.map(chem => `
+                    <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" 
+                         data-modal-id="${chem.id}" data-modal-collection="chemistry">
+                        <span class="material-symbols-outlined text-3xl text-secondary">biotech</span>
+                        <h3 class="font-title-md text-title-md mt-2">${chem.nome}</h3>
+                        <p class="text-sm text-on-surface-variant">${chem.descricao}</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            ${chem.tags.map(t => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${t}</span>`).join('')}
+                        </div>
+                        ${chem.importancia ? `<p class="text-xs text-secondary mt-2 font-data-mono">${chem.importancia}</p>` : ''}
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            // Renderizar glossário
+            function renderGlossary() {
+                const grid = document.getElementById('glossaryGrid');
+                grid.innerHTML = HairDatabase.glossary.map(term => `
+                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
+                         data-modal-id="${term.termo}" data-modal-collection="glossary">
+                        <h3 class="font-title-md text-title-md">${term.termo}</h3>
+                        <p class="text-sm text-on-surface-variant mt-1">${term.definicao}</p>
+                        <div class="flex items-center gap-2 mt-2 text-xs">
+                            <span class="font-data-mono text-secondary">${term.area}</span>
+                            <span class="text-on-surface-variant/50">|</span>
+                            <span class="text-on-surface-variant/50">${term.sinonimos.join(', ')}</span>
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const term = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, term);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            // Renderizar bibliografia
+            function renderBibliography() {
+                const grid = document.getElementById('bibliographyGrid');
+                grid.innerHTML = HairDatabase.bibliography.map(book => `
+                    <div class="bg-surface-container-lowest sharp-border p-5 card-hover cursor-pointer" 
+                         data-modal-id="${book.id}" data-modal-collection="bibliography">
+                        <h3 class="font-title-md text-title-md">${book.titulo}</h3>
+                        <p class="text-sm text-on-surface-variant mt-1">${book.autor} · ${book.ano}</p>
+                        <p class="text-xs text-on-surface-variant/70 mt-1">${book.descricao}</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${book.editora}</span>
+                            <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">${book.area}</span>
+                            ${book.tags.map(t => `<span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#${t}</span>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
+
+                grid.querySelectorAll('[data-modal-id]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = this.dataset.modalId;
+                        const collection = this.dataset.modalCollection;
+                        const items = HairDatabase[collection] || [];
+                        const item = findItem(items, id);
+                        if (item) openModal(item, collection);
+                    });
+                });
+            }
+
+            // Renderizar tabela de reflexos
+            function renderReflexTable() {
+                const table = document.getElementById('reflexTable');
+                const reflexData = [
+                    { digito: '.1', nome: 'Azul / Cinza', base: 'Subdutor de melanina', neutro: 'Laranja',
+                        aplicacao: 'Neutraliza tons quentes' },
+                    { digito: '.2', nome: 'Violeta / Íris', base: 'Realçador de luminosidade', neutro: 'Amarelo',
+                        aplicacao: 'Potencializa claridade' },
+                    { digito: '.3', nome: 'Dourado', base: 'Injetor de calor', neutro: 'Violeta',
+                        aplicacao: 'Aquece tons frios' },
+                    { digito: '.4', nome: 'Cobre', base: 'Alta saturação', neutro: 'Azul',
+                        aplicacao: 'Vibrância e profundidade' },
+                    { digito: '.5', nome: 'Mogno', base: 'Pigmento vermelho', neutro: 'Verde',
+                        aplicacao: 'Tons intensos e quentes' },
+                    { digito: '.6', nome: 'Vermelho', base: 'Alta fixação', neutro: 'Amarelo',
+                        aplicacao: 'Cobertura e vivacidade' }
+                ];
+
+                table.innerHTML = `
                     <table class="w-full text-left font-data-mono border-collapse text-sm">
                         <thead class="bg-surface-container border-b">
                             <tr>
@@ -780,312 +1914,227 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-b"><td class="p-3 font-bold">.1</td><td>Azul / Cinza</td><td>Subdutor de melanina</td><td class="text-secondary">Laranja</td><td class="text-xs">Neutraliza tons quentes</td></tr>
-                            <tr class="border-b"><td class="p-3 font-bold">.2</td><td>Violeta / Íris</td><td>Realçador de luminosidade</td><td class="text-secondary">Amarelo</td><td class="text-xs">Potencializa claridade</td></tr>
-                            <tr class="border-b"><td class="p-3 font-bold">.3</td><td>Dourado</td><td>Injetor de calor</td><td class="text-secondary">Violeta</td><td class="text-xs">Aquece tons frios</td></tr>
-                            <tr class="border-b"><td class="p-3 font-bold">.4</td><td>Cobre</td><td>Alta saturação</td><td class="text-secondary">Azul</td><td class="text-xs">Vibrância e profundidade</td></tr>
-                            <tr class="border-b"><td class="p-3 font-bold">.5</td><td>Mogno</td><td>Pigmento vermelho</td><td class="text-secondary">Verde</td><td class="text-xs">Tons intensos e quentes</td></tr>
-                            <tr><td class="p-3 font-bold">.6</td><td>Vermelho</td><td>Alta fixação</td><td class="text-secondary">Amarelo</td><td class="text-xs">Cobertura e vivacidade</td></tr>
+                            ${reflexData.map(r => `
+                                <tr class="${r.digito !== '.6' ? 'border-b' : ''}">
+                                    <td class="p-3 font-bold">${r.digito}</td>
+                                    <td class="p-3">${r.nome}</td>
+                                    <td class="p-3">${r.base}</td>
+                                    <td class="p-3 text-secondary">${r.neutro}</td>
+                                    <td class="p-3 text-xs">${r.aplicacao}</td>
+                                </tr>
+                            `).join('')}
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </section>
+                `;
+            }
 
-        <!-- PÁGINA: CORTES (completa) -->
-        <section id="page-cortes" class="page">
-            <div class="mb-8 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Visagismo v3.1</p>
-                <h2 class="font-headline-lg text-headline-lg">Catálogo de Cortes</h2>
-                <p class="text-on-surface-variant mt-1">Técnicas, compatibilidade e referências visuais para cada formato de rosto</p>
-            </div>
+            // ============================================
+            // 4. MODAL
+            // ============================================
 
-            <!-- Filtros de corte -->
-            <div class="flex flex-wrap gap-2 mb-8">
-                <button class="filter-chip filter-chip-active" data-cut-filter="all">Todos</button>
-                <button class="filter-chip" data-cut-filter="masculino">Masculino</button>
-                <button class="filter-chip" data-cut-filter="feminino">Feminino</button>
-                <button class="filter-chip" data-cut-filter="unissex">Unissex</button>
-                <button class="filter-chip" data-cut-filter="editorial">Editorial</button>
-            </div>
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalImage = document.getElementById('modalImage');
+            const modalDesc = document.getElementById('modalDesc');
+            const modalCategory = document.getElementById('modalCategory');
+            const modalTags = document.getElementById('modalTags');
+            const modalAttributes = document.getElementById('modalAttributes');
+            const modalClose = document.getElementById('modalClose');
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cutGrid">
-                <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" data-modal="Pompadour" data-modal-img="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&h=600&fit=crop&crop=center" data-modal-desc="Corte clássico com volume no topo e laterais curtas. Compatibilidade: 94% · Ideal para rostos ovais." data-modal-category="Cortes" data-modal-tags="#Masculino #Clássico">
-                    <div class="aspect-[4/3] w-full overflow-hidden bg-surface-container">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=300&fit=crop&crop=center" loading="lazy" />
-                    </div>
-                    <h3 class="font-title-md text-title-md mt-3">Pompadour</h3>
-                    <div class="flex flex-wrap gap-1 mt-1">
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#BaixaManutenção</span>
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#RostoOval</span>
-                    </div>
-                    <div class="flex items-center justify-between mt-2">
-                        <p class="text-sm text-on-surface-variant">Compatibilidade: 94%</p>
-                        <div class="progress-bar w-16">
-                            <div class="progress-fill" style="width: 94%"></div>
-                        </div>
-                    </div>
-                </div>
+            function openModal(item, collection) {
+                if (!item) return;
 
-                <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" data-modal="Buzz Cut Moderno" data-modal-img="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&h=600&fit=crop&crop=center" data-modal-desc="Corte técnico com precisão milimétrica. Compatibilidade: 88% · Ideal para rostos quadrados." data-modal-category="Cortes" data-modal-tags="#Masculino #Precisão">
-                    <div class="aspect-[4/3] w-full overflow-hidden bg-surface-container">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=300&fit=crop&crop=center" loading="lazy" />
-                    </div>
-                    <h3 class="font-title-md text-title-md mt-3">Buzz Cut Moderno</h3>
-                    <div class="flex flex-wrap gap-1 mt-1">
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#AltaPrecisão</span>
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#RostoQuadrado</span>
-                    </div>
-                    <div class="flex items-center justify-between mt-2">
-                        <p class="text-sm text-on-surface-variant">Compatibilidade: 88%</p>
-                        <div class="progress-bar w-16">
-                            <div class="progress-fill" style="width: 88%"></div>
-                        </div>
-                    </div>
-                </div>
+                modalTitle.textContent = item.nome || item.termo || item.titulo || 'Detalhes';
+                modalImage.src = (item.imagens && item.imagens[0]) || '';
+                modalImage.alt = item.nome || '';
+                modalDesc.textContent = item.descricao || item.definicao || '';
 
-                <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" data-modal="Pixie Afiado" data-modal-img="https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=800&h=600&fit=crop&crop=center" data-modal-desc="Corte editorial com camadas assimétricas e textura. Compatibilidade: 91% · Ideal para rostos coração." data-modal-category="Cortes" data-modal-tags="#Feminino #Editorial">
-                    <div class="aspect-[4/3] w-full overflow-hidden bg-surface-container">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=400&h=300&fit=crop&crop=center" loading="lazy" />
-                    </div>
-                    <h3 class="font-title-md text-title-md mt-3">Pixie Afiado</h3>
-                    <div class="flex flex-wrap gap-1 mt-1">
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#Editorial</span>
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#RostoCoração</span>
-                    </div>
-                    <div class="flex items-center justify-between mt-2">
-                        <p class="text-sm text-on-surface-variant">Compatibilidade: 91%</p>
-                        <div class="progress-bar w-16">
-                            <div class="progress-fill" style="width: 91%"></div>
-                        </div>
-                    </div>
-                </div>
+                // Categoria
+                const categoryMap = {
+                    cuts: '✂️ Cortes',
+                    colors: '🎨 Colorimetria',
+                    faces: '👤 Formatos de Rosto',
+                    hairTypes: '💇 Tipos de Cabelo',
+                    techniques: '🛠 Técnicas',
+                    products: '🧪 Produtos',
+                    tools: '🔧 Ferramentas',
+                    trends: '📈 Tendências',
+                    chemistry: '🧬 Química',
+                    glossary: '📖 Glossário',
+                    bibliography: '📚 Bibliografia'
+                };
+                modalCategory.textContent = categoryMap[collection] || 'Referência';
 
-                <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" data-modal="Fade Degradê" data-modal-img="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&h=600&fit=crop&crop=center" data-modal-desc="Técnica de transição gradual com linhas precisas. Compatibilidade: 96% · Ideal para rostos diamante." data-modal-category="Cortes" data-modal-tags="#Masculino #Técnico">
-                    <div class="aspect-[4/3] w-full overflow-hidden bg-surface-container">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&h=300&fit=crop&crop=center" loading="lazy" />
-                    </div>
-                    <h3 class="font-title-md text-title-md mt-3">Fade Degradê</h3>
-                    <div class="flex flex-wrap gap-1 mt-1">
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#LinhasPrecisas</span>
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#RostoDiamante</span>
-                    </div>
-                    <div class="flex items-center justify-between mt-2">
-                        <p class="text-sm text-on-surface-variant">Compatibilidade: 96%</p>
-                        <div class="progress-bar w-16">
-                            <div class="progress-fill" style="width: 96%"></div>
-                        </div>
-                    </div>
-                </div>
+                // Tags
+                modalTags.innerHTML = '';
+                const tags = item.tags || [];
+                if (tags.length > 0) {
+                    tags.forEach(tag => {
+                        const span = document.createElement('span');
+                        span.className = 'text-[10px] bg-surface-container-high px-3 py-1 uppercase tracking-wider';
+                        span.textContent = '#' + tag;
+                        modalTags.appendChild(span);
+                    });
+                } else if (item.genero) {
+                    const span = document.createElement('span');
+                    span.className = 'text-[10px] bg-surface-container-high px-3 py-1 uppercase tracking-wider';
+                    span.textContent = '#' + item.genero;
+                    modalTags.appendChild(span);
+                }
 
-                <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" data-modal="Bob Reto" data-modal-img="https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=800&h=600&fit=crop&crop=center" data-modal-desc="Corte simétrico com linhas retas e precisão angular. Compatibilidade: 82% · Ideal para rostos longos." data-modal-category="Cortes" data-modal-tags="#Feminino #Simetria">
-                    <div class="aspect-[4/3] w-full overflow-hidden bg-surface-container">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=400&h=300&fit=crop&crop=center" loading="lazy" />
-                    </div>
-                    <h3 class="font-title-md text-title-md mt-3">Bob Reto</h3>
-                    <div class="flex flex-wrap gap-1 mt-1">
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#Simetria</span>
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#RostoLongo</span>
-                    </div>
-                    <div class="flex items-center justify-between mt-2">
-                        <p class="text-sm text-on-surface-variant">Compatibilidade: 82%</p>
-                        <div class="progress-bar w-16">
-                            <div class="progress-fill" style="width: 82%"></div>
-                        </div>
-                    </div>
-                </div>
+                // Atributos específicos
+                modalAttributes.innerHTML = '';
+                const attrs = [];
 
-                <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" data-modal="French Crop" data-modal-img="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&h=600&fit=crop&crop=center" data-modal-desc="Corte texturizado com franja e laterais curtas. Compatibilidade: 89% · Ideal para rostos ovais." data-modal-category="Cortes" data-modal-tags="#Unissex #Textura">
-                    <div class="aspect-[4/3] w-full overflow-hidden bg-surface-container">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=300&fit=crop&crop=center" loading="lazy" />
-                    </div>
-                    <h3 class="font-title-md text-title-md mt-3">French Crop</h3>
-                    <div class="flex flex-wrap gap-1 mt-1">
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#Textura</span>
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#RostoOval</span>
-                    </div>
-                    <div class="flex items-center justify-between mt-2">
-                        <p class="text-sm text-on-surface-variant">Compatibilidade: 89%</p>
-                        <div class="progress-bar w-16">
-                            <div class="progress-fill" style="width: 89%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                if (item.nivel) attrs.push({ label: 'Nível', value: item.nivel });
+                if (item.tipo) attrs.push({ label: 'Tipo', value: item.tipo });
+                if (item.subtom) attrs.push({ label: 'Subtom', value: item.subtom });
+                if (item.manutencao) attrs.push({ label: 'Manutenção', value: item.manutencao });
+                if (item.nivelTecnico) attrs.push({ label: 'Nível Técnico', value: item.nivelTecnico });
+                if (item.tempoExecucao) attrs.push({ label: 'Tempo', value: item.tempoExecucao });
+                if (item.dificuldade) attrs.push({ label: 'Dificuldade', value: item.dificuldade + '/10' });
+                if (item.paisOrigem) attrs.push({ label: 'Origem', value: item.paisOrigem });
+                if (item.ano) attrs.push({ label: 'Ano', value: item.ano });
+                if (item.categoria && !item.tipo) attrs.push({ label: 'Categoria', value: item.categoria });
+                if (item.compatibilidade && Array.isArray(item.compatibilidade)) attrs.push({ label: 'Compatível',
+                    value: item.compatibilidade.join(', ') });
 
-            <!-- Tabela de compatibilidade -->
-            <div class="mt-16">
-                <h3 class="font-headline-lg text-headline-lg mb-4">Matriz de Compatibilidade</h3>
-                <div class="overflow-x-auto technical-border bg-white dark:bg-surface-container-lowest">
-                    <table class="w-full text-left font-data-mono border-collapse text-sm">
-                        <thead class="bg-surface-container border-b">
-                            <tr>
-                                <th class="p-3">Corte</th>
-                                <th class="p-3">Oval</th>
-                                <th class="p-3">Quadrado</th>
-                                <th class="p-3">Coração</th>
-                                <th class="p-3">Diamante</th>
-                                <th class="p-3">Longo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b"><td class="p-3 font-bold">Pompadour</td><td class="text-success">●●●</td><td class="text-warning">●●○</td><td class="text-warning">●●○</td><td class="text-success">●●●</td><td class="text-error">●○○</td></tr>
-                            <tr class="border-b"><td class="p-3 font-bold">Buzz Cut</td><td class="text-success">●●●</td><td class="text-success">●●●</td><td class="text-warning">●●○</td><td class="text-warning">●●○</td><td class="text-warning">●●○</td></tr>
-                            <tr class="border-b"><td class="p-3 font-bold">Pixie</td><td class="text-success">●●●</td><td class="text-warning">●●○</td><td class="text-success">●●●</td><td class="text-warning">●●○</td><td class="text-warning">●●○</td></tr>
-                            <tr class="border-b"><td class="p-3 font-bold">Fade</td><td class="text-success">●●●</td><td class="text-success">●●●</td><td class="text-success">●●●</td><td class="text-success">●●●</td><td class="text-warning">●●○</td></tr>
-                            <tr><td class="p-3 font-bold">Bob Reto</td><td class="text-success">●●●</td><td class="text-warning">●●○</td><td class="text-warning">●●○</td><td class="text-warning">●●○</td><td class="text-success">●●●</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p class="text-xs text-on-surface-variant mt-2 font-data-mono">●●● Ideal ●●○ Adequado ●○○ Evitar</p>
-            </div>
-        </section>
+                if (attrs.length > 0) {
+                    attrs.forEach(attr => {
+                        const div = document.createElement('div');
+                        div.className = 'border-b border-outline-variant/10 pb-1';
+                        div.innerHTML =
+                            `<span class="text-xs text-on-surface-variant/50">${attr.label}</span><br/><span class="text-sm font-data-mono">${attr.value}</span>`;
+                        modalAttributes.appendChild(div);
+                    });
+                }
 
-        <!-- PÁGINA: TENDÊNCIAS (nova) -->
-        <section id="page-tendencias" class="page">
-            <div class="mb-8 border-l-2 border-primary pl-6">
-                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Insights</p>
-                <h2 class="font-headline-lg text-headline-lg">Tendências do Mercado</h2>
-                <p class="text-on-surface-variant mt-1">Análises, previsões e movimentos do setor</p>
-            </div>
+                modalOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                modalOverlay.classList.add('opacity-100', 'pointer-events-auto');
+                document.body.style.overflow = 'hidden';
+            }
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" data-modal="Ondas Texturizadas" data-modal-img="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&h=600&fit=crop&crop=center" data-modal-desc="Movimento de ondas naturais com textura definida. Tendência de 2025 para cabelos médios e longos." data-modal-category="Tendência" data-modal-tags="#Ondas #Natural">
-                    <span class="material-symbols-outlined text-4xl text-secondary">waves</span>
-                    <h3 class="font-title-md text-title-md mt-3">Ondas Texturizadas</h3>
-                    <p class="text-sm text-on-surface-variant">+28% nas buscas</p>
-                    <div class="progress-bar mt-2">
-                        <div class="progress-fill" style="width: 78%"></div>
-                    </div>
-                    <div class="flex flex-wrap gap-1 mt-3">
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Natural</span>
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Versátil</span>
-                    </div>
-                </div>
+            function closeModal() {
+                modalOverlay.classList.add('opacity-0', 'pointer-events-none');
+                modalOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+                document.body.style.overflow = '';
+            }
 
-                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" data-modal="Corte Assimétrico" data-modal-img="https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=800&h=600&fit=crop&crop=center" data-modal-desc="Design moderno com linhas assimétricas e movimento. Crescimento de 35% no editorial internacional." data-modal-category="Tendência" data-modal-tags="#Assimetria #Moderno">
-                    <span class="material-symbols-outlined text-4xl text-secondary">auto_awesome</span>
-                    <h3 class="font-title-md text-title-md mt-3">Corte Assimétrico</h3>
-                    <p class="text-sm text-on-surface-variant">+35% no editorial</p>
-                    <div class="progress-bar mt-2">
-                        <div class="progress-fill" style="width: 82%"></div>
-                    </div>
-                    <div class="flex flex-wrap gap-1 mt-3">
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Editorial</span>
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Arrojado</span>
-                    </div>
-                </div>
+            modalClose.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) closeModal();
+            });
 
-                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" data-modal="Colorimetria Sustentável" data-modal-img="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&h=600&fit=crop&crop=center" data-modal-desc="Formulações eco-friendly com baixo impacto químico. Alta demanda por produtos sustentáveis." data-modal-category="Tendência" data-modal-tags="#Sustentável #Eco">
-                    <span class="material-symbols-outlined text-4xl text-secondary">eco</span>
-                    <h3 class="font-title-md text-title-md mt-3">Colorimetria Sustentável</h3>
-                    <p class="text-sm text-on-surface-variant">+45% em produtos eco</p>
-                    <div class="progress-bar mt-2">
-                        <div class="progress-fill" style="width: 92%"></div>
-                    </div>
-                    <div class="flex flex-wrap gap-1 mt-3">
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Sustentável</span>
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Natural</span>
-                    </div>
-                </div>
+            // ============================================
+            // 5. NAVIGATION & ROUTING
+            // ============================================
 
-                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" data-modal="Visagismo Digital" data-modal-img="https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=800&h=600&fit=crop&crop=center" data-modal-desc="Ferramentas digitais para análise facial e simulação de cortes. Revolução no atendimento." data-modal-category="Tendência" data-modal-tags="#Digital #Tecnologia">
-                    <span class="material-symbols-outlined text-4xl text-secondary">simulation</span>
-                    <h3 class="font-title-md text-title-md mt-3">Visagismo Digital</h3>
-                    <p class="text-sm text-on-surface-variant">Tecnologia em expansão</p>
-                    <div class="progress-bar mt-2">
-                        <div class="progress-fill" style="width: 68%"></div>
-                    </div>
-                    <div class="flex flex-wrap gap-1 mt-3">
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Inovação</span>
-                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Precisão</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- BOTTOM NAV (mobile) -->
-    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface dark:bg-background border-t border-outline-variant/10 backdrop-blur-md md:hidden">
-        <a href="#" data-page="inicio" class="nav-link flex flex-col items-center justify-center text-primary dark:text-on-background nav-link-active">
-            <span class="material-symbols-outlined">home</span>
-            <span class="font-label-sm text-label-sm">Início</span>
-        </a>
-        <a href="#" data-page="biblioteca" class="nav-link flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-60">
-            <span class="material-symbols-outlined">menu_book</span>
-            <span class="font-label-sm text-label-sm">Biblioteca</span>
-        </a>
-        <a href="#" data-page="colorimetria" class="nav-link flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-60">
-            <span class="material-symbols-outlined">palette</span>
-            <span class="font-label-sm text-label-sm">Cor</span>
-        </a>
-        <a href="#" data-page="cortes" class="nav-link flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-60">
-            <span class="material-symbols-outlined">content_cut</span>
-            <span class="font-label-sm text-label-sm">Cortes</span>
-        </a>
-        <a href="#" data-page="tendencias" class="nav-link flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-60">
-            <span class="material-symbols-outlined">trending_up</span>
-            <span class="font-label-sm text-label-sm">Tendências</span>
-        </a>
-    </nav>
-
-    <!-- MODAL MELHORADO -->
-    <div id="modalOverlay" class="modal-overlay fixed inset-0 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="modal-content relative p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <button id="modalClose" class="absolute top-4 right-4 text-3xl hover:opacity-60 transition-opacity material-symbols-outlined z-10" aria-label="Fechar modal">close</button>
-            <div id="modalBody" class="flex flex-col gap-4">
-                <div class="flex items-start justify-between gap-4">
-                    <div>
-                        <span id="modalCategory" class="text-xs font-data-mono text-secondary uppercase tracking-[0.2em]"></span>
-                        <h3 id="modalTitle" class="font-headline-lg text-headline-lg mt-1"></h3>
-                    </div>
-                </div>
-                <img id="modalImage" class="w-full rounded-sm max-h-[60vh] object-contain" src="" alt="" />
-                <p id="modalDesc" class="text-on-surface-variant text-base max-w-2xl"></p>
-                <div id="modalTags" class="flex flex-wrap gap-2 mt-2"></div>
-                <div id="modalExtra" class="border-t border-outline-variant/10 pt-4 mt-2">
-                    <p class="text-xs text-on-surface-variant/50 font-data-mono">Referência técnica · HairOS Library v3.0</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        (function() {
-            // ----- SPA NAVIGATION -----
             const pages = {
-                inicio: document.getElementById('page-inicio'),
-                biblioteca: document.getElementById('page-biblioteca'),
-                colorimetria: document.getElementById('page-colorimetria'),
-                cortes: document.getElementById('page-cortes'),
-                tendencias: document.getElementById('page-tendencias')
+                dashboard: document.getElementById('page-dashboard'),
+                cuts: document.getElementById('page-cuts'),
+                colorimetry: document.getElementById('page-colorimetry'),
+                faces: document.getElementById('page-faces'),
+                hairTypes: document.getElementById('page-hairTypes'),
+                techniques: document.getElementById('page-techniques'),
+                products: document.getElementById('page-products'),
+                tools: document.getElementById('page-tools'),
+                trends: document.getElementById('page-trends'),
+                chemistry: document.getElementById('page-chemistry'),
+                glossary: document.getElementById('page-glossary'),
+                bibliography: document.getElementById('page-bibliography')
             };
+
+            const menuLinks = document.querySelectorAll('.menu-link');
             const navLinks = document.querySelectorAll('[data-page]');
             const bottomNavLinks = document.querySelectorAll('.nav-link');
-            const menuLinks = document.querySelectorAll('.menu-link');
+
+            let currentPage = 'dashboard';
 
             function showPage(pageId) {
+                // Esconder todas
                 Object.keys(pages).forEach(key => {
-                    pages[key].classList.toggle('active', key === pageId);
-                });
-                
-                // Atualiza menu lateral
-                menuLinks.forEach(link => {
-                    const isActive = link.dataset.page === pageId;
-                    link.classList.toggle('bg-surface-container', isActive);
-                    link.classList.toggle('text-secondary', isActive);
+                    pages[key].classList.remove('active');
                 });
 
-                // Atualiza bottom nav
+                // Mostrar a página
+                if (pages[pageId]) {
+                    pages[pageId].classList.add('active');
+                    currentPage = pageId;
+                }
+
+                // Atualizar menu
+                menuLinks.forEach(link => {
+                    link.classList.remove('menu-link-active');
+                    if (link.dataset.page === pageId) {
+                        link.classList.add('menu-link-active');
+                    }
+                });
+
+                // Atualizar bottom nav
                 bottomNavLinks.forEach(link => {
-                    const isActive = link.dataset.page === pageId;
-                    link.classList.toggle('nav-link-active', isActive);
-                    link.classList.toggle('opacity-60', !isActive);
+                    link.classList.remove('nav-link-active');
+                    link.classList.remove('text-primary');
+                    link.classList.add('opacity-60');
+                    if (link.dataset.page === pageId) {
+                        link.classList.add('nav-link-active');
+                        link.classList.remove('opacity-60');
+                        link.classList.add('text-primary');
+                    }
                 });
 
                 closeMenu();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Renderizar conteúdo específico da página
+                switch (pageId) {
+                    case 'dashboard':
+                        renderStats();
+                        break;
+                    case 'cuts':
+                        renderCuts('all');
+                        break;
+                    case 'colorimetry':
+                        renderColors('all');
+                        renderReflexTable();
+                        break;
+                    case 'faces':
+                        renderFaces();
+                        break;
+                    case 'hairTypes':
+                        renderHairTypes();
+                        break;
+                    case 'techniques':
+                        renderTechniques();
+                        break;
+                    case 'products':
+                        renderProducts();
+                        break;
+                    case 'tools':
+                        renderTools();
+                        break;
+                    case 'trends':
+                        renderTrends();
+                        break;
+                    case 'chemistry':
+                        renderChemistry();
+                        break;
+                    case 'glossary':
+                        renderGlossary();
+                        break;
+                    case 'bibliography':
+                        renderBibliography();
+                        break;
+                }
             }
+
+            // Event listeners para navegação
+            menuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = link.dataset.page;
+                    if (page && pages[page]) showPage(page);
+                });
+            });
 
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -1103,7 +2152,153 @@
                 });
             });
 
-            // ----- MENU SIDEBAR -----
+            // ============================================
+            // 6. FILTERS
+            // ============================================
+
+            // Filtros de cortes
+            document.querySelectorAll('#cutFilters .filter-chip').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('#cutFilters .filter-chip').forEach(b => b.classList.remove(
+                    'filter-chip-active'));
+                    this.classList.add('filter-chip-active');
+                    renderCuts(this.dataset.filter);
+                });
+            });
+
+            // Filtros de cores
+            document.querySelectorAll('#colorFilters .filter-chip').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('#colorFilters .filter-chip').forEach(b => b.classList.remove(
+                        'filter-chip-active'));
+                    this.classList.add('filter-chip-active');
+                    renderColors(this.dataset.filter);
+                });
+            });
+
+            // ============================================
+            // 7. SEARCH
+            // ============================================
+
+            const globalSearch = document.getElementById('globalSearch');
+            const quickSearch = document.getElementById('quickSearch');
+            const quickSearchBtn = document.getElementById('quickSearchBtn');
+            const quickResults = document.getElementById('quickResults');
+
+            function performSearch(term) {
+                if (!term || term.length < 2) {
+                    quickResults.classList.add('hidden');
+                    return;
+                }
+
+                const results = searchAll(term);
+
+                if (results.length === 0) {
+                    quickResults.innerHTML = `
+                        <div class="col-span-full bg-surface-container-lowest sharp-border p-4 text-center text-on-surface-variant">
+                            <span class="material-symbols-outlined">search_off</span>
+                            <p class="mt-1">Nenhum resultado encontrado para "${term}"</p>
+                        </div>
+                    `;
+                    quickResults.classList.remove('hidden');
+                    return;
+                }
+
+                quickResults.innerHTML = results.slice(0, 6).map(item => `
+                    <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" 
+                         onclick="window._openResult('${item.id}', '${item._collection}')">
+                        <h4 class="font-title-md text-title-md text-sm">${item._displayName}</h4>
+                        <p class="text-xs text-on-surface-variant/70">${item.descricao || item.definicao || ''}</p>
+                        <span class="text-[10px] text-secondary font-data-mono uppercase">${item._collection}</span>
+                        ${item.categoria ? `<span class="text-[10px] text-on-surface-variant/50 ml-2">${item.categoria}</span>` : ''}
+                    </div>
+                `).join('');
+
+                quickResults.classList.remove('hidden');
+            }
+
+            // Expor para onclick
+            window._openResult = function(id, collection) {
+                const items = HairDatabase[collection] || [];
+                const item = findItem(items, id);
+                if (item) {
+                    openModal(item, collection);
+                    quickResults.classList.add('hidden');
+                }
+            };
+
+            globalSearch.addEventListener('input', function() {
+                const term = this.value.trim();
+                if (term.length > 2) {
+                    // Redirecionar para dashboard e mostrar resultados
+                    showPage('dashboard');
+                    quickSearch.value = term;
+                    performSearch(term);
+                } else {
+                    quickResults.classList.add('hidden');
+                }
+            });
+
+            quickSearch.addEventListener('input', function() {
+                performSearch(this.value.trim());
+            });
+
+            quickSearchBtn.addEventListener('click', function() {
+                performSearch(quickSearch.value.trim());
+            });
+
+            quickSearch.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch(this.value.trim());
+                }
+            });
+
+            // ============================================
+            // 8. THEME TOGGLE
+            // ============================================
+
+            const themeToggle = document.getElementById('themeToggle');
+            const themeToggleTop = document.getElementById('themeToggleTop');
+            const themeLabel = document.getElementById('themeLabel');
+            const themeIcon = document.getElementById('themeIcon');
+            const themeIconTop = document.getElementById('themeIconTop');
+            const html = document.documentElement;
+
+            function toggleTheme() {
+                const isDark = html.classList.contains('dark');
+                html.classList.toggle('dark', !isDark);
+                html.classList.toggle('light', isDark);
+                const newMode = html.classList.contains('dark') ? 'Claro' : 'Escuro';
+                const icon = html.classList.contains('dark') ? 'light_mode' : 'dark_mode';
+                themeLabel.textContent = newMode;
+                if (themeIcon) themeIcon.textContent = icon;
+                if (themeIconTop) themeIconTop.textContent = icon;
+                localStorage.setItem('hairOS-theme', html.classList.contains('dark') ? 'dark' : 'light');
+            }
+
+            // Carregar tema salvo
+            const savedTheme = localStorage.getItem('hairOS-theme');
+            if (savedTheme === 'dark') {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                themeLabel.textContent = 'Claro';
+                if (themeIcon) themeIcon.textContent = 'light_mode';
+                if (themeIconTop) themeIconTop.textContent = 'light_mode';
+            } else {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                themeLabel.textContent = 'Escuro';
+                if (themeIcon) themeIcon.textContent = 'dark_mode';
+                if (themeIconTop) themeIconTop.textContent = 'dark_mode';
+            }
+
+            themeToggle.addEventListener('click', toggleTheme);
+            if (themeToggleTop) themeToggleTop.addEventListener('click', toggleTheme);
+
+            // ============================================
+            // 9. MENU SIDEBAR
+            // ============================================
+
             const menuSidebar = document.getElementById('menuSidebar');
             const menuBackdrop = document.getElementById('menuBackdrop');
             const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -1125,198 +2320,56 @@
             closeMenuBtn.addEventListener('click', closeMenu);
             menuBackdrop.addEventListener('click', closeMenu);
 
-            // ----- MODAL MELHORADO -----
-            const modalOverlay = document.getElementById('modalOverlay');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalImage = document.getElementById('modalImage');
-            const modalDesc = document.getElementById('modalDesc');
-            const modalCategory = document.getElementById('modalCategory');
-            const modalTags = document.getElementById('modalTags');
-            const modalClose = document.getElementById('modalClose');
+            // ============================================
+            // 10. QUICK STATS UPDATE (menu counts)
+            // ============================================
 
-            function openModal(title, imgSrc, desc, category, tags) {
-                modalTitle.textContent = title || 'Detalhes';
-                modalImage.src = imgSrc || '';
-                modalImage.alt = title || '';
-                modalDesc.textContent = desc || 'Informações técnicas disponíveis.';
-                modalCategory.textContent = category || 'Referência';
-                
-                // Tags
-                modalTags.innerHTML = '';
-                if (tags) {
-                    const tagList = tags.split('#').filter(t => t.trim());
-                    tagList.forEach(tag => {
-                        const span = document.createElement('span');
-                        span.className = 'text-[10px] bg-surface-container-high px-3 py-1 uppercase tracking-wider';
-                        span.textContent = '#' + tag.trim();
-                        modalTags.appendChild(span);
-                    });
-                }
-
-                modalOverlay.classList.remove('opacity-0', 'pointer-events-none');
-                modalOverlay.classList.add('opacity-100', 'pointer-events-auto');
-                document.body.style.overflow = 'hidden';
+            function updateMenuCounts() {
+                const counts = getCounts();
+                document.getElementById('cutCount').textContent = counts.cuts;
+                document.getElementById('colorCount').textContent = counts.colors;
+                document.getElementById('faceCount').textContent = counts.faces;
+                document.getElementById('hairTypeCount').textContent = counts.hairTypes;
+                document.getElementById('techniqueCount').textContent = counts.techniques;
+                document.getElementById('productCount').textContent = counts.products;
+                document.getElementById('toolCount').textContent = counts.tools;
+                document.getElementById('trendCount').textContent = counts.trends;
+                document.getElementById('chemistryCount').textContent = counts.chemistry;
+                document.getElementById('glossaryCount').textContent = counts.glossary;
+                document.getElementById('bibliographyCount').textContent = counts.bibliography;
             }
 
-            function closeModal() {
-                modalOverlay.classList.add('opacity-0', 'pointer-events-none');
-                modalOverlay.classList.remove('opacity-100', 'pointer-events-auto');
-                document.body.style.overflow = '';
-            }
+            // ============================================
+            // 11. INIT
+            // ============================================
 
-            modalClose.addEventListener('click', closeModal);
-            modalOverlay.addEventListener('click', (e) => {
-                if (e.target === modalOverlay) closeModal();
+            // Atualizar contagens
+            updateMenuCounts();
+
+            // Renderizar dashboard inicial
+            renderStats();
+
+            // Expor dados para debug
+            window.HairDatabase = HairDatabase;
+
+            console.log('🧠 HairOS Knowledge Engine v3.0');
+            console.log('📊 Database loaded:', {
+                cuts: HairDatabase.cuts.length,
+                colors: HairDatabase.colors.length,
+                faces: HairDatabase.faces.length,
+                hairTypes: HairDatabase.hairTypes.length,
+                techniques: HairDatabase.techniques.length,
+                products: HairDatabase.products.length,
+                tools: HairDatabase.tools.length,
+                trends: HairDatabase.trends.length,
+                chemistry: HairDatabase.chemistry.length,
+                glossary: HairDatabase.glossary.length,
+                bibliography: HairDatabase.bibliography.length
             });
+            console.log('🔍 Use window.HairDatabase para explorar os dados');
 
-            // Trigger modal
-            document.querySelectorAll('[data-modal]').forEach(el => {
-                el.addEventListener('click', function(e) {
-                    const title = this.dataset.modal || 'Item';
-                    const img = this.dataset.modalImg || '';
-                    const desc = this.dataset.modalDesc || 'Toque para ver mais detalhes.';
-                    const category = this.dataset.modalCategory || '';
-                    const tags = this.dataset.modalTags || '';
-                    openModal(title, img, desc, category, tags);
-                });
-            });
-
-            // ----- FILTROS BIBLIOTECA -----
-            const filterButtons = document.querySelectorAll('[data-filter]');
-            filterButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    filterButtons.forEach(b => b.classList.remove('filter-chip-active'));
-                    this.classList.add('filter-chip-active');
-                    const filter = this.dataset.filter;
-                    // Lógica de filtro pode ser implementada aqui
-                    console.log('Filtrando por:', filter);
-                });
-            });
-
-            // ----- FILTROS COR -----
-            const colorFilters = document.querySelectorAll('[data-color-filter]');
-            colorFilters.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    colorFilters.forEach(b => b.classList.remove('filter-chip-active'));
-                    this.classList.add('filter-chip-active');
-                    const filter = this.dataset.colorFilter;
-                    const cards = document.querySelectorAll('#colorGrid > div');
-                    cards.forEach(card => {
-                        const category = card.dataset.modalCategory || '';
-                        if (filter === 'all' || category.toLowerCase().includes(filter)) {
-                            card.style.display = 'flex';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            });
-
-            // ----- FILTROS CORTES -----
-            const cutFilters = document.querySelectorAll('[data-cut-filter]');
-            cutFilters.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    cutFilters.forEach(b => b.classList.remove('filter-chip-active'));
-                    this.classList.add('filter-chip-active');
-                    const filter = this.dataset.cutFilter;
-                    const cards = document.querySelectorAll('#cutGrid > div');
-                    cards.forEach(card => {
-                        const tags = card.dataset.modalTags || '';
-                        if (filter === 'all' || tags.toLowerCase().includes(filter)) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            });
-
-            // ----- BUSCA GLOBAL -----
-            const globalSearch = document.getElementById('globalSearch');
-            if (globalSearch) {
-                globalSearch.addEventListener('input', function() {
-                    const term = this.value.toLowerCase().trim();
-                    if (term.length > 2) {
-                        // Simples navegação para biblioteca com filtro
-                        showPage('biblioteca');
-                        const librarySearch = document.getElementById('librarySearch');
-                        if (librarySearch) {
-                            librarySearch.value = term;
-                            librarySearch.dispatchEvent(new Event('input'));
-                        }
-                    }
-                });
-            }
-
-            // ----- BUSCA NA BIBLIOTECA -----
-            const librarySearch = document.getElementById('librarySearch');
-            const searchResults = document.getElementById('searchResults');
-            if (librarySearch) {
-                librarySearch.addEventListener('input', function() {
-                    const term = this.value.toLowerCase().trim();
-                    if (term.length > 2) {
-                        // Simular busca
-                        const items = [
-                            'Cobre Oxidado - Colorimetria',
-                            'Platina Ártica - Colorimetria',
-                            'Pompadour - Cortes',
-                            'Fade Degradê - Cortes',
-                            'Midnight Onyx - Colorimetria',
-                            'Pixie Afiado - Cortes',
-                            'Carvalho Defumado - Colorimetria'
-                        ];
-                        const results = items.filter(item => item.toLowerCase().includes(term));
-                        searchResults.classList.remove('hidden');
-                        searchResults.innerHTML = results.length > 0 ? 
-                            results.map(r => `<div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer">${r}</div>`).join('') :
-                            `<div class="bg-surface-container-lowest sharp-border p-4 text-on-surface-variant">Nenhum resultado encontrado</div>`;
-                    } else {
-                        searchResults.classList.add('hidden');
-                    }
-                });
-            }
-
-            // ----- THEME TOGGLE -----
-            const themeToggle = document.getElementById('themeToggle');
-            const themeToggleTop = document.getElementById('themeToggleTop');
-            const themeLabel = document.getElementById('themeLabel');
-            const themeIcon = document.getElementById('themeIcon');
-            const themeIconTop = document.getElementById('themeIconTop');
-            const html = document.documentElement;
-
-            function toggleTheme() {
-                const isDark = html.classList.contains('dark');
-                html.classList.toggle('dark', !isDark);
-                html.classList.toggle('light', isDark);
-                const newMode = html.classList.contains('dark') ? 'Claro' : 'Escuro';
-                const icon = html.classList.contains('dark') ? 'light_mode' : 'dark_mode';
-                themeLabel.textContent = newMode;
-                if (themeIcon) themeIcon.textContent = icon;
-                if (themeIconTop) themeIconTop.textContent = icon;
-                localStorage.setItem('hairOS-theme', html.classList.contains('dark') ? 'dark' : 'light');
-            }
-
-            const saved = localStorage.getItem('hairOS-theme');
-            if (saved === 'dark') {
-                html.classList.remove('light');
-                html.classList.add('dark');
-                themeLabel.textContent = 'Claro';
-                if (themeIcon) themeIcon.textContent = 'light_mode';
-                if (themeIconTop) themeIconTop.textContent = 'light_mode';
-            } else {
-                html.classList.remove('dark');
-                html.classList.add('light');
-                themeLabel.textContent = 'Escuro';
-                if (themeIcon) themeIcon.textContent = 'dark_mode';
-                if (themeIconTop) themeIconTop.textContent = 'dark_mode';
-            }
-
-            themeToggle.addEventListener('click', toggleTheme);
-            if (themeToggleTop) themeToggleTop.addEventListener('click', toggleTheme);
-
-            // ----- INIT -----
-            showPage('inicio');
         })();
     </script>
+
 </body>
 </html>
