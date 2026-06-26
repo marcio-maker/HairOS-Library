@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html class="light" lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>HairOS Library · Sistema Profissional</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&family=Libre+Caslon+Text:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <!-- Tailwind + config -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+    </script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#000000",
+                        secondary: "#775a19",
+                        background: "#f9f9f9",
+                        "on-background": "#1a1c1c",
+                        surface: "#f9f9f9",
+                        "surface-container": "#eeeeee",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e5e5e5",
+                        outline: "#747878",
+                        "outline-variant": "#c4c7c7",
+                        "on-surface-variant": "#444748",
+                        "on-tertiary-container": "#848484",
+                        "tertiary-container": "#1b1c1c",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#fed488",
+                        "success": "#2e7d32",
+                        "warning": "#ed6c02",
+                        "error": "#d32f2f",
+                    },
+                    borderRadius: { DEFAULT: "0px", lg: "0px", xl: "0px", full: "9999px" },
+                    spacing: {
+                        "margin-mobile": "20px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px"
+                    },
+                    fontFamily: {
+                        "title-md": ["Hanken Grotesk"],
+                        "display-lg": ["Libre Caslon Text"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-lg": ["Libre Caslon Text"],
+                        "label-sm": ["JetBrains Mono"],
+                        "body-md": ["Hanken Grotesk"]
+                    },
+                    fontSize: {
+                        "title-md": ["18px", { lineHeight: "24px", letterSpacing: "0.01em", fontWeight: "600" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "400" }],
+                        "data-mono": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "400" }],
+                        "label-sm": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-flex;
+            vertical-align: middle;
+            align-items: center;
+            justify-content: center;
+        }
+        body {
+            min-height: 100dvh;
+            background: #f9f9f9;
+            font-family: 'Hanken Grotesk', sans-serif;
+            transition: background 0.3s, color 0.3s;
+        }
+        .dark body {
+            background: #1a1410;
+            color: #e8e0d8;
+        }
+        .dark .bg-surface {
+            background: #2a221c;
+        }
+        .dark .bg-surface-container-lowest {
+            background: #2f2720;
+        }
+        .dark .bg-surface-container {
+            background: #2a221c;
+        }
+        .dark .bg-surface-container-high {
+            background: #3d322a;
+        }
+        .dark .border-outline-variant\/10 {
+            border-color: rgba(255, 215, 180, 0.08);
+        }
+        .dark .sharp-border {
+            border-color: rgba(255, 215, 180, 0.12);
+        }
+        .dark .technical-border {
+            border-color: rgba(255, 215, 180, 0.12);
+        }
+        .dark .text-on-surface-variant {
+            color: #b8aaa0;
+        }
+        .dark .text-on-tertiary-container {
+            color: #b8aaa0;
+        }
+        .dark .bg-primary {
+            background: #2f2720;
+        }
+        .dark .text-primary {
+            color: #e8e0d8;
+        }
+        .dark .border-primary {
+            border-color: #e8e0d8;
+        }
+        .dark .bg-white {
+            background: #2f2720;
+        }
+        .dark .text-on-primary {
+            color: #1a1410;
+        }
+        .dark .bg-primary\/90 {
+            background: #3d322a;
+        }
+        .dark .border-outline\/20 {
+            border-color: rgba(255, 215, 180, 0.2);
+        }
+        .dark .text-outline {
+            color: #b8aaa0;
+        }
+        .dark .bg-tertiary-container {
+            background: #1a1410;
+        }
+        .dark .text-on-tertiary {
+            color: #e8e0d8;
+        }
+        .dark .border-white\/10 {
+            border-color: rgba(255, 215, 180, 0.1);
+        }
+        .dark .border-white\/5 {
+            border-color: rgba(255, 215, 180, 0.05);
+        }
+        .dark .bg-secondary {
+            background: #a67c3a;
+        }
+        .dark .text-secondary {
+            color: #dbaa5a;
+        }
+        .dark .filter-chip {
+            border-color: rgba(255, 215, 180, 0.2);
+            color: #d0c0b0;
+        }
+        .dark .filter-chip:hover {
+            border-color: #dbaa5a;
+        }
+        .dark .filter-chip-active {
+            background: #dbaa5a;
+            color: #1a1410;
+            border-color: #dbaa5a;
+        }
+        .dark .text-success {
+            color: #81c784;
+        }
+        .dark .text-warning {
+            color: #ffb74d;
+        }
+        .dark .text-error {
+            color: #e57373;
+        }
+        .sharp-border {
+            border: 1px solid rgba(26, 28, 28, 0.1);
+        }
+        .card-hover {
+            transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.25s cubic-bezier(0.2, 0, 0, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+        .dark .card-hover:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+        input:focus {
+            outline: none;
+            border-bottom: 2px solid #775a19 !important;
+        }
+        .dark input:focus {
+            border-bottom: 2px solid #dbaa5a !important;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #775a19;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #dbaa5a;
+        }
+        /* modal overlay aprimorado */
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            transition: opacity 0.3s ease;
+        }
+        .dark .modal-overlay {
+            background: rgba(0, 0, 0, 0.85);
+        }
+        .modal-content {
+            max-width: 95vw;
+            max-height: 90vh;
+            width: 800px;
+            background: #f9f9f9;
+            border-radius: 0;
+            animation: modalIn 0.3s cubic-bezier(0.2, 0, 0, 1);
+        }
+        .dark .modal-content {
+            background: #2a221c;
+            color: #e8e0d8;
+        }
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .modal-content img {
+            max-height: 60vh;
+            object-fit: contain;
+            width: 100%;
+            height: auto;
+        }
+        /* menu sidebar melhorado */
+        .menu-sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+            z-index: 1000;
+            background: #f9f9f9;
+            width: 300px;
+            max-width: 80vw;
+            height: 100dvh;
+            overflow-y: auto;
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .dark .menu-sidebar {
+            background: #1a1410;
+            border-right-color: rgba(255, 215, 180, 0.08);
+        }
+        .menu-sidebar.open {
+            transform: translateX(0);
+        }
+        .menu-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .menu-backdrop.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        /* page transitions melhoradas */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* filters e badges */
+        .filter-chip {
+            padding: 6px 16px;
+            border: 1px solid rgba(26, 28, 28, 0.15);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .filter-chip:hover {
+            border-color: #775a19;
+        }
+        .filter-chip-active {
+            background: #775a19;
+            color: white;
+            border-color: #775a19;
+        }
+        .dark .filter-chip-active {
+            background: #dbaa5a;
+            color: #1a1410;
+        }
+        .progress-bar {
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 0;
+            overflow: hidden;
+        }
+        .dark .progress-bar {
+            background: #3d322a;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #775a19;
+            transition: width 0.6s cubic-bezier(0.2, 0, 0, 1);
+        }
+        .dark .progress-fill {
+            background: #dbaa5a;
+        }
+        /* skeleton loading */
+        .skeleton {
+            background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+            background-size: 200% 100%;
+            animation: skeleton 1.5s infinite;
+        }
+        .dark .skeleton {
+            background: linear-gradient(90deg, #2a221c 25%, #3d322a 50%, #2a221c 75%);
+            background-size: 200% 100%;
+        }
+        @keyframes skeleton {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .nav-link-active {
+            color: #775a19 !important;
+            opacity: 1 !important;
+        }
+        .dark .nav-link-active {
+            color: #dbaa5a !important;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen selection:bg-secondary-container">
+
+    <!-- MENU SIDEBAR MELHORADO -->
+    <div id="menuBackdrop" class="menu-backdrop"></div>
+    <div id="menuSidebar" class="menu-sidebar p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-10">
+            <span class="font-display-lg text-2xl tracking-tighter">HairOS</span>
+            <button id="closeMenuBtn" class="text-2xl hover:opacity-60 transition-opacity material-symbols-outlined" aria-label="Fechar menu">close</button>
+        </div>
+        <nav class="flex flex-col gap-2 text-base font-body-md">
+            <a href="#" data-page="inicio" class="menu-link flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined">home</span> Início
+            </a>
+            <a href="#" data-page="biblioteca" class="menu-link flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined">menu_book</span> Biblioteca
+                <span class="ml-auto text-[10px] text-secondary font-data-mono">124</span>
+            </a>
+            <a href="#" data-page="colorimetria" class="menu-link flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined">palette</span> Colorimetria
+                <span class="ml-auto text-[10px] text-secondary font-data-mono">48</span>
+            </a>
+            <a href="#" data-page="cortes" class="menu-link flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined">content_cut</span> Cortes
+                <span class="ml-auto text-[10px] text-secondary font-data-mono">36</span>
+            </a>
+            <a href="#" data-page="tendencias" class="menu-link flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors rounded-none">
+                <span class="material-symbols-outlined">trending_up</span> Tendências
+                <span class="ml-auto text-[10px] text-secondary font-data-mono">12</span>
+            </a>
+        </nav>
+        <div class="mt-auto pt-6 border-t border-outline-variant/20 space-y-4">
+            <div class="flex items-center gap-3 text-sm">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span class="font-data-mono text-[10px] uppercase tracking-wider text-on-surface-variant">Sistema Online</span>
+            </div>
+            <button id="themeToggle" class="flex items-center gap-3 text-sm hover:text-secondary transition-colors w-full">
+                <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+                <span id="themeLabel">Modo escuro</span>
+            </button>
+            <p class="text-[10px] text-on-surface-variant/50 font-data-mono">v3.0 · Profissional</p>
+        </div>
+    </div>
+
+    <!-- TOP BAR -->
+    <header class="bg-surface dark:bg-background border-b border-outline-variant/15 sticky top-0 z-[100]">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+            <div class="flex items-center gap-4">
+                <button id="hamburgerBtn" class="hover:opacity-80 transition-opacity active:scale-95 duration-100 text-primary dark:text-on-background" aria-label="Abrir menu">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <h1 class="font-display-lg text-display-lg tracking-tighter text-primary dark:text-on-background leading-none">HairOS</h1>
+                <span class="hidden md:inline-block text-[10px] font-data-mono text-secondary uppercase tracking-[0.2em] ml-2">Library</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <!-- Busca global -->
+                <div class="hidden md:flex items-center border-b border-outline-variant/30 px-2 py-1">
+                    <span class="material-symbols-outlined text-sm text-on-surface-variant/50">search</span>
+                    <input id="globalSearch" type="text" placeholder="Buscar na biblioteca..." class="bg-transparent border-none text-sm px-2 py-1 w-48 focus:border-none focus:ring-0 dark:text-on-background" />
+                </div>
+                <button id="themeToggleTop" class="hover:opacity-80 transition-opacity text-primary dark:text-on-background hidden md:flex" aria-label="Alternar tema">
+                    <span class="material-symbols-outlined" id="themeIconTop">dark_mode</span>
+                </button>
+                <button class="hover:opacity-80 transition-opacity text-primary dark:text-on-background md:hidden" aria-label="Buscar">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-6 pb-32">
+
+        <!-- PÁGINA: INÍCIO (melhorada) -->
+        <section id="page-inicio" class="page active">
+            <div class="mb-10">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="material-symbols-outlined text-secondary text-3xl">menu_book</span>
+                    <h2 class="font-headline-lg text-headline-lg md:text-display-lg">Biblioteca Profissional</h2>
+                </div>
+                <p class="text-on-surface-variant max-w-xl mt-2 text-lg">Catálogo técnico de visagismo, colorimetria e cortes. Dados precisos para o salão moderno.</p>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                <div class="bg-surface-container-lowest sharp-border p-4 text-center">
+                    <span class="text-2xl font-bold text-secondary">124</span>
+                    <p class="text-xs text-on-surface-variant font-data-mono uppercase tracking-wider">Referências</p>
+                </div>
+                <div class="bg-surface-container-lowest sharp-border p-4 text-center">
+                    <span class="text-2xl font-bold text-secondary">48</span>
+                    <p class="text-xs text-on-surface-variant font-data-mono uppercase tracking-wider">Fórmulas</p>
+                </div>
+                <div class="bg-surface-container-lowest sharp-border p-4 text-center">
+                    <span class="text-2xl font-bold text-secondary">36</span>
+                    <p class="text-xs text-on-surface-variant font-data-mono uppercase tracking-wider">Cortes</p>
+                </div>
+                <div class="bg-surface-container-lowest sharp-border p-4 text-center">
+                    <span class="text-2xl font-bold text-secondary">14.2k</span>
+                    <p class="text-xs text-on-surface-variant font-data-mono uppercase tracking-wider">Profissionais</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer group" data-page="biblioteca">
+                    <span class="material-symbols-outlined text-5xl text-secondary group-hover:scale-110 transition-transform">menu_book</span>
+                    <h3 class="font-title-md text-title-md mt-4">Biblioteca</h3>
+                    <p class="text-on-surface-variant text-sm">Coleções, tendências e referências técnicas organizadas.</p>
+                    <span class="inline-block mt-4 text-xs font-data-mono text-secondary">124 itens →</span>
+                </div>
+                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer group" data-page="colorimetria">
+                    <span class="material-symbols-outlined text-5xl text-secondary group-hover:scale-110 transition-transform">palette</span>
+                    <h3 class="font-title-md text-title-md mt-4">Colorimetria</h3>
+                    <p class="text-on-surface-variant text-sm">Formulações precisas, guia de reflexos e simulação.</p>
+                    <span class="inline-block mt-4 text-xs font-data-mono text-secondary">48 fórmulas →</span>
+                </div>
+                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer group" data-page="cortes">
+                    <span class="material-symbols-outlined text-5xl text-secondary group-hover:scale-110 transition-transform">content_cut</span>
+                    <h3 class="font-title-md text-title-md mt-4">Cortes</h3>
+                    <p class="text-on-surface-variant text-sm">Técnicas, compatibilidade e estilos para cada rosto.</p>
+                    <span class="inline-block mt-4 text-xs font-data-mono text-secondary">36 estilos →</span>
+                </div>
+            </div>
+
+            <!-- Últimas atualizações -->
+            <div class="mt-12 p-6 bg-surface-container-lowest sharp-border">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <span class="font-data-mono text-xs text-secondary uppercase tracking-[0.2em]">Últimas atualizações</span>
+                        <p class="text-sm text-on-surface-variant mt-1">Novas fórmulas de colorimetria e tendências de outono adicionadas</p>
+                    </div>
+                    <span class="flex items-center gap-2 text-sm text-on-surface-variant">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span class="font-data-mono text-[10px] uppercase tracking-wider">Cloud ativo · 2h atrás</span>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PÁGINA: BIBLIOTECA (completa) -->
+        <section id="page-biblioteca" class="page">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
+                <div>
+                    <h3 class="font-headline-lg text-headline-lg">Coleções</h3>
+                    <p class="text-on-surface-variant text-sm">Explore nossa biblioteca técnica completa</p>
+                </div>
+                <div class="flex items-center gap-3 flex-wrap">
+                    <span class="font-data-mono text-label-sm text-secondary uppercase tracking-[0.2em]">124 itens</span>
+                    <button class="filter-chip filter-chip-active" data-filter="all">Todos</button>
+                    <button class="filter-chip" data-filter="cortes">Cortes</button>
+                    <button class="filter-chip" data-filter="colorimetria">Cor</button>
+                    <button class="filter-chip" data-filter="produtos">Produtos</button>
+                    <button class="filter-chip" data-filter="rosto">Rosto</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-gutter" id="collectionGrid">
+                <div class="group bg-surface-container-lowest sharp-border p-6 card-hover flex flex-col justify-between aspect-square cursor-pointer" data-modal="Cortes" data-modal-desc="500+ estilos e técnicas de corte com análise de compatibilidade facial." data-modal-category="Cortes" data-modal-tags="#Técnica #Visagismo">
+                    <div class="flex justify-between items-start">
+                        <span class="material-symbols-outlined text-3xl group-hover:text-secondary transition-colors">content_cut</span>
+                        <span class="font-data-mono text-label-sm text-on-surface-variant opacity-60">01</span>
+                    </div>
+                    <div>
+                        <h4 class="font-title-md text-title-md mb-1">Cortes</h4>
+                        <p class="font-data-mono text-label-sm text-on-tertiary-container uppercase">500+ ESTILOS</p>
+                        <div class="mt-2 flex gap-1 flex-wrap">
+                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Técnico</span>
+                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Visagismo</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="group bg-surface-container-lowest sharp-border p-6 card-hover flex flex-col justify-between aspect-square cursor-pointer" data-modal="Colorimetria" data-modal-desc="200+ matizes e fórmulas com guia de reflexos e níveis de pigmentação." data-modal-category="Colorimetria" data-modal-tags="#Fórmulas #Reflexos">
+                    <div class="flex justify-between items-start">
+                        <span class="material-symbols-outlined text-3xl group-hover:text-secondary transition-colors">palette</span>
+                        <span class="font-data-mono text-label-sm text-on-surface-variant opacity-60">02</span>
+                    </div>
+                    <div>
+                        <h4 class="font-title-md text-title-md mb-1">Colorimetria</h4>
+                        <p class="font-data-mono text-label-sm text-on-tertiary-container uppercase">200+ MATIZES</p>
+                        <div class="mt-2 flex gap-1 flex-wrap">
+                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Precisão</span>
+                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Cromia</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="group bg-surface-container-lowest sharp-border p-6 card-hover flex flex-col justify-between aspect-square cursor-pointer" data-modal="Produtos" data-modal-desc="1.2k fórmulas laboratoriais com especificações técnicas e compatibilidade." data-modal-category="Produtos" data-modal-tags="#Laboratório #Fórmulas">
+                    <div class="flex justify-between items-start">
+                        <span class="material-symbols-outlined text-3xl group-hover:text-secondary transition-colors">science</span>
+                        <span class="font-data-mono text-label-sm text-on-surface-variant opacity-60">03</span>
+                    </div>
+                    <div>
+                        <h4 class="font-title-md text-title-md mb-1">Produtos</h4>
+                        <p class="font-data-mono text-label-sm text-on-tertiary-container uppercase">1.2K FÓRMULAS</p>
+                        <div class="mt-2 flex gap-1 flex-wrap">
+                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Química</span>
+                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Eficácia</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="group bg-surface-container-lowest sharp-border p-6 card-hover flex flex-col justify-between aspect-square cursor-pointer" data-modal="Formatos de Rosto" data-modal-desc="Análise morfológica completa com compatibilidade de cortes e harmonia facial." data-modal-category="Rosto" data-modal-tags="#Morfologia #Harmonia">
+                    <div class="flex justify-between items-start">
+                        <span class="material-symbols-outlined text-3xl group-hover:text-secondary transition-colors">face</span>
+                        <span class="font-data-mono text-label-sm text-on-surface-variant opacity-60">04</span>
+                    </div>
+                    <div>
+                        <h4 class="font-title-md text-title-md mb-1">Formatos de Rosto</h4>
+                        <p class="font-data-mono text-label-sm text-on-tertiary-container uppercase">MORFO-ANÁLISE</p>
+                        <div class="mt-2 flex gap-1 flex-wrap">
+                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Proporção</span>
+                            <span class="text-[8px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">Simetria</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de busca e resultados -->
+            <div class="mt-12">
+                <div class="flex items-center justify-between mb-6 border-b border-outline-variant/10 pb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-secondary">search</span>
+                        <h3 class="font-headline-lg text-headline-lg">Pesquisar na Biblioteca</h3>
+                    </div>
+                </div>
+                <div class="relative">
+                    <input type="text" id="librarySearch" placeholder="Digite um termo... (ex: cobre, platinado, fade)" class="w-full p-4 bg-surface-container-lowest sharp-border text-lg focus:border-secondary transition-colors dark:bg-surface-container-lowest" />
+                    <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50">search</span>
+                </div>
+                <div id="searchResults" class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 hidden">
+                    <!-- Resultados serão inseridos aqui -->
+                </div>
+            </div>
+
+            <!-- Trending com mais dados -->
+            <div class="mt-16">
+                <div class="flex items-center justify-between mb-6 border-b border-outline-variant/10 pb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-secondary">trending_up</span>
+                        <h3 class="font-headline-lg text-headline-lg">Tendências em Alta</h3>
+                    </div>
+                    <button class="font-data-mono text-label-sm hover:text-secondary transition-colors" data-page="tendencias">VER TODAS →</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="relative group cursor-pointer overflow-hidden bg-surface-container card-hover" data-modal="Platinum Líquido" data-modal-desc="Aumento de 42% nas buscas globais. Técnica de descoloração com acabamento metálico e brilho intenso." data-modal-category="Tendência" data-modal-tags="#Metalizado #Brilho">
+                        <div class="aspect-[4/5] bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image:url('https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600&h=700&fit=crop&crop=center')"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-60"></div>
+                        <div class="absolute bottom-0 left-0 p-6 w-full">
+                            <span class="font-data-mono text-[10px] text-white bg-secondary px-2 py-1 inline-block">🔥 HOT</span>
+                            <h5 class="font-title-md text-title-md text-white mt-1">Platinum Líquido</h5>
+                            <p class="text-white/70 text-sm">+42% buscas · Metalizado</p>
+                            <div class="mt-2 flex gap-1">
+                                <span class="text-[8px] bg-white/20 text-white px-2 py-0.5">Descoloração</span>
+                                <span class="text-[8px] bg-white/20 text-white px-2 py-0.5">Brilho</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative group cursor-pointer overflow-hidden bg-surface-container card-hover" data-modal="Texturas Arquitetônicas" data-modal-desc="Popular em editorial criativo. Estruturas geométricas com sobreposição de camadas e movimento." data-modal-category="Tendência" data-modal-tags="#Editorial #Geométrico">
+                        <div class="aspect-[4/5] bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image:url('https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&h=700&fit=crop&crop=center')"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-60"></div>
+                        <div class="absolute bottom-0 left-0 p-6 w-full">
+                            <span class="font-data-mono text-[10px] text-white bg-secondary px-2 py-1 inline-block">📈 TRENDING</span>
+                            <h5 class="font-title-md text-title-md text-white mt-1">Texturas Arquitetônicas</h5>
+                            <p class="text-white/70 text-sm">Editorial · Camadas</p>
+                            <div class="mt-2 flex gap-1">
+                                <span class="text-[8px] bg-white/20 text-white px-2 py-0.5">Estrutura</span>
+                                <span class="text-[8px] bg-white/20 text-white px-2 py-0.5">Movimento</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative group cursor-pointer overflow-hidden bg-surface-container card-hover" data-modal="Sérum Nano-Repair" data-modal-desc="Lançamento de nova geração com tecnologia de reparação capilar molecular." data-modal-category="Tendência" data-modal-tags="#Inovação #Reparo">
+                        <div class="aspect-[4/5] bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image:url('https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=600&h=700&fit=crop&crop=center')"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-60"></div>
+                        <div class="absolute bottom-0 left-0 p-6 w-full">
+                            <span class="font-data-mono text-[10px] text-white bg-secondary px-2 py-1 inline-block">✨ NEW</span>
+                            <h5 class="font-title-md text-title-md text-white mt-1">Sérum Nano-Repair</h5>
+                            <p class="text-white/70 text-sm">Tecnologia molecular</p>
+                            <div class="mt-2 flex gap-1">
+                                <span class="text-[8px] bg-white/20 text-white px-2 py-0.5">Reparo</span>
+                                <span class="text-[8px] bg-white/20 text-white px-2 py-0.5">Nutrição</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PÁGINA: COLORIMETRIA (completa) -->
+        <section id="page-colorimetria" class="page">
+            <div class="mb-8 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Colorimetria v4.2</p>
+                <h2 class="font-headline-lg text-headline-lg">Formulações de Precisão</h2>
+                <p class="text-on-surface-variant mt-1">Guia completo de cores, reflexos e pigmentação</p>
+            </div>
+
+            <!-- Filtros de cor -->
+            <div class="flex flex-wrap gap-2 mb-8">
+                <button class="filter-chip filter-chip-active" data-color-filter="all">Todas</button>
+                <button class="filter-chip" data-color-filter="neutro">Neutro</button>
+                <button class="filter-chip" data-color-filter="quente">Quente</button>
+                <button class="filter-chip" data-color-filter="frio">Frio</button>
+                <button class="filter-chip" data-color-filter="fantasy">Fantasy</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="colorGrid">
+                <div class="bg-white dark:bg-surface-container-lowest technical-border flex flex-col cursor-pointer card-hover" data-modal="Midnight Onyx" data-modal-img="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&h=600&fit=crop&crop=center" data-modal-desc="Nível 1.0 Neutro Intenso · Subtom Azul-violeta · Manutenção Baixa · Ideal para bases escuras com alta cobertura." data-modal-category="Colorimetria" data-modal-tags="#Neutro #AltaCobertura">
+                    <div class="h-48 w-full relative overflow-hidden bg-black">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=300&fit=crop&crop=center" loading="lazy" />
+                        <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 font-data-mono">Nível 1.0</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-title-md">Midnight Onyx</h3>
+                        <p class="text-sm text-on-surface-variant">Neutro Intenso</p>
+                        <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+                            <span>Subtom: <span class="font-data-mono">Azul-violeta</span></span>
+                            <span>Manutenção: <span class="text-success font-data-mono">Baixa</span></span>
+                        </div>
+                        <div class="progress-bar mt-3">
+                            <div class="progress-fill" style="width: 95%"></div>
+                        </div>
+                        <p class="text-[10px] text-on-surface-variant/50 mt-1 font-data-mono">Compatibilidade: 95%</p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-surface-container-lowest technical-border flex flex-col cursor-pointer card-hover" data-modal="Carvalho Defumado" data-modal-img="https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=800&h=600&fit=crop&crop=center" data-modal-desc="Nível 5.1 Castanho Acinzentado · Subtom Neutro · Manutenção Média · Ideal para tons naturais com profundidade." data-modal-category="Colorimetria" data-modal-tags="#Neutro #Profundidade">
+                    <div class="h-48 w-full relative overflow-hidden bg-[#4A3728]">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=400&h=300&fit=crop&crop=center" loading="lazy" />
+                        <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 font-data-mono">Nível 5.1</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-title-md">Carvalho Defumado</h3>
+                        <p class="text-sm text-on-surface-variant">Castanho Acinzentado</p>
+                        <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+                            <span>Subtom: <span class="font-data-mono">Neutro</span></span>
+                            <span>Manutenção: <span class="text-warning font-data-mono">Média</span></span>
+                        </div>
+                        <div class="progress-bar mt-3">
+                            <div class="progress-fill" style="width: 78%"></div>
+                        </div>
+                        <p class="text-[10px] text-on-surface-variant/50 mt-1 font-data-mono">Compatibilidade: 78%</p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-surface-container-lowest technical-border flex flex-col cursor-pointer card-hover" data-modal="Platina Ártica" data-modal-img="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&h=600&fit=crop&crop=center" data-modal-desc="Nível 10.2 Ultra Claro · Subtom Gelo/Violeta · Manutenção Crítica · Ideal para efeitos platinados e luminosidade." data-modal-category="Colorimetria" data-modal-tags="#Frio #Luminosidade">
+                    <div class="h-48 w-full relative overflow-hidden bg-[#E5E4E2]">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=300&fit=crop&crop=center" loading="lazy" />
+                        <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 font-data-mono">Nível 10.2</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-title-md">Platina Ártica</h3>
+                        <p class="text-sm text-on-surface-variant">Ultra Claro</p>
+                        <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+                            <span>Subtom: <span class="font-data-mono">Gelo/Violeta</span></span>
+                            <span>Manutenção: <span class="text-error font-data-mono">Crítica</span></span>
+                        </div>
+                        <div class="progress-bar mt-3">
+                            <div class="progress-fill" style="width: 45%"></div>
+                        </div>
+                        <p class="text-[10px] text-on-surface-variant/50 mt-1 font-data-mono">Compatibilidade: 45%</p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-surface-container-lowest technical-border flex flex-col cursor-pointer card-hover" data-modal="Cobre Oxidado" data-modal-img="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&h=600&fit=crop&crop=center" data-modal-desc="Nível 7.44 Cobre Intenso · Subtom Laranja quente · Manutenção Alta · Ideal para tons vibrantes e reflexos dourados." data-modal-category="Colorimetria" data-modal-tags="#Quente #Vibrante">
+                    <div class="h-48 w-full relative overflow-hidden bg-[#B87333]">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&h=300&fit=crop&crop=center" loading="lazy" />
+                        <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 font-data-mono">Nível 7.44</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-title-md">Cobre Oxidado</h3>
+                        <p class="text-sm text-on-surface-variant">Cobre Intenso</p>
+                        <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+                            <span>Subtom: <span class="font-data-mono">Laranja quente</span></span>
+                            <span>Manutenção: <span class="text-error font-data-mono">Alta</span></span>
+                        </div>
+                        <div class="progress-bar mt-3">
+                            <div class="progress-fill" style="width: 62%"></div>
+                        </div>
+                        <p class="text-[10px] text-on-surface-variant/50 mt-1 font-data-mono">Compatibilidade: 62%</p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-surface-container-lowest technical-border flex flex-col cursor-pointer card-hover" data-modal="Fluxo Ultravioleta" data-modal-img="https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=800&h=600&fit=crop&crop=center" data-modal-desc="Nível 3.0 Fantasy · Subtom Violeta frio · Manutenção Alta · Ideal para looks criativos e cores não-naturais." data-modal-category="Colorimetria" data-modal-tags="#Fantasy #Criativo">
+                    <div class="h-48 w-full relative overflow-hidden bg-[#4B0082]">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=400&h=300&fit=crop&crop=center" loading="lazy" />
+                        <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-1 font-data-mono">Nível 3.0</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-title-md">Fluxo Ultravioleta</h3>
+                        <p class="text-sm text-on-surface-variant">Fantasy</p>
+                        <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+                            <span>Subtom: <span class="font-data-mono">Violeta frio</span></span>
+                            <span>Manutenção: <span class="text-error font-data-mono">Alta</span></span>
+                        </div>
+                        <div class="progress-bar mt-3">
+                            <div class="progress-fill" style="width: 58%"></div>
+                        </div>
+                        <p class="text-[10px] text-on-surface-variant/50 mt-1 font-data-mono">Compatibilidade: 58%</p>
+                    </div>
+                </div>
+
+                <div class="border-2 border-dashed border-outline-variant/30 flex flex-col items-center justify-center p-6 bg-surface text-center cursor-pointer card-hover" data-modal="Simular Cromóforo" data-modal-desc="Motor de formulação inteligente. Crie combinações personalizadas de pigmentos e reflexos." data-modal-category="Ferramenta" data-modal-tags="#Simulação #Personalização">
+                    <span class="material-symbols-outlined text-5xl mb-3 text-secondary">biotech</span>
+                    <h3 class="font-title-md text-title-md">Simular Cromóforo</h3>
+                    <p class="text-sm text-on-surface-variant">Crie uma fórmula personalizada</p>
+                    <span class="mt-3 text-xs font-data-mono text-secondary">Beta · Em breve</span>
+                </div>
+            </div>
+
+            <!-- Tabela de Reflexos expandida -->
+            <div class="mt-16">
+                <h3 class="font-headline-lg text-headline-lg mb-4">Guia de Reflexos</h3>
+                <div class="overflow-x-auto technical-border bg-white dark:bg-surface-container-lowest">
+                    <table class="w-full text-left font-data-mono border-collapse text-sm">
+                        <thead class="bg-surface-container border-b">
+                            <tr>
+                                <th class="p-3">Dígito</th>
+                                <th class="p-3">Reflexo Primário</th>
+                                <th class="p-3">Base Pigmentar</th>
+                                <th class="p-3">Neutro</th>
+                                <th class="p-3">Aplicação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b"><td class="p-3 font-bold">.1</td><td>Azul / Cinza</td><td>Subdutor de melanina</td><td class="text-secondary">Laranja</td><td class="text-xs">Neutraliza tons quentes</td></tr>
+                            <tr class="border-b"><td class="p-3 font-bold">.2</td><td>Violeta / Íris</td><td>Realçador de luminosidade</td><td class="text-secondary">Amarelo</td><td class="text-xs">Potencializa claridade</td></tr>
+                            <tr class="border-b"><td class="p-3 font-bold">.3</td><td>Dourado</td><td>Injetor de calor</td><td class="text-secondary">Violeta</td><td class="text-xs">Aquece tons frios</td></tr>
+                            <tr class="border-b"><td class="p-3 font-bold">.4</td><td>Cobre</td><td>Alta saturação</td><td class="text-secondary">Azul</td><td class="text-xs">Vibrância e profundidade</td></tr>
+                            <tr class="border-b"><td class="p-3 font-bold">.5</td><td>Mogno</td><td>Pigmento vermelho</td><td class="text-secondary">Verde</td><td class="text-xs">Tons intensos e quentes</td></tr>
+                            <tr><td class="p-3 font-bold">.6</td><td>Vermelho</td><td>Alta fixação</td><td class="text-secondary">Amarelo</td><td class="text-xs">Cobertura e vivacidade</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- PÁGINA: CORTES (completa) -->
+        <section id="page-cortes" class="page">
+            <div class="mb-8 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Visagismo v3.1</p>
+                <h2 class="font-headline-lg text-headline-lg">Catálogo de Cortes</h2>
+                <p class="text-on-surface-variant mt-1">Técnicas, compatibilidade e referências visuais para cada formato de rosto</p>
+            </div>
+
+            <!-- Filtros de corte -->
+            <div class="flex flex-wrap gap-2 mb-8">
+                <button class="filter-chip filter-chip-active" data-cut-filter="all">Todos</button>
+                <button class="filter-chip" data-cut-filter="masculino">Masculino</button>
+                <button class="filter-chip" data-cut-filter="feminino">Feminino</button>
+                <button class="filter-chip" data-cut-filter="unissex">Unissex</button>
+                <button class="filter-chip" data-cut-filter="editorial">Editorial</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cutGrid">
+                <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" data-modal="Pompadour" data-modal-img="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&h=600&fit=crop&crop=center" data-modal-desc="Corte clássico com volume no topo e laterais curtas. Compatibilidade: 94% · Ideal para rostos ovais." data-modal-category="Cortes" data-modal-tags="#Masculino #Clássico">
+                    <div class="aspect-[4/3] w-full overflow-hidden bg-surface-container">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=300&fit=crop&crop=center" loading="lazy" />
+                    </div>
+                    <h3 class="font-title-md text-title-md mt-3">Pompadour</h3>
+                    <div class="flex flex-wrap gap-1 mt-1">
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#BaixaManutenção</span>
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#RostoOval</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                        <p class="text-sm text-on-surface-variant">Compatibilidade: 94%</p>
+                        <div class="progress-bar w-16">
+                            <div class="progress-fill" style="width: 94%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" data-modal="Buzz Cut Moderno" data-modal-img="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&h=600&fit=crop&crop=center" data-modal-desc="Corte técnico com precisão milimétrica. Compatibilidade: 88% · Ideal para rostos quadrados." data-modal-category="Cortes" data-modal-tags="#Masculino #Precisão">
+                    <div class="aspect-[4/3] w-full overflow-hidden bg-surface-container">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=300&fit=crop&crop=center" loading="lazy" />
+                    </div>
+                    <h3 class="font-title-md text-title-md mt-3">Buzz Cut Moderno</h3>
+                    <div class="flex flex-wrap gap-1 mt-1">
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#AltaPrecisão</span>
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#RostoQuadrado</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                        <p class="text-sm text-on-surface-variant">Compatibilidade: 88%</p>
+                        <div class="progress-bar w-16">
+                            <div class="progress-fill" style="width: 88%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" data-modal="Pixie Afiado" data-modal-img="https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=800&h=600&fit=crop&crop=center" data-modal-desc="Corte editorial com camadas assimétricas e textura. Compatibilidade: 91% · Ideal para rostos coração." data-modal-category="Cortes" data-modal-tags="#Feminino #Editorial">
+                    <div class="aspect-[4/3] w-full overflow-hidden bg-surface-container">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=400&h=300&fit=crop&crop=center" loading="lazy" />
+                    </div>
+                    <h3 class="font-title-md text-title-md mt-3">Pixie Afiado</h3>
+                    <div class="flex flex-wrap gap-1 mt-1">
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#Editorial</span>
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#RostoCoração</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                        <p class="text-sm text-on-surface-variant">Compatibilidade: 91%</p>
+                        <div class="progress-bar w-16">
+                            <div class="progress-fill" style="width: 91%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" data-modal="Fade Degradê" data-modal-img="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&h=600&fit=crop&crop=center" data-modal-desc="Técnica de transição gradual com linhas precisas. Compatibilidade: 96% · Ideal para rostos diamante." data-modal-category="Cortes" data-modal-tags="#Masculino #Técnico">
+                    <div class="aspect-[4/3] w-full overflow-hidden bg-surface-container">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&h=300&fit=crop&crop=center" loading="lazy" />
+                    </div>
+                    <h3 class="font-title-md text-title-md mt-3">Fade Degradê</h3>
+                    <div class="flex flex-wrap gap-1 mt-1">
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#LinhasPrecisas</span>
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#RostoDiamante</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                        <p class="text-sm text-on-surface-variant">Compatibilidade: 96%</p>
+                        <div class="progress-bar w-16">
+                            <div class="progress-fill" style="width: 96%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" data-modal="Bob Reto" data-modal-img="https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=800&h=600&fit=crop&crop=center" data-modal-desc="Corte simétrico com linhas retas e precisão angular. Compatibilidade: 82% · Ideal para rostos longos." data-modal-category="Cortes" data-modal-tags="#Feminino #Simetria">
+                    <div class="aspect-[4/3] w-full overflow-hidden bg-surface-container">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=400&h=300&fit=crop&crop=center" loading="lazy" />
+                    </div>
+                    <h3 class="font-title-md text-title-md mt-3">Bob Reto</h3>
+                    <div class="flex flex-wrap gap-1 mt-1">
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#Simetria</span>
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#RostoLongo</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                        <p class="text-sm text-on-surface-variant">Compatibilidade: 82%</p>
+                        <div class="progress-bar w-16">
+                            <div class="progress-fill" style="width: 82%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer" data-modal="French Crop" data-modal-img="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&h=600&fit=crop&crop=center" data-modal-desc="Corte texturizado com franja e laterais curtas. Compatibilidade: 89% · Ideal para rostos ovais." data-modal-category="Cortes" data-modal-tags="#Unissex #Textura">
+                    <div class="aspect-[4/3] w-full overflow-hidden bg-surface-container">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=300&fit=crop&crop=center" loading="lazy" />
+                    </div>
+                    <h3 class="font-title-md text-title-md mt-3">French Crop</h3>
+                    <div class="flex flex-wrap gap-1 mt-1">
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#Textura</span>
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase tracking-wider">#RostoOval</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                        <p class="text-sm text-on-surface-variant">Compatibilidade: 89%</p>
+                        <div class="progress-bar w-16">
+                            <div class="progress-fill" style="width: 89%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela de compatibilidade -->
+            <div class="mt-16">
+                <h3 class="font-headline-lg text-headline-lg mb-4">Matriz de Compatibilidade</h3>
+                <div class="overflow-x-auto technical-border bg-white dark:bg-surface-container-lowest">
+                    <table class="w-full text-left font-data-mono border-collapse text-sm">
+                        <thead class="bg-surface-container border-b">
+                            <tr>
+                                <th class="p-3">Corte</th>
+                                <th class="p-3">Oval</th>
+                                <th class="p-3">Quadrado</th>
+                                <th class="p-3">Coração</th>
+                                <th class="p-3">Diamante</th>
+                                <th class="p-3">Longo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b"><td class="p-3 font-bold">Pompadour</td><td class="text-success">●●●</td><td class="text-warning">●●○</td><td class="text-warning">●●○</td><td class="text-success">●●●</td><td class="text-error">●○○</td></tr>
+                            <tr class="border-b"><td class="p-3 font-bold">Buzz Cut</td><td class="text-success">●●●</td><td class="text-success">●●●</td><td class="text-warning">●●○</td><td class="text-warning">●●○</td><td class="text-warning">●●○</td></tr>
+                            <tr class="border-b"><td class="p-3 font-bold">Pixie</td><td class="text-success">●●●</td><td class="text-warning">●●○</td><td class="text-success">●●●</td><td class="text-warning">●●○</td><td class="text-warning">●●○</td></tr>
+                            <tr class="border-b"><td class="p-3 font-bold">Fade</td><td class="text-success">●●●</td><td class="text-success">●●●</td><td class="text-success">●●●</td><td class="text-success">●●●</td><td class="text-warning">●●○</td></tr>
+                            <tr><td class="p-3 font-bold">Bob Reto</td><td class="text-success">●●●</td><td class="text-warning">●●○</td><td class="text-warning">●●○</td><td class="text-warning">●●○</td><td class="text-success">●●●</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-xs text-on-surface-variant mt-2 font-data-mono">●●● Ideal ●●○ Adequado ●○○ Evitar</p>
+            </div>
+        </section>
+
+        <!-- PÁGINA: TENDÊNCIAS (nova) -->
+        <section id="page-tendencias" class="page">
+            <div class="mb-8 border-l-2 border-primary pl-6">
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em]">Insights</p>
+                <h2 class="font-headline-lg text-headline-lg">Tendências do Mercado</h2>
+                <p class="text-on-surface-variant mt-1">Análises, previsões e movimentos do setor</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" data-modal="Ondas Texturizadas" data-modal-img="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&h=600&fit=crop&crop=center" data-modal-desc="Movimento de ondas naturais com textura definida. Tendência de 2025 para cabelos médios e longos." data-modal-category="Tendência" data-modal-tags="#Ondas #Natural">
+                    <span class="material-symbols-outlined text-4xl text-secondary">waves</span>
+                    <h3 class="font-title-md text-title-md mt-3">Ondas Texturizadas</h3>
+                    <p class="text-sm text-on-surface-variant">+28% nas buscas</p>
+                    <div class="progress-bar mt-2">
+                        <div class="progress-fill" style="width: 78%"></div>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mt-3">
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Natural</span>
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Versátil</span>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" data-modal="Corte Assimétrico" data-modal-img="https://images.unsplash.com/photo-1596462502278-5c0b91a5ae4c?w=800&h=600&fit=crop&crop=center" data-modal-desc="Design moderno com linhas assimétricas e movimento. Crescimento de 35% no editorial internacional." data-modal-category="Tendência" data-modal-tags="#Assimetria #Moderno">
+                    <span class="material-symbols-outlined text-4xl text-secondary">auto_awesome</span>
+                    <h3 class="font-title-md text-title-md mt-3">Corte Assimétrico</h3>
+                    <p class="text-sm text-on-surface-variant">+35% no editorial</p>
+                    <div class="progress-bar mt-2">
+                        <div class="progress-fill" style="width: 82%"></div>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mt-3">
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Editorial</span>
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Arrojado</span>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" data-modal="Colorimetria Sustentável" data-modal-img="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&h=600&fit=crop&crop=center" data-modal-desc="Formulações eco-friendly com baixo impacto químico. Alta demanda por produtos sustentáveis." data-modal-category="Tendência" data-modal-tags="#Sustentável #Eco">
+                    <span class="material-symbols-outlined text-4xl text-secondary">eco</span>
+                    <h3 class="font-title-md text-title-md mt-3">Colorimetria Sustentável</h3>
+                    <p class="text-sm text-on-surface-variant">+45% em produtos eco</p>
+                    <div class="progress-bar mt-2">
+                        <div class="progress-fill" style="width: 92%"></div>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mt-3">
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Sustentável</span>
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Natural</span>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-lowest sharp-border p-6 card-hover cursor-pointer" data-modal="Visagismo Digital" data-modal-img="https://images.unsplash.com/photo-1584653466301-5b7d8e1361c1?w=800&h=600&fit=crop&crop=center" data-modal-desc="Ferramentas digitais para análise facial e simulação de cortes. Revolução no atendimento." data-modal-category="Tendência" data-modal-tags="#Digital #Tecnologia">
+                    <span class="material-symbols-outlined text-4xl text-secondary">simulation</span>
+                    <h3 class="font-title-md text-title-md mt-3">Visagismo Digital</h3>
+                    <p class="text-sm text-on-surface-variant">Tecnologia em expansão</p>
+                    <div class="progress-bar mt-2">
+                        <div class="progress-fill" style="width: 68%"></div>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mt-3">
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Inovação</span>
+                        <span class="text-[10px] bg-surface-container-high px-2 py-0.5 uppercase">Precisão</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BOTTOM NAV (mobile) -->
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface dark:bg-background border-t border-outline-variant/10 backdrop-blur-md md:hidden">
+        <a href="#" data-page="inicio" class="nav-link flex flex-col items-center justify-center text-primary dark:text-on-background nav-link-active">
+            <span class="material-symbols-outlined">home</span>
+            <span class="font-label-sm text-label-sm">Início</span>
+        </a>
+        <a href="#" data-page="biblioteca" class="nav-link flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-60">
+            <span class="material-symbols-outlined">menu_book</span>
+            <span class="font-label-sm text-label-sm">Biblioteca</span>
+        </a>
+        <a href="#" data-page="colorimetria" class="nav-link flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-60">
+            <span class="material-symbols-outlined">palette</span>
+            <span class="font-label-sm text-label-sm">Cor</span>
+        </a>
+        <a href="#" data-page="cortes" class="nav-link flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-60">
+            <span class="material-symbols-outlined">content_cut</span>
+            <span class="font-label-sm text-label-sm">Cortes</span>
+        </a>
+        <a href="#" data-page="tendencias" class="nav-link flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-60">
+            <span class="material-symbols-outlined">trending_up</span>
+            <span class="font-label-sm text-label-sm">Tendências</span>
+        </a>
+    </nav>
+
+    <!-- MODAL MELHORADO -->
+    <div id="modalOverlay" class="modal-overlay fixed inset-0 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="modal-content relative p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <button id="modalClose" class="absolute top-4 right-4 text-3xl hover:opacity-60 transition-opacity material-symbols-outlined z-10" aria-label="Fechar modal">close</button>
+            <div id="modalBody" class="flex flex-col gap-4">
+                <div class="flex items-start justify-between gap-4">
+                    <div>
+                        <span id="modalCategory" class="text-xs font-data-mono text-secondary uppercase tracking-[0.2em]"></span>
+                        <h3 id="modalTitle" class="font-headline-lg text-headline-lg mt-1"></h3>
+                    </div>
+                </div>
+                <img id="modalImage" class="w-full rounded-sm max-h-[60vh] object-contain" src="" alt="" />
+                <p id="modalDesc" class="text-on-surface-variant text-base max-w-2xl"></p>
+                <div id="modalTags" class="flex flex-wrap gap-2 mt-2"></div>
+                <div id="modalExtra" class="border-t border-outline-variant/10 pt-4 mt-2">
+                    <p class="text-xs text-on-surface-variant/50 font-data-mono">Referência técnica · HairOS Library v3.0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ----- SPA NAVIGATION -----
+            const pages = {
+                inicio: document.getElementById('page-inicio'),
+                biblioteca: document.getElementById('page-biblioteca'),
+                colorimetria: document.getElementById('page-colorimetria'),
+                cortes: document.getElementById('page-cortes'),
+                tendencias: document.getElementById('page-tendencias')
+            };
+            const navLinks = document.querySelectorAll('[data-page]');
+            const bottomNavLinks = document.querySelectorAll('.nav-link');
+            const menuLinks = document.querySelectorAll('.menu-link');
+
+            function showPage(pageId) {
+                Object.keys(pages).forEach(key => {
+                    pages[key].classList.toggle('active', key === pageId);
+                });
+                
+                // Atualiza menu lateral
+                menuLinks.forEach(link => {
+                    const isActive = link.dataset.page === pageId;
+                    link.classList.toggle('bg-surface-container', isActive);
+                    link.classList.toggle('text-secondary', isActive);
+                });
+
+                // Atualiza bottom nav
+                bottomNavLinks.forEach(link => {
+                    const isActive = link.dataset.page === pageId;
+                    link.classList.toggle('nav-link-active', isActive);
+                    link.classList.toggle('opacity-60', !isActive);
+                });
+
+                closeMenu();
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = link.dataset.page;
+                    if (page && pages[page]) showPage(page);
+                });
+            });
+
+            bottomNavLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = link.dataset.page;
+                    if (page && pages[page]) showPage(page);
+                });
+            });
+
+            // ----- MENU SIDEBAR -----
+            const menuSidebar = document.getElementById('menuSidebar');
+            const menuBackdrop = document.getElementById('menuBackdrop');
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+
+            function openMenu() {
+                menuSidebar.classList.add('open');
+                menuBackdrop.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMenu() {
+                menuSidebar.classList.remove('open');
+                menuBackdrop.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+
+            hamburgerBtn.addEventListener('click', openMenu);
+            closeMenuBtn.addEventListener('click', closeMenu);
+            menuBackdrop.addEventListener('click', closeMenu);
+
+            // ----- MODAL MELHORADO -----
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalImage = document.getElementById('modalImage');
+            const modalDesc = document.getElementById('modalDesc');
+            const modalCategory = document.getElementById('modalCategory');
+            const modalTags = document.getElementById('modalTags');
+            const modalClose = document.getElementById('modalClose');
+
+            function openModal(title, imgSrc, desc, category, tags) {
+                modalTitle.textContent = title || 'Detalhes';
+                modalImage.src = imgSrc || '';
+                modalImage.alt = title || '';
+                modalDesc.textContent = desc || 'Informações técnicas disponíveis.';
+                modalCategory.textContent = category || 'Referência';
+                
+                // Tags
+                modalTags.innerHTML = '';
+                if (tags) {
+                    const tagList = tags.split('#').filter(t => t.trim());
+                    tagList.forEach(tag => {
+                        const span = document.createElement('span');
+                        span.className = 'text-[10px] bg-surface-container-high px-3 py-1 uppercase tracking-wider';
+                        span.textContent = '#' + tag.trim();
+                        modalTags.appendChild(span);
+                    });
+                }
+
+                modalOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                modalOverlay.classList.add('opacity-100', 'pointer-events-auto');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                modalOverlay.classList.add('opacity-0', 'pointer-events-none');
+                modalOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+                document.body.style.overflow = '';
+            }
+
+            modalClose.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) closeModal();
+            });
+
+            // Trigger modal
+            document.querySelectorAll('[data-modal]').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    const title = this.dataset.modal || 'Item';
+                    const img = this.dataset.modalImg || '';
+                    const desc = this.dataset.modalDesc || 'Toque para ver mais detalhes.';
+                    const category = this.dataset.modalCategory || '';
+                    const tags = this.dataset.modalTags || '';
+                    openModal(title, img, desc, category, tags);
+                });
+            });
+
+            // ----- FILTROS BIBLIOTECA -----
+            const filterButtons = document.querySelectorAll('[data-filter]');
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterButtons.forEach(b => b.classList.remove('filter-chip-active'));
+                    this.classList.add('filter-chip-active');
+                    const filter = this.dataset.filter;
+                    // Lógica de filtro pode ser implementada aqui
+                    console.log('Filtrando por:', filter);
+                });
+            });
+
+            // ----- FILTROS COR -----
+            const colorFilters = document.querySelectorAll('[data-color-filter]');
+            colorFilters.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    colorFilters.forEach(b => b.classList.remove('filter-chip-active'));
+                    this.classList.add('filter-chip-active');
+                    const filter = this.dataset.colorFilter;
+                    const cards = document.querySelectorAll('#colorGrid > div');
+                    cards.forEach(card => {
+                        const category = card.dataset.modalCategory || '';
+                        if (filter === 'all' || category.toLowerCase().includes(filter)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // ----- FILTROS CORTES -----
+            const cutFilters = document.querySelectorAll('[data-cut-filter]');
+            cutFilters.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    cutFilters.forEach(b => b.classList.remove('filter-chip-active'));
+                    this.classList.add('filter-chip-active');
+                    const filter = this.dataset.cutFilter;
+                    const cards = document.querySelectorAll('#cutGrid > div');
+                    cards.forEach(card => {
+                        const tags = card.dataset.modalTags || '';
+                        if (filter === 'all' || tags.toLowerCase().includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // ----- BUSCA GLOBAL -----
+            const globalSearch = document.getElementById('globalSearch');
+            if (globalSearch) {
+                globalSearch.addEventListener('input', function() {
+                    const term = this.value.toLowerCase().trim();
+                    if (term.length > 2) {
+                        // Simples navegação para biblioteca com filtro
+                        showPage('biblioteca');
+                        const librarySearch = document.getElementById('librarySearch');
+                        if (librarySearch) {
+                            librarySearch.value = term;
+                            librarySearch.dispatchEvent(new Event('input'));
+                        }
+                    }
+                });
+            }
+
+            // ----- BUSCA NA BIBLIOTECA -----
+            const librarySearch = document.getElementById('librarySearch');
+            const searchResults = document.getElementById('searchResults');
+            if (librarySearch) {
+                librarySearch.addEventListener('input', function() {
+                    const term = this.value.toLowerCase().trim();
+                    if (term.length > 2) {
+                        // Simular busca
+                        const items = [
+                            'Cobre Oxidado - Colorimetria',
+                            'Platina Ártica - Colorimetria',
+                            'Pompadour - Cortes',
+                            'Fade Degradê - Cortes',
+                            'Midnight Onyx - Colorimetria',
+                            'Pixie Afiado - Cortes',
+                            'Carvalho Defumado - Colorimetria'
+                        ];
+                        const results = items.filter(item => item.toLowerCase().includes(term));
+                        searchResults.classList.remove('hidden');
+                        searchResults.innerHTML = results.length > 0 ? 
+                            results.map(r => `<div class="bg-surface-container-lowest sharp-border p-4 card-hover cursor-pointer">${r}</div>`).join('') :
+                            `<div class="bg-surface-container-lowest sharp-border p-4 text-on-surface-variant">Nenhum resultado encontrado</div>`;
+                    } else {
+                        searchResults.classList.add('hidden');
+                    }
+                });
+            }
+
+            // ----- THEME TOGGLE -----
+            const themeToggle = document.getElementById('themeToggle');
+            const themeToggleTop = document.getElementById('themeToggleTop');
+            const themeLabel = document.getElementById('themeLabel');
+            const themeIcon = document.getElementById('themeIcon');
+            const themeIconTop = document.getElementById('themeIconTop');
+            const html = document.documentElement;
+
+            function toggleTheme() {
+                const isDark = html.classList.contains('dark');
+                html.classList.toggle('dark', !isDark);
+                html.classList.toggle('light', isDark);
+                const newMode = html.classList.contains('dark') ? 'Claro' : 'Escuro';
+                const icon = html.classList.contains('dark') ? 'light_mode' : 'dark_mode';
+                themeLabel.textContent = newMode;
+                if (themeIcon) themeIcon.textContent = icon;
+                if (themeIconTop) themeIconTop.textContent = icon;
+                localStorage.setItem('hairOS-theme', html.classList.contains('dark') ? 'dark' : 'light');
+            }
+
+            const saved = localStorage.getItem('hairOS-theme');
+            if (saved === 'dark') {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                themeLabel.textContent = 'Claro';
+                if (themeIcon) themeIcon.textContent = 'light_mode';
+                if (themeIconTop) themeIconTop.textContent = 'light_mode';
+            } else {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                themeLabel.textContent = 'Escuro';
+                if (themeIcon) themeIcon.textContent = 'dark_mode';
+                if (themeIconTop) themeIconTop.textContent = 'dark_mode';
+            }
+
+            themeToggle.addEventListener('click', toggleTheme);
+            if (themeToggleTop) themeToggleTop.addEventListener('click', toggleTheme);
+
+            // ----- INIT -----
+            showPage('inicio');
+        })();
+    </script>
+</body>
+</html>
